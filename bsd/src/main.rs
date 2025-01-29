@@ -1,7 +1,11 @@
-use std::collections::{BTreeMap};
+use std::collections::BTreeMap;
+
 use serde::Serialize;
+use serde_json::{
+    ser::{CompactFormatter, PrettyFormatter},
+    Serializer,
+};
 use sled;
-use serde_json::{ser::PrettyFormatter, ser::CompactFormatter, Serializer};
 
 static COMPACT_JSON: bool = false;
 
@@ -16,8 +20,8 @@ fn main() -> sled::Result<()> {
     let mut tree_groups: BTreeMap<String, BTreeMap<String, sled::Tree>> = BTreeMap::new();
 
     for tree_name in db.tree_names() {
-        let tree_name_str = String::from_utf8(tree_name.to_vec())
-            .unwrap_or_else(|_| "unknown".to_string());
+        let tree_name_str =
+            String::from_utf8(tree_name.to_vec()).unwrap_or_else(|_| "unknown".to_string());
 
         let (category, subpath) = if let Some(id) = tree_name_str.strip_prefix("program_") {
             ("Programs", format!("Program:{}", id))
@@ -25,21 +29,33 @@ fn main() -> sled::Result<()> {
             ("Maps", format!("Map:{}", id))
         } else if let Some(id) = tree_name_str.strip_prefix("tc_dispatcher_") {
             let structured_path = id.replace('_', "/");
-            ("Traffic Control Dispatchers", format!("TrafficControlDispatcher:{}", structured_path))
+            (
+                "Traffic Control Dispatchers",
+                format!("TrafficControlDispatcher:{}", structured_path),
+            )
         } else if let Some(id) = tree_name_str.strip_prefix("xdp_dispatcher_") {
             let structured_path = id.replace('_', "/");
-            ("XDP Dispatchers", format!("XDPDispatcher:{}", structured_path))
+            (
+                "XDP Dispatchers",
+                format!("XDPDispatcher:{}", structured_path),
+            )
         } else if tree_name_str == "__sled__default" {
             ("STORE", "IMAGES".to_string())
         } else if tree_name_str.chars().all(char::is_numeric) {
-            ("Kernel Programs", format!("KernelProgram:{}", tree_name_str))
+            (
+                "Kernel Programs",
+                format!("KernelProgram:{}", tree_name_str),
+            )
         } else {
             // what did I miss? How much do I not grok? (Lots...)
             ("Miscellaneous", format!("Misc:{}", tree_name_str))
         };
 
         let tree = db.open_tree(&tree_name_str)?;
-        tree_groups.entry(category.to_string()).or_default().insert(subpath, tree);
+        tree_groups
+            .entry(category.to_string())
+            .or_default()
+            .insert(subpath, tree);
     }
 
     println!("\nDatabase Summary:");
@@ -82,9 +98,16 @@ fn print_tree_entries(tree: &sled::Tree, indent: usize) -> sled::Result<()> {
                 formatted_value
             };
 
-            println!("{:indent$}{}: {}", "", key, truncated_value, indent = indent);
+            println!(
+                "{:indent$}{}: {}",
+                "",
+                key,
+                truncated_value,
+                indent = indent
+            );
         } else {
-            let formatted_value = format_value_as_string(&key, &value, 0, PrettyFormatter::default());
+            let formatted_value =
+                format_value_as_string(&key, &value, 0, PrettyFormatter::default());
             print!("{:indent$}{}: ", "", key, indent = indent);
 
             let mut first_line = true;
@@ -157,8 +180,8 @@ where
                 };
                 return prog_type_str.to_string();
             }
-        }
-        _ => {}
+        },
+        _ => {},
     }
 
     match value {
@@ -170,7 +193,7 @@ where
             } else {
                 format!("{}: INVALID_JSON", key)
             }
-        }
+        },
         serde_json::Value::Array(arr) => {
             let truncated: Vec<String> = arr
                 .iter()
@@ -181,7 +204,7 @@ where
                 })
                 .collect();
             format!("[{} ...] ({} bytes)", truncated.join(" "), arr.len())
-        }
+        },
         serde_json::Value::String(s) => s.to_string(),
         serde_json::Value::Bool(b) => b.to_string(),
         serde_json::Value::Number(n) => n.to_string(),
@@ -195,12 +218,12 @@ fn decode_value(value: &[u8]) -> serde_json::Value {
             // Decode as a 32-bit little-endian integer
             let int_value = i32::from_le_bytes(value.try_into().unwrap_or_default());
             serde_json::Value::Number(int_value.into())
-        }
+        },
         8 => {
             // Decode as a 64-bit little-endian integer
             let int_value = i64::from_le_bytes(value.try_into().unwrap_or_default());
             serde_json::Value::Number(int_value.into())
-        }
+        },
         _ => {
             // Attempt to decode as UTF-8
             if let Ok(utf8_value) = String::from_utf8(value.to_vec()) {
@@ -223,6 +246,6 @@ fn decode_value(value: &[u8]) -> serde_json::Value {
                     .map(|&b| serde_json::Value::Number((b as u8).into()))
                     .collect(),
             )
-        }
+        },
     }
 }

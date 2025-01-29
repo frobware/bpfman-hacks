@@ -27,7 +27,7 @@ that's easy to explore.
 
 ## Usage
 ```bash
-cargo run -- <path-to-sled-db>
+cargo run -- </path/to/sled/db>
 ```
 
 Sample [output](sample-output.md). Full [database dump](sample-output.txt)

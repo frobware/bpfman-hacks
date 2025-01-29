@@ -21,9 +21,7 @@
         inherit system overlays;
       };
 
-      darwinOnly = pkgs.lib.optionals pkgs.stdenv.isDarwin;
-
-      rustToolchain = pkgs.rust-bin.stable.latest.default.override {
+      stableToolchain = pkgs.rust-bin.stable.latest.default.override {
         extensions = [
           "rust-src"
           "rust-analyzer"
@@ -37,10 +35,15 @@
           "aarch64-apple-darwin"
         ];
       };
+
+      nightlyRustfmt = pkgs.rust-bin.nightly.latest.rustfmt;
+
+      darwinOnly = pkgs.lib.optionals pkgs.stdenv.isDarwin;
     in
     with pkgs; mkShell {
       buildInputs = [
-        rustToolchain
+        stableToolchain
+        nightlyRustfmt # This installs rustfmt from nightly
 
         # Build essentials.
         clang
@@ -86,7 +89,12 @@
         # For better backtraces.
         export RUST_BACKTRACE=1
 
+        # Ensure rustfmt is used from nightly
+        export PATH="${nightlyRustfmt}/bin:$PATH"
+
         echo "🦀🦀🦀 Welcome to a Rust development shell 🦀🦀🦀"
+        echo "Rust version: $(rustc --version)"
+        echo "Nightly rustfmt version: $(rustfmt --version)"
       '';
     };
   in {

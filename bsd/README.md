@@ -14,8 +14,8 @@ data intelligently, and presents everything in a hierarchical format
 that's easy to explore.
 
 ## Features
-- Automatic categorisation of database entries based on key prefixes
-- Smart decoding of various value types:
+- Categorisation of database entries based on some known key prefixes
+- Best effort decoding of various value types:
   - 32-bit and 64-bit integers
   - UTF-8 strings
   - JSON structures

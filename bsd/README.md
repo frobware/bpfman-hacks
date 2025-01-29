@@ -30,7 +30,7 @@ that's easy to explore.
 cargo run -- <path-to-sled-db>
 ```
 
-Sample [output](sample-output.md).
+Sample [output](sample-output.md). Full [database dump](sample-output.txt)
 
 ## Data Categories
 The tool organises data into the following categories:

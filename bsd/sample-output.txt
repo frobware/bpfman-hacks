@@ -1,0 +1,5912 @@
+Database Summary:
+Kernel Programs: 4311 key-value pairs
+Maps: 14 key-value pairs
+Programs: 397 key-value pairs
+STORE: 30 key-value pairs
+Traffic Control Dispatchers: 9 key-value pairs
+XDP Dispatchers: 7 key-value pairs
+
+Kernel Programs:
+  KernelProgram:100
+    id: 100
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:12+0000
+    kernel_map_ids_0: 87
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:101
+    id: 101
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:12+0000
+    kernel_map_ids_0: 86
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:130
+    id: 130
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:13+0000
+    kernel_map_ids_0: 117
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:131
+    id: 131
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:13+0000
+    kernel_map_ids_0: 116
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:132
+    id: 132
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:13+0000
+    kernel_map_ids_0: 119
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:133
+    id: 133
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:13+0000
+    kernel_map_ids_0: 118
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:140
+    id: 140
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:13+0000
+    kernel_map_ids_0: 127
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:141
+    id: 141
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:13+0000
+    kernel_map_ids_0: 126
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:153
+    id: 153
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:13+0000
+    kernel_map_ids_0: 137
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:154
+    id: 154
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:13+0000
+    kernel_map_ids_0: 136
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:163
+    id: 163
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:14+0000
+    kernel_map_ids_0: 147
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:164
+    id: 164
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:14+0000
+    kernel_map_ids_0: 146
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:166
+    id: 166
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:14+0000
+    kernel_map_ids_0: 149
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:167
+    id: 167
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:14+0000
+    kernel_map_ids_0: 148
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:169
+    id: 169
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:14+0000
+    kernel_map_ids_0: 151
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:170
+    id: 170
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:14+0000
+    kernel_map_ids_0: 150
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:171
+    id: 171
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:15+0000
+    kernel_map_ids_0: 153
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:172
+    id: 172
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:15+0000
+    kernel_map_ids_0: 152
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:176
+    id: 176
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:15+0000
+    kernel_map_ids_0: 157
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:177
+    id: 177
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:15+0000
+    kernel_map_ids_0: 156
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:184
+    id: 184
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:15+0000
+    kernel_map_ids_0: 165
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:185
+    id: 185
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:15+0000
+    kernel_map_ids_0: 164
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:186
+    id: 186
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:15+0000
+    kernel_map_ids_0: 167
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:187
+    id: 187
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:15+0000
+    kernel_map_ids_0: 166
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:190
+    id: 190
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:15+0000
+    kernel_map_ids_0: 171
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:191
+    id: 191
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:15+0000
+    kernel_map_ids_0: 170
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:194
+    id: 194
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:15+0000
+    kernel_map_ids_0: 175
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:195
+    id: 195
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:15+0000
+    kernel_map_ids_0: 174
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:2
+    id: 2
+    kernel_btf_id: 2
+    kernel_bytes_jited: 129
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 56
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T07:42:05+0000
+    kernel_map_ids_0: 2
+    kernel_name: hid_tail_call
+    kernel_program_type: BPF_PROG_TYPE_TRACING
+    kernel_tag: 7cc47bbf07148bfe
+    kernel_verified_insns: 6
+  KernelProgram:212
+    id: 212
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:15+0000
+    kernel_map_ids_0: 189
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:213
+    id: 213
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:15+0000
+    kernel_map_ids_0: 188
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:214
+    id: 214
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:15+0000
+    kernel_map_ids_0: 191
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:215
+    id: 215
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:15+0000
+    kernel_map_ids_0: 190
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:22
+    id: 22
+    kernel_btf_id: 72
+    kernel_bytes_jited: 305
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 560
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:11+0000
+    kernel_map_ids_0: 13
+    kernel_name: restrict_filesy
+    kernel_program_type: BPF_PROG_TYPE_LSM
+    kernel_tag: 1a17ecfe539f9b82
+    kernel_verified_insns: 67
+  KernelProgram:220
+    id: 220
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:15+0000
+    kernel_map_ids_0: 197
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:221
+    id: 221
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:15+0000
+    kernel_map_ids_0: 196
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:224
+    id: 224
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:15+0000
+    kernel_map_ids_0: 201
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:225
+    id: 225
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:15+0000
+    kernel_map_ids_0: 200
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:238
+    id: 238
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:15+0000
+    kernel_map_ids_0: 209
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:239
+    id: 239
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:15+0000
+    kernel_map_ids_0: 208
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:262
+    id: 262
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:23+0000
+    kernel_map_ids_0: 231
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:263
+    id: 263
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:23+0000
+    kernel_map_ids_0: 230
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:268
+    id: 268
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:23+0000
+    kernel_map_ids_0: 237
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:269
+    id: 269
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:23+0000
+    kernel_map_ids_0: 236
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:397
+    id: 397
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 295
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:398
+    id: 398
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 294
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:399
+    id: 399
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 297
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:400
+    id: 400
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 296
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:401
+    id: 401
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 299
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:402
+    id: 402
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 298
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:403
+    id: 403
+    kernel_btf_id: 0
+    kernel_bytes_jited: 297
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 464
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 63878b01a3de7bae
+    kernel_verified_insns: 263
+  KernelProgram:404
+    id: 404
+    kernel_btf_id: 0
+    kernel_bytes_jited: 63
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 64
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 301
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 815d6551cd4d7b0b
+    kernel_verified_insns: 9
+  KernelProgram:405
+    id: 405
+    kernel_btf_id: 0
+    kernel_bytes_jited: 63
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 64
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 300
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 815d6551cd4d7b0b
+    kernel_verified_insns: 9
+  KernelProgram:406
+    id: 406
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 303
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:407
+    id: 407
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 302
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:408
+    id: 408
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 305
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:409
+    id: 409
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 304
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:410
+    id: 410
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 307
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:411
+    id: 411
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 306
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:412
+    id: 412
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 309
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:413
+    id: 413
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 308
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:414
+    id: 414
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 311
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:415
+    id: 415
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 310
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:418
+    id: 418
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 315
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:419
+    id: 419
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 314
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:423
+    id: 423
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 319
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:424
+    id: 424
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 318
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:425
+    id: 425
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 321
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:426
+    id: 426
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 320
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:427
+    id: 427
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 323
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:428
+    id: 428
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 322
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:429
+    id: 429
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 325
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:430
+    id: 430
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 324
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:431
+    id: 431
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 327
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:432
+    id: 432
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 326
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:433
+    id: 433
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 329
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:434
+    id: 434
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 328
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:435
+    id: 435
+    kernel_btf_id: 0
+    kernel_bytes_jited: 318
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 504
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 3a32ccd9e03ea87a
+    kernel_verified_insns: 306
+  KernelProgram:436
+    id: 436
+    kernel_btf_id: 0
+    kernel_bytes_jited: 63
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 64
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 331
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 815d6551cd4d7b0b
+    kernel_verified_insns: 9
+  KernelProgram:437
+    id: 437
+    kernel_btf_id: 0
+    kernel_bytes_jited: 63
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 64
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 330
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 815d6551cd4d7b0b
+    kernel_verified_insns: 9
+  KernelProgram:438
+    id: 438
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 333
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:439
+    id: 439
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 332
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:440
+    id: 440
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 335
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:441
+    id: 441
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 334
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:442
+    id: 442
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 337
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:443
+    id: 443
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 336
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:448
+    id: 448
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 343
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:449
+    id: 449
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 342
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:450
+    id: 450
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 345
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:451
+    id: 451
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 344
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:452
+    id: 452
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 347
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:453
+    id: 453
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 346
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:454
+    id: 454
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 349
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:455
+    id: 455
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 348
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:456
+    id: 456
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 351
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:457
+    id: 457
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 350
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:458
+    id: 458
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 353
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:459
+    id: 459
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 352
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:460
+    id: 460
+    kernel_btf_id: 0
+    kernel_bytes_jited: 63
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 64
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 355
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 815d6551cd4d7b0b
+    kernel_verified_insns: 9
+  KernelProgram:461
+    id: 461
+    kernel_btf_id: 0
+    kernel_bytes_jited: 63
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 64
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 354
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 815d6551cd4d7b0b
+    kernel_verified_insns: 9
+  KernelProgram:462
+    id: 462
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 357
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:463
+    id: 463
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 356
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:464
+    id: 464
+    kernel_btf_id: 0
+    kernel_bytes_jited: 297
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 464
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 63878b01a3de7bae
+    kernel_verified_insns: 263
+  KernelProgram:465
+    id: 465
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 359
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:466
+    id: 466
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 358
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:467
+    id: 467
+    kernel_btf_id: 0
+    kernel_bytes_jited: 63
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 64
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 361
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 815d6551cd4d7b0b
+    kernel_verified_insns: 9
+  KernelProgram:468
+    id: 468
+    kernel_btf_id: 0
+    kernel_bytes_jited: 63
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 64
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 360
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 815d6551cd4d7b0b
+    kernel_verified_insns: 9
+  KernelProgram:469
+    id: 469
+    kernel_btf_id: 0
+    kernel_bytes_jited: 267
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 416
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: ee0e253c78993a24
+    kernel_verified_insns: 217
+  KernelProgram:470
+    id: 470
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 363
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:471
+    id: 471
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 362
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:472
+    id: 472
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 365
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:473
+    id: 473
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 364
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:474
+    id: 474
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 367
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:475
+    id: 475
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 366
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:476
+    id: 476
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 369
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:477
+    id: 477
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 368
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:478
+    id: 478
+    kernel_btf_id: 0
+    kernel_bytes_jited: 297
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 464
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 63878b01a3de7bae
+    kernel_verified_insns: 263
+  KernelProgram:479
+    id: 479
+    kernel_btf_id: 0
+    kernel_bytes_jited: 63
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 64
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 371
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 815d6551cd4d7b0b
+    kernel_verified_insns: 9
+  KernelProgram:480
+    id: 480
+    kernel_btf_id: 0
+    kernel_bytes_jited: 63
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 64
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 370
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 815d6551cd4d7b0b
+    kernel_verified_insns: 9
+  KernelProgram:481
+    id: 481
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 373
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:482
+    id: 482
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 372
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:483
+    id: 483
+    kernel_btf_id: 0
+    kernel_bytes_jited: 297
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 464
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 63878b01a3de7bae
+    kernel_verified_insns: 263
+  KernelProgram:484
+    id: 484
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 375
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:485
+    id: 485
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 374
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:486
+    id: 486
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 377
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:487
+    id: 487
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 376
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:488
+    id: 488
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 379
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:489
+    id: 489
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 378
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:490
+    id: 490
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 381
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:491
+    id: 491
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 380
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:492
+    id: 492
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 383
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:493
+    id: 493
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 382
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:494
+    id: 494
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 385
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:495
+    id: 495
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 384
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:496
+    id: 496
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 387
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:497
+    id: 497
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 386
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:498
+    id: 498
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 389
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:499
+    id: 499
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 388
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:500
+    id: 500
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 391
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:501
+    id: 501
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 390
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:502
+    id: 502
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 393
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:503
+    id: 503
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 392
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:504
+    id: 504
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 395
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:505
+    id: 505
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 394
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:506
+    id: 506
+    kernel_btf_id: 0
+    kernel_bytes_jited: 63
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 64
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 397
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 815d6551cd4d7b0b
+    kernel_verified_insns: 9
+  KernelProgram:507
+    id: 507
+    kernel_btf_id: 0
+    kernel_bytes_jited: 63
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 64
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 396
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 815d6551cd4d7b0b
+    kernel_verified_insns: 9
+  KernelProgram:508
+    id: 508
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 399
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:509
+    id: 509
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 398
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:51
+    id: 51
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:11+0000
+    kernel_map_ids_0: 43
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:510
+    id: 510
+    kernel_btf_id: 0
+    kernel_bytes_jited: 456
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 744
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 3e2cf74d47166f5
+    kernel_verified_insns: 628
+  KernelProgram:511
+    id: 511
+    kernel_btf_id: 0
+    kernel_bytes_jited: 63
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 64
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 401
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 815d6551cd4d7b0b
+    kernel_verified_insns: 9
+  KernelProgram:512
+    id: 512
+    kernel_btf_id: 0
+    kernel_bytes_jited: 63
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 64
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 400
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 815d6551cd4d7b0b
+    kernel_verified_insns: 9
+  KernelProgram:513
+    id: 513
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 403
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:514
+    id: 514
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 402
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:515
+    id: 515
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 405
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:516
+    id: 516
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 404
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:517
+    id: 517
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 407
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:518
+    id: 518
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 406
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:519
+    id: 519
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 409
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:52
+    id: 52
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:11+0000
+    kernel_map_ids_0: 42
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:520
+    id: 520
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 408
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:521
+    id: 521
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 411
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:522
+    id: 522
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 410
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:523
+    id: 523
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 413
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:524
+    id: 524
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 412
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:525
+    id: 525
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 415
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:526
+    id: 526
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 414
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:527
+    id: 527
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 417
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:528
+    id: 528
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 416
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:529
+    id: 529
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 419
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:53
+    id: 53
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:11+0000
+    kernel_map_ids_0: 45
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:530
+    id: 530
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 418
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:531
+    id: 531
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 421
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:532
+    id: 532
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 420
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:533
+    id: 533
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 423
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:534
+    id: 534
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 422
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:535
+    id: 535
+    kernel_btf_id: 0
+    kernel_bytes_jited: 110
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 184
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: dbf0b2c646a97b6f
+    kernel_verified_insns: 44
+  KernelProgram:536
+    id: 536
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 425
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:537
+    id: 537
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 424
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:538
+    id: 538
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 427
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:539
+    id: 539
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 426
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:54
+    id: 54
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:11+0000
+    kernel_map_ids_0: 44
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:541
+    id: 541
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 429
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:542
+    id: 542
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 428
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:543
+    id: 543
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 431
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:544
+    id: 544
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 430
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:545
+    id: 545
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 433
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:546
+    id: 546
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 432
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:547
+    id: 547
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 435
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:548
+    id: 548
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 434
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:549
+    id: 549
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 437
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:55
+    id: 55
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:11+0000
+    kernel_map_ids_0: 47
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:550
+    id: 550
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 436
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:551
+    id: 551
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 439
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:552
+    id: 552
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 438
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:553
+    id: 553
+    kernel_btf_id: 0
+    kernel_bytes_jited: 267
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 416
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: ee0e253c78993a24
+    kernel_verified_insns: 217
+  KernelProgram:554
+    id: 554
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 441
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:555
+    id: 555
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 440
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:556
+    id: 556
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 443
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:557
+    id: 557
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:20+0000
+    kernel_map_ids_0: 442
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:558
+    id: 558
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:21+0000
+    kernel_map_ids_0: 445
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:559
+    id: 559
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T13:50:21+0000
+    kernel_map_ids_0: 444
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:56
+    id: 56
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:11+0000
+    kernel_map_ids_0: 46
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:585
+    id: 585
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T16:36:29+0000
+    kernel_map_ids_0: 449
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:586
+    id: 586
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T16:36:29+0000
+    kernel_map_ids_0: 448
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:587
+    id: 587
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T16:36:29+0000
+    kernel_map_ids_0: 465
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:588
+    id: 588
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T16:36:29+0000
+    kernel_map_ids_0: 464
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:589
+    id: 589
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T16:36:29+0000
+    kernel_map_ids_0: 467
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:59
+    id: 59
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:11+0000
+    kernel_map_ids_0: 51
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:590
+    id: 590
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T16:36:29+0000
+    kernel_map_ids_0: 466
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:591
+    id: 591
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T16:36:29+0000
+    kernel_map_ids_0: 469
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:592
+    id: 592
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T16:36:29+0000
+    kernel_map_ids_0: 468
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:593
+    id: 593
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T16:36:31+0000
+    kernel_map_ids_0: 471
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:594
+    id: 594
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T16:36:31+0000
+    kernel_map_ids_0: 470
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:60
+    id: 60
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:11+0000
+    kernel_map_ids_0: 50
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:609
+    id: 609
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T16:36:42+0000
+    kernel_map_ids_0: 451
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:61
+    id: 61
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:11+0000
+    kernel_map_ids_0: 53
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:610
+    id: 610
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T16:36:42+0000
+    kernel_map_ids_0: 450
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:615
+    id: 615
+    kernel_btf_id: 0
+    kernel_bytes_jited: 63
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 64
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:01:42+0000
+    kernel_map_ids_0: 485
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 815d6551cd4d7b0b
+    kernel_verified_insns: 9
+  KernelProgram:616
+    id: 616
+    kernel_btf_id: 0
+    kernel_bytes_jited: 63
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 64
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:01:42+0000
+    kernel_map_ids_0: 484
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 815d6551cd4d7b0b
+    kernel_verified_insns: 9
+  KernelProgram:62
+    id: 62
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:11+0000
+    kernel_map_ids_0: 52
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:66
+    id: 66
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:11+0000
+    kernel_map_ids_0: 57
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:67
+    id: 67
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:11+0000
+    kernel_map_ids_0: 56
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:68
+    id: 68
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:11+0000
+    kernel_map_ids_0: 59
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:69
+    id: 69
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:11+0000
+    kernel_map_ids_0: 58
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:70
+    id: 70
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:11+0000
+    kernel_map_ids_0: 61
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:71
+    id: 71
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:11+0000
+    kernel_map_ids_0: 60
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:716
+    id: 716
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:42:18+0000
+    kernel_map_ids_0: 508
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:717
+    id: 717
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:42:18+0000
+    kernel_map_ids_0: 507
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:720
+    id: 720
+    kernel_btf_id: 0
+    kernel_bytes_jited: 49
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 64
+    kernel_gpl_compatible: false
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:42:18+0000
+    kernel_name:     kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 3918c82a5f4c0360
+    kernel_verified_insns: 8
+  KernelProgram:732
+    id: 732
+    kernel_btf_id: 0
+    kernel_bytes_jited: 337
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 512
+    kernel_gpl_compatible: false
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:42:23+0000
+    kernel_name:     kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 531db05b114e9af3
+    kernel_verified_insns: 232
+  KernelProgram:736
+    id: 736
+    kernel_btf_id: 0
+    kernel_bytes_jited: 337
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 512
+    kernel_gpl_compatible: false
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:42:23+0000
+    kernel_name:     kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 531db05b114e9af3
+    kernel_verified_insns: 232
+  KernelProgram:740
+    id: 740
+    kernel_btf_id: 0
+    kernel_bytes_jited: 337
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 512
+    kernel_gpl_compatible: false
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:42:23+0000
+    kernel_name:     kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 531db05b114e9af3
+    kernel_verified_insns: 232
+  KernelProgram:744
+    id: 744
+    kernel_btf_id: 0
+    kernel_bytes_jited: 337
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 512
+    kernel_gpl_compatible: false
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:42:23+0000
+    kernel_name:     kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 531db05b114e9af3
+    kernel_verified_insns: 232
+  KernelProgram:748
+    id: 748
+    kernel_btf_id: 0
+    kernel_bytes_jited: 337
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 512
+    kernel_gpl_compatible: false
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:42:24+0000
+    kernel_name:     kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 531db05b114e9af3
+    kernel_verified_insns: 232
+  KernelProgram:752
+    id: 752
+    kernel_btf_id: 0
+    kernel_bytes_jited: 337
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 512
+    kernel_gpl_compatible: false
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:42:24+0000
+    kernel_name:     kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 531db05b114e9af3
+    kernel_verified_insns: 232
+  KernelProgram:756
+    id: 756
+    kernel_btf_id: 0
+    kernel_bytes_jited: 337
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 512
+    kernel_gpl_compatible: false
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:42:24+0000
+    kernel_name:     kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 531db05b114e9af3
+    kernel_verified_insns: 232
+  KernelProgram:760
+    id: 760
+    kernel_btf_id: 0
+    kernel_bytes_jited: 337
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 512
+    kernel_gpl_compatible: false
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:42:24+0000
+    kernel_name:     kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 531db05b114e9af3
+    kernel_verified_insns: 232
+  KernelProgram:761
+    id: 761
+    kernel_btf_id: 0
+    kernel_bytes_jited: 280
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 440
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:42:28+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: c692d192a4d1a516
+    kernel_verified_insns: 186
+  KernelProgram:762
+    id: 762
+    kernel_btf_id: 0
+    kernel_bytes_jited: 280
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 440
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:42:28+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: c692d192a4d1a516
+    kernel_verified_insns: 186
+  KernelProgram:763
+    id: 763
+    kernel_btf_id: 0
+    kernel_bytes_jited: 318
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 504
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:42:28+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 3a32ccd9e03ea87a
+    kernel_verified_insns: 306
+  KernelProgram:764
+    id: 764
+    kernel_btf_id: 0
+    kernel_bytes_jited: 63
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 64
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:42:28+0000
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 6deef7357e7b4530
+    kernel_verified_insns: 8
+  KernelProgram:765
+    id: 765
+    kernel_btf_id: 0
+    kernel_bytes_jited: 63
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 64
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:42:28+0000
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 6deef7357e7b4530
+    kernel_verified_insns: 8
+  KernelProgram:766
+    id: 766
+    kernel_btf_id: 0
+    kernel_bytes_jited: 280
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 440
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:42:28+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: c692d192a4d1a516
+    kernel_verified_insns: 186
+  KernelProgram:767
+    id: 767
+    kernel_btf_id: 0
+    kernel_bytes_jited: 280
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 440
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:42:28+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: c692d192a4d1a516
+    kernel_verified_insns: 186
+  KernelProgram:768
+    id: 768
+    kernel_btf_id: 0
+    kernel_bytes_jited: 280
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 440
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:42:28+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: c692d192a4d1a516
+    kernel_verified_insns: 186
+  KernelProgram:769
+    id: 769
+    kernel_btf_id: 0
+    kernel_bytes_jited: 280
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 440
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:42:28+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: c692d192a4d1a516
+    kernel_verified_insns: 186
+  KernelProgram:770
+    id: 770
+    kernel_btf_id: 0
+    kernel_bytes_jited: 280
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 440
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:42:28+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: c692d192a4d1a516
+    kernel_verified_insns: 186
+  KernelProgram:771
+    id: 771
+    kernel_btf_id: 0
+    kernel_bytes_jited: 280
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 440
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:42:28+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: c692d192a4d1a516
+    kernel_verified_insns: 186
+  KernelProgram:778
+    id: 778
+    kernel_btf_id: 0
+    kernel_bytes_jited: 280
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 440
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:42:43+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 3b0b81b071f088cd
+    kernel_verified_insns: 266
+  KernelProgram:781
+    id: 781
+    kernel_btf_id: 0
+    kernel_bytes_jited: 337
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 512
+    kernel_gpl_compatible: false
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:42:43+0000
+    kernel_name:     kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 531db05b114e9af3
+    kernel_verified_insns: 232
+  KernelProgram:782
+    id: 782
+    kernel_btf_id: 0
+    kernel_bytes_jited: 280
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 440
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:42:43+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 3b0b81b071f088cd
+    kernel_verified_insns: 266
+  KernelProgram:785
+    id: 785
+    kernel_btf_id: 0
+    kernel_bytes_jited: 337
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 512
+    kernel_gpl_compatible: false
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:42:43+0000
+    kernel_name:     kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 531db05b114e9af3
+    kernel_verified_insns: 232
+  KernelProgram:788
+    id: 788
+    kernel_btf_id: 0
+    kernel_bytes_jited: 49
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 64
+    kernel_gpl_compatible: false
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:42:44+0000
+    kernel_name:     kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 3918c82a5f4c0360
+    kernel_verified_insns: 8
+  KernelProgram:789
+    id: 789
+    kernel_btf_id: 0
+    kernel_bytes_jited: 280
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 440
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:42:44+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 3b0b81b071f088cd
+    kernel_verified_insns: 266
+  KernelProgram:792
+    id: 792
+    kernel_btf_id: 0
+    kernel_bytes_jited: 337
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 512
+    kernel_gpl_compatible: false
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:42:44+0000
+    kernel_name:     kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 531db05b114e9af3
+    kernel_verified_insns: 232
+  KernelProgram:793
+    id: 793
+    kernel_btf_id: 0
+    kernel_bytes_jited: 280
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 440
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:42:45+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 3b0b81b071f088cd
+    kernel_verified_insns: 266
+  KernelProgram:796
+    id: 796
+    kernel_btf_id: 0
+    kernel_bytes_jited: 337
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 512
+    kernel_gpl_compatible: false
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:42:45+0000
+    kernel_name:     kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 531db05b114e9af3
+    kernel_verified_insns: 232
+  KernelProgram:797
+    id: 797
+    kernel_btf_id: 0
+    kernel_bytes_jited: 280
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 440
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:42:45+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 3b0b81b071f088cd
+    kernel_verified_insns: 266
+  KernelProgram:80
+    id: 80
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:12+0000
+    kernel_map_ids_0: 67
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:800
+    id: 800
+    kernel_btf_id: 0
+    kernel_bytes_jited: 337
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 512
+    kernel_gpl_compatible: false
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:42:45+0000
+    kernel_name:     kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 531db05b114e9af3
+    kernel_verified_insns: 232
+  KernelProgram:801
+    id: 801
+    kernel_btf_id: 0
+    kernel_bytes_jited: 280
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 440
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:42:45+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 3b0b81b071f088cd
+    kernel_verified_insns: 266
+  KernelProgram:804
+    id: 804
+    kernel_btf_id: 0
+    kernel_bytes_jited: 337
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 512
+    kernel_gpl_compatible: false
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:42:45+0000
+    kernel_name:     kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 531db05b114e9af3
+    kernel_verified_insns: 232
+  KernelProgram:805
+    id: 805
+    kernel_btf_id: 0
+    kernel_bytes_jited: 280
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 440
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:42:47+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 3b0b81b071f088cd
+    kernel_verified_insns: 266
+  KernelProgram:808
+    id: 808
+    kernel_btf_id: 0
+    kernel_bytes_jited: 337
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 512
+    kernel_gpl_compatible: false
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:42:47+0000
+    kernel_name:     kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 531db05b114e9af3
+    kernel_verified_insns: 232
+  KernelProgram:809
+    id: 809
+    kernel_btf_id: 0
+    kernel_bytes_jited: 280
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 440
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:42:47+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 3b0b81b071f088cd
+    kernel_verified_insns: 266
+  KernelProgram:81
+    id: 81
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:12+0000
+    kernel_map_ids_0: 66
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:812
+    id: 812
+    kernel_btf_id: 0
+    kernel_bytes_jited: 337
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 512
+    kernel_gpl_compatible: false
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:42:47+0000
+    kernel_name:     kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 531db05b114e9af3
+    kernel_verified_insns: 232
+  KernelProgram:813
+    id: 813
+    kernel_btf_id: 0
+    kernel_bytes_jited: 280
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 440
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:42:47+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 3b0b81b071f088cd
+    kernel_verified_insns: 266
+  KernelProgram:816
+    id: 816
+    kernel_btf_id: 0
+    kernel_bytes_jited: 337
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 512
+    kernel_gpl_compatible: false
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:42:47+0000
+    kernel_name:     kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 531db05b114e9af3
+    kernel_verified_insns: 232
+  KernelProgram:82
+    id: 82
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:12+0000
+    kernel_map_ids_0: 69
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:83
+    id: 83
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:12+0000
+    kernel_map_ids_0: 68
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:835
+    id: 835
+    kernel_btf_id: 0
+    kernel_bytes_jited: 280
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 440
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:43:50+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 3b0b81b071f088cd
+    kernel_verified_insns: 266
+  KernelProgram:838
+    id: 838
+    kernel_btf_id: 0
+    kernel_bytes_jited: 337
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 512
+    kernel_gpl_compatible: false
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:43:50+0000
+    kernel_name:     kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 531db05b114e9af3
+    kernel_verified_insns: 232
+  KernelProgram:839
+    id: 839
+    kernel_btf_id: 0
+    kernel_bytes_jited: 280
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 440
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:43:53+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 3b0b81b071f088cd
+    kernel_verified_insns: 266
+  KernelProgram:84
+    id: 84
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:12+0000
+    kernel_map_ids_0: 71
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:842
+    id: 842
+    kernel_btf_id: 0
+    kernel_bytes_jited: 337
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 512
+    kernel_gpl_compatible: false
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:43:53+0000
+    kernel_name:     kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 531db05b114e9af3
+    kernel_verified_insns: 232
+  KernelProgram:843
+    id: 843
+    kernel_btf_id: 0
+    kernel_bytes_jited: 280
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 440
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:43:53+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 3b0b81b071f088cd
+    kernel_verified_insns: 266
+  KernelProgram:846
+    id: 846
+    kernel_btf_id: 0
+    kernel_bytes_jited: 337
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 512
+    kernel_gpl_compatible: false
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:43:53+0000
+    kernel_name:     kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 531db05b114e9af3
+    kernel_verified_insns: 232
+  KernelProgram:847
+    id: 847
+    kernel_btf_id: 0
+    kernel_bytes_jited: 280
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 440
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:43:53+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 3b0b81b071f088cd
+    kernel_verified_insns: 266
+  KernelProgram:85
+    id: 85
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:12+0000
+    kernel_map_ids_0: 70
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:850
+    id: 850
+    kernel_btf_id: 0
+    kernel_bytes_jited: 337
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 512
+    kernel_gpl_compatible: false
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:43:53+0000
+    kernel_name:     kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 531db05b114e9af3
+    kernel_verified_insns: 232
+  KernelProgram:856
+    id: 856
+    kernel_btf_id: 0
+    kernel_bytes_jited: 49
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 64
+    kernel_gpl_compatible: false
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:44:12+0000
+    kernel_name:     kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 3918c82a5f4c0360
+    kernel_verified_insns: 8
+  KernelProgram:859
+    id: 859
+    kernel_btf_id: 0
+    kernel_bytes_jited: 49
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 64
+    kernel_gpl_compatible: false
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:44:12+0000
+    kernel_name:     kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 3918c82a5f4c0360
+    kernel_verified_insns: 8
+  KernelProgram:86
+    id: 86
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:12+0000
+    kernel_map_ids_0: 73
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:860
+    id: 860
+    kernel_btf_id: 0
+    kernel_bytes_jited: 280
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 440
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:44:14+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 3b0b81b071f088cd
+    kernel_verified_insns: 266
+  KernelProgram:863
+    id: 863
+    kernel_btf_id: 0
+    kernel_bytes_jited: 337
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 512
+    kernel_gpl_compatible: false
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:44:14+0000
+    kernel_name:     kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 531db05b114e9af3
+    kernel_verified_insns: 232
+  KernelProgram:864
+    id: 864
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:59:22+0000
+    kernel_map_ids_0: 545
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:865
+    id: 865
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T17:59:22+0000
+    kernel_map_ids_0: 544
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:867
+    id: 867
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:00:00+0000
+    kernel_map_ids_0: 547
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:868
+    id: 868
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:00:00+0000
+    kernel_map_ids_0: 546
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:87
+    id: 87
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:12+0000
+    kernel_map_ids_0: 72
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:876
+    id: 876
+    kernel_btf_id: 0
+    kernel_bytes_jited: 280
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 440
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:03:26+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 3b0b81b071f088cd
+    kernel_verified_insns: 266
+  KernelProgram:879
+    id: 879
+    kernel_btf_id: 0
+    kernel_bytes_jited: 337
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 512
+    kernel_gpl_compatible: false
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:03:26+0000
+    kernel_name:     kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 531db05b114e9af3
+    kernel_verified_insns: 232
+  KernelProgram:88
+    id: 88
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:12+0000
+    kernel_map_ids_0: 75
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:880
+    id: 880
+    kernel_btf_id: 0
+    kernel_bytes_jited: 280
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 440
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:03:29+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 3b0b81b071f088cd
+    kernel_verified_insns: 266
+  KernelProgram:883
+    id: 883
+    kernel_btf_id: 0
+    kernel_bytes_jited: 337
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 512
+    kernel_gpl_compatible: false
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:03:29+0000
+    kernel_name:     kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 531db05b114e9af3
+    kernel_verified_insns: 232
+  KernelProgram:884
+    id: 884
+    kernel_btf_id: 256
+    kernel_bytes_jited: 650
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 760
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:03:34+0000
+    kernel_map_ids_0: 555
+    kernel_name: tc_dispatcher
+    kernel_program_type: BPF_PROG_TYPE_SCHED_CLS
+    kernel_tag: ded851358be693e8
+    kernel_verified_insns: 96
+  KernelProgram:887
+    id: 887
+    kernel_btf_id: 0
+    kernel_bytes_jited: 280
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 440
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:03:43+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 3b0b81b071f088cd
+    kernel_verified_insns: 266
+  KernelProgram:89
+    id: 89
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:12+0000
+    kernel_map_ids_0: 74
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:890
+    id: 890
+    kernel_btf_id: 0
+    kernel_bytes_jited: 337
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 512
+    kernel_gpl_compatible: false
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:03:43+0000
+    kernel_name:     kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 531db05b114e9af3
+    kernel_verified_insns: 232
+  KernelProgram:892
+    id: 892
+    kernel_btf_id: 0
+    kernel_bytes_jited: 280
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 440
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:03:52+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 3b0b81b071f088cd
+    kernel_verified_insns: 266
+  KernelProgram:895
+    id: 895
+    kernel_btf_id: 0
+    kernel_bytes_jited: 337
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 512
+    kernel_gpl_compatible: false
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:03:52+0000
+    kernel_name:     kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 531db05b114e9af3
+    kernel_verified_insns: 232
+  KernelProgram:896
+    id: 896
+    kernel_btf_id: 0
+    kernel_bytes_jited: 280
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 440
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:03:53+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 3b0b81b071f088cd
+    kernel_verified_insns: 266
+  KernelProgram:899
+    id: 899
+    kernel_btf_id: 0
+    kernel_bytes_jited: 337
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 512
+    kernel_gpl_compatible: false
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:03:53+0000
+    kernel_name:     kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 531db05b114e9af3
+    kernel_verified_insns: 232
+  KernelProgram:901
+    id: 901
+    kernel_btf_id: 0
+    kernel_bytes_jited: 280
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 440
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:04:03+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 3b0b81b071f088cd
+    kernel_verified_insns: 266
+  KernelProgram:904
+    id: 904
+    kernel_btf_id: 0
+    kernel_bytes_jited: 337
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 512
+    kernel_gpl_compatible: false
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:04:03+0000
+    kernel_name:     kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 531db05b114e9af3
+    kernel_verified_insns: 232
+  KernelProgram:905
+    id: 905
+    kernel_btf_id: 0
+    kernel_bytes_jited: 280
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 440
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:04:04+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 3b0b81b071f088cd
+    kernel_verified_insns: 266
+  KernelProgram:908
+    id: 908
+    kernel_btf_id: 0
+    kernel_bytes_jited: 337
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 512
+    kernel_gpl_compatible: false
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:04:04+0000
+    kernel_name:     kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 531db05b114e9af3
+    kernel_verified_insns: 232
+  KernelProgram:909
+    id: 909
+    kernel_btf_id: 0
+    kernel_bytes_jited: 280
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 440
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:04:12+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 3b0b81b071f088cd
+    kernel_verified_insns: 266
+  KernelProgram:912
+    id: 912
+    kernel_btf_id: 0
+    kernel_bytes_jited: 337
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 512
+    kernel_gpl_compatible: false
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:04:12+0000
+    kernel_name:     kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 531db05b114e9af3
+    kernel_verified_insns: 232
+  KernelProgram:913
+    id: 913
+    kernel_btf_id: 264
+    kernel_bytes_jited: 619
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 664
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:04:14+0000
+    kernel_map_ids_0: 573
+    kernel_name: xdp_dispatcher
+    kernel_program_type: BPF_PROG_TYPE_XDP
+    kernel_tag: 4d7e87c0d30db711
+    kernel_verified_insns: 95
+  KernelProgram:915
+    id: 915
+    kernel_btf_id: 0
+    kernel_bytes_jited: 280
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 440
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:04:15+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 3b0b81b071f088cd
+    kernel_verified_insns: 266
+  KernelProgram:918
+    id: 918
+    kernel_btf_id: 0
+    kernel_bytes_jited: 337
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 512
+    kernel_gpl_compatible: false
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:04:15+0000
+    kernel_name:     kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 531db05b114e9af3
+    kernel_verified_insns: 232
+  KernelProgram:919
+    id: 919
+    kernel_btf_id: 267
+    kernel_bytes_jited: 681
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 776
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:04:16+0000
+    kernel_map_ids_0: 577
+    kernel_name: xdp_dispatcher
+    kernel_program_type: BPF_PROG_TYPE_XDP
+    kernel_tag: 4d7e87c0d30db711
+    kernel_verified_insns: 109
+  KernelProgram:921
+    id: 921
+    kernel_btf_id: 0
+    kernel_bytes_jited: 280
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 440
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:04:20+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 3b0b81b071f088cd
+    kernel_verified_insns: 266
+  KernelProgram:924
+    id: 924
+    kernel_btf_id: 0
+    kernel_bytes_jited: 337
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 512
+    kernel_gpl_compatible: false
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:04:20+0000
+    kernel_name:     kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 531db05b114e9af3
+    kernel_verified_insns: 232
+  KernelProgram:927
+    id: 927
+    kernel_btf_id: 272
+    kernel_bytes_jited: 713
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 880
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:04:32+0000
+    kernel_map_ids_0: 587
+    kernel_name: tc_dispatcher
+    kernel_program_type: BPF_PROG_TYPE_SCHED_CLS
+    kernel_tag: ded851358be693e8
+    kernel_verified_insns: 111
+  KernelProgram:938
+    id: 938
+    kernel_btf_id: 0
+    kernel_bytes_jited: 280
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 440
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:04:46+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 3b0b81b071f088cd
+    kernel_verified_insns: 266
+  KernelProgram:94
+    id: 94
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:12+0000
+    kernel_map_ids_0: 81
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:941
+    id: 941
+    kernel_btf_id: 0
+    kernel_bytes_jited: 337
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 512
+    kernel_gpl_compatible: false
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:04:46+0000
+    kernel_name:     kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 531db05b114e9af3
+    kernel_verified_insns: 232
+  KernelProgram:942
+    id: 942
+    kernel_btf_id: 0
+    kernel_bytes_jited: 280
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 440
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:04:53+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 3b0b81b071f088cd
+    kernel_verified_insns: 266
+  KernelProgram:945
+    id: 945
+    kernel_btf_id: 0
+    kernel_bytes_jited: 337
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 512
+    kernel_gpl_compatible: false
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:04:53+0000
+    kernel_name:     kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 531db05b114e9af3
+    kernel_verified_insns: 232
+  KernelProgram:95
+    id: 95
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:12+0000
+    kernel_map_ids_0: 80
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:954
+    id: 954
+    kernel_btf_id: 0
+    kernel_bytes_jited: 280
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 440
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:04:56+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 3b0b81b071f088cd
+    kernel_verified_insns: 266
+  KernelProgram:957
+    id: 957
+    kernel_btf_id: 0
+    kernel_bytes_jited: 337
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 512
+    kernel_gpl_compatible: false
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:04:56+0000
+    kernel_name:     kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 531db05b114e9af3
+    kernel_verified_insns: 232
+  KernelProgram:96
+    id: 96
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:12+0000
+    kernel_map_ids_0: 83
+    kernel_name: sd_fw_egress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:966
+    id: 966
+    kernel_btf_id: 303
+    kernel_bytes_jited: 741
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 880
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:05:05+0000
+    kernel_map_ids_0: 612
+    kernel_name: xdp_dispatcher
+    kernel_program_type: BPF_PROG_TYPE_XDP
+    kernel_tag: 4d7e87c0d30db711
+    kernel_verified_insns: 122
+  KernelProgram:968
+    id: 968
+    kernel_btf_id: 0
+    kernel_bytes_jited: 280
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 440
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:05:07+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 3b0b81b071f088cd
+    kernel_verified_insns: 266
+  KernelProgram:97
+    id: 97
+    kernel_btf_id: 0
+    kernel_bytes_jited: 201
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 312
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T08:59:12+0000
+    kernel_map_ids_0: 82
+    kernel_name: sd_fw_ingress
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_SKB
+    kernel_tag: 7dc8126e8768ea37
+    kernel_verified_insns: 35
+  KernelProgram:971
+    id: 971
+    kernel_btf_id: 0
+    kernel_bytes_jited: 337
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 512
+    kernel_gpl_compatible: false
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:05:07+0000
+    kernel_name:     kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 531db05b114e9af3
+    kernel_verified_insns: 232
+  KernelProgram:972
+    id: 972
+    kernel_btf_id: 0
+    kernel_bytes_jited: 280
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 440
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:05:08+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 3b0b81b071f088cd
+    kernel_verified_insns: 266
+  KernelProgram:975
+    id: 975
+    kernel_btf_id: 0
+    kernel_bytes_jited: 337
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 512
+    kernel_gpl_compatible: false
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:05:08+0000
+    kernel_name:     kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 531db05b114e9af3
+    kernel_verified_insns: 232
+  KernelProgram:976
+    id: 976
+    kernel_btf_id: 0
+    kernel_bytes_jited: 280
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 440
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:05:08+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 3b0b81b071f088cd
+    kernel_verified_insns: 266
+  KernelProgram:979
+    id: 979
+    kernel_btf_id: 0
+    kernel_bytes_jited: 337
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 512
+    kernel_gpl_compatible: false
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:05:08+0000
+    kernel_name:     kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 531db05b114e9af3
+    kernel_verified_insns: 232
+  KernelProgram:980
+    id: 980
+    kernel_btf_id: 0
+    kernel_bytes_jited: 280
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 440
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:05:18+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 3b0b81b071f088cd
+    kernel_verified_insns: 266
+  KernelProgram:983
+    id: 983
+    kernel_btf_id: 0
+    kernel_bytes_jited: 337
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 512
+    kernel_gpl_compatible: false
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:05:18+0000
+    kernel_name:     kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 531db05b114e9af3
+    kernel_verified_insns: 232
+  KernelProgram:984
+    id: 984
+    kernel_btf_id: 0
+    kernel_bytes_jited: 280
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 440
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:05:28+0000
+    kernel_name: sd_devices
+    kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 3b0b81b071f088cd
+    kernel_verified_insns: 266
+  KernelProgram:987
+    id: 987
+    kernel_btf_id: 0
+    kernel_bytes_jited: 337
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 512
+    kernel_gpl_compatible: false
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:05:28+0000
+    kernel_name:     kernel_program_type: BPF_PROG_TYPE_CGROUP_DEVICE
+    kernel_tag: 531db05b114e9af3
+    kernel_verified_insns: 232
+
+Maps:
+  Map:885
+    map_used_by_0: 885
+  Map:886
+    map_used_by_0: 886
+  Map:891
+    map_used_by_0: 891
+  Map:900
+    map_used_by_0: 900
+  Map:914
+    map_used_by_0: 914
+    map_used_by_2: 920
+  Map:925
+    map_used_by_0: 925
+  Map:926
+    map_used_by_0: 926
+  Map:928
+    map_used_by_0: 928
+  Map:929
+    map_used_by_0: 929
+  Map:930
+    map_used_by_0: 930
+  Map:946
+    map_used_by_0: 946
+  Map:958
+    map_used_by_0: 958
+  Map:967
+    map_used_by_0: 967
+
+Programs:
+  Program:885
+    id: 885
+    kernel_btf_id: 257
+    kernel_bytes_jited: 124
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 176
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:03:34+0000
+    kernel_map_ids_0: 553
+    kernel_name: stats
+    kernel_program_type: BPF_PROG_TYPE_EXT
+    kernel_tag: ead94553702a3742
+    kernel_verified_insns: 24
+    kind: 3
+    location_image_pull_policy: IfNotPresent
+    location_image_url: quay.io/bpfman-bytecode/go-tc-counter:latest
+    map_pin_path: /run/bpfman/fs/maps/885
+    maps_used_by_0: 885
+    metadata_bpfman.io/ProgramName: go-tc-counter-example
+    metadata_bpfman.io/uuid: 9f70fd9b-fda6-4281-a1c5-aa4977ad183b
+    name: stats
+    program_bytes: [7F 45 4C 46 02 01 01 00 00 00 ...] (10728 bytes)
+    tc_attached: true
+    tc_current_position: 1
+    tc_direction: ingress
+    tc_if_index: 10
+    tc_iface: 812151909
+    tc_nsid: 4026533525
+    tc_priority: 55
+    tc_proceed_on_0: 3
+    tc_proceed_on_1: 30
+  Program:886
+    id: 886
+    kernel_btf_id: 260
+    kernel_bytes_jited: 103
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 152
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:03:41+0000
+    kernel_map_ids_0: 557
+    kernel_map_ids_1: 559
+    kernel_name: kprobe_counter
+    kernel_program_type: BPF_PROG_TYPE_KPROBE
+    kernel_tag: dcb27b52d176007d
+    kernel_verified_insns: 19
+    kind: 2
+    kprobe_container_pid: 0
+    kprobe_fn_name: try_to_wake_up
+    kprobe_offset: 0
+    kprobe_retprobe: false
+    location_image_pull_policy: IfNotPresent
+    location_image_url: quay.io/bpfman-bytecode/go-kprobe-counter:latest
+    map_pin_path: /run/bpfman/fs/maps/886
+    maps_used_by_0: 886
+    metadata_bpfman.io/ProgramName: go-kprobe-counter-example
+    metadata_bpfman.io/uuid: 98fc14f8-3f29-4c1c-819f-a2b2f4e60385
+    name: kprobe_counter
+    program_bytes: [7F 45 4C 46 02 01 01 00 00 00 ...] (6576 bytes)
+  Program:891
+    id: 891
+    kernel_btf_id: 261
+    kernel_bytes_jited: 114
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 168
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:03:50+0000
+    kernel_map_ids_0: 561
+    kernel_name: tcx_stats
+    kernel_program_type: BPF_PROG_TYPE_SCHED_CLS
+    kernel_tag: b0f1918a570daf83
+    kernel_verified_insns: 22
+    kind: 3
+    location_image_pull_policy: IfNotPresent
+    location_image_url: quay.io/bpfman-bytecode/go-tcx-counter:latest
+    map_pin_path: /run/bpfman/fs/maps/891
+    maps_used_by_0: 891
+    metadata_bpfman.io/ProgramName: go-tcx-counter-example
+    metadata_bpfman.io/uuid: 234001b4-cc27-49ea-948d-7f98a9d29b90
+    name: tcx_stats
+    program_bytes: [7F 45 4C 46 02 01 01 00 00 00 ...] (12096 bytes)
+    tcx_current_position: 0
+    tcx_direction: ingress
+    tcx_if_index: 10
+    tcx_iface: 812151909
+    tcx_nsid: 4026533525
+    tcx_priority: 55
+  Program:900
+    id: 900
+    kernel_btf_id: 262
+    kernel_bytes_jited: 115
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 176
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:04:01+0000
+    kernel_map_ids_0: 567
+    kernel_map_ids_1: 565
+    kernel_name: tracepoint_kill
+    kernel_program_type: BPF_PROG_TYPE_TRACEPOINT
+    kernel_tag: 186082bfd761e3ad
+    kernel_verified_insns: 22
+    kind: 5
+    location_image_pull_policy: IfNotPresent
+    location_image_url: quay.io/bpfman-bytecode/go-tracepoint-counter:latest
+    map_pin_path: /run/bpfman/fs/maps/900
+    maps_used_by_0: 900
+    metadata_bpfman.io/ProgramName: go-tracepoint-counter-example
+    metadata_bpfman.io/uuid: 9bee2e5e-2ea6-401a-abe1-6b456cd38ee9
+    name: tracepoint_kill_recorder
+    program_bytes: [7F 45 4C 46 02 01 01 00 00 00 ...] (7184 bytes)
+    tracepoint_name: syscalls/sys_enter_kill
+  Program:914
+    id: 914
+    kernel_btf_id: 265
+    kernel_bytes_jited: 112
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 168
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:04:14+0000
+    kernel_map_ids_0: 570
+    kernel_name: xdp_stats
+    kernel_program_type: BPF_PROG_TYPE_EXT
+    kernel_tag: 4d23a1d7f3618653
+    kernel_verified_insns: 21
+    kind: 6
+    location_image_pull_policy: IfNotPresent
+    location_image_url: quay.io/bpfman-bytecode/go-xdp-counter:latest
+    map_pin_path: /run/bpfman/fs/maps/914
+    maps_used_by_0: 914
+    maps_used_by_1: 920
+    metadata_bpfman.io/ProgramName: go-xdp-counter-example
+    metadata_bpfman.io/uuid: 96b58352-e990-43c0-bba8-3fa346518af8
+    name: xdp_stats
+    program_bytes: [7F 45 4C 46 02 01 01 00 00 00 ...] (7624 bytes)
+    xdp_attached: true
+    xdp_current_position: 1
+    xdp_if_index: 10
+    xdp_iface: 812151909
+    xdp_nsid: 4026533525
+    xdp_priority: 55
+    xdp_proceed_on_0: 2
+    xdp_proceed_on_1: 31
+  Program:920
+    id: 920
+    kernel_btf_id: 268
+    kernel_bytes_jited: 112
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 168
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:04:16+0000
+    kernel_map_ids_0: 570
+    kernel_name: xdp_stats
+    kernel_program_type: BPF_PROG_TYPE_EXT
+    kernel_tag: 4d23a1d7f3618653
+    kernel_verified_insns: 21
+    kind: 6
+    location_image_pull_policy: IfNotPresent
+    location_image_url: quay.io/bpfman-bytecode/go-xdp-counter:latest
+    map_owner_id: 914
+    map_pin_path: /run/bpfman/fs/maps/914
+    maps_used_by_0: 914
+    maps_used_by_1: 920
+    metadata_bpfman.io/ProgramName: go-xdp-counter-sharing-map-example
+    metadata_bpfman.io/uuid: e257788b-a303-47d8-aa09-8ca43d5930b1
+    name: xdp_stats
+    program_bytes: [7F 45 4C 46 02 01 01 00 00 00 ...] (7624 bytes)
+    xdp_attached: true
+    xdp_current_position: 2
+    xdp_if_index: 10
+    xdp_iface: 812151909
+    xdp_nsid: 4026533525
+    xdp_priority: 55
+    xdp_proceed_on_0: 2
+    xdp_proceed_on_1: 31
+  Program:925
+    id: 925
+    kernel_btf_id: 269
+    kernel_bytes_jited: 103
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 152
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:04:23+0000
+    kernel_map_ids_0: 557
+    kernel_map_ids_1: 581
+    kernel_name: kprobe_counter
+    kernel_program_type: BPF_PROG_TYPE_KPROBE
+    kernel_tag: dcb27b52d176007d
+    kernel_verified_insns: 19
+    kind: 2
+    kprobe_container_pid: 0
+    kprobe_fn_name: try_to_wake_up
+    kprobe_offset: 0
+    kprobe_retprobe: false
+    location_image_pull_policy: Always
+    location_image_url: quay.io/bpfman-bytecode/go-app-counter:latest
+    map_pin_path: /run/bpfman/fs/maps/925
+    maps_used_by_0: 925
+    metadata_bpfman.io/ProgramName: app-counter
+    metadata_bpfman.io/uuid: 263ebd3f-4811-42d1-bcf5-23511cf306d9
+    name: kprobe_counter
+    program_bytes: [7F 45 4C 46 02 01 01 00 00 00 ...] (24304 bytes)
+  Program:926
+    id: 926
+    kernel_btf_id: 270
+    kernel_bytes_jited: 115
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 176
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:04:27+0000
+    kernel_map_ids_0: 567
+    kernel_map_ids_1: 584
+    kernel_name: tracepoint_kill
+    kernel_program_type: BPF_PROG_TYPE_TRACEPOINT
+    kernel_tag: 186082bfd761e3ad
+    kernel_verified_insns: 22
+    kind: 5
+    location_image_pull_policy: Always
+    location_image_url: quay.io/bpfman-bytecode/go-app-counter:latest
+    map_pin_path: /run/bpfman/fs/maps/926
+    maps_used_by_0: 926
+    metadata_bpfman.io/ProgramName: app-counter
+    metadata_bpfman.io/uuid: ff9b5705-91f9-4834-8858-9201290d33ca
+    name: tracepoint_kill_recorder
+    program_bytes: [7F 45 4C 46 02 01 01 00 00 00 ...] (24304 bytes)
+    tracepoint_name: syscalls/sys_enter_kill
+  Program:928
+    id: 928
+    kernel_btf_id: 273
+    kernel_bytes_jited: 124
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 176
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:04:32+0000
+    kernel_map_ids_0: 553
+    kernel_name: stats
+    kernel_program_type: BPF_PROG_TYPE_EXT
+    kernel_tag: ead94553702a3742
+    kernel_verified_insns: 24
+    kind: 3
+    location_image_pull_policy: Always
+    location_image_url: quay.io/bpfman-bytecode/go-app-counter:latest
+    map_pin_path: /run/bpfman/fs/maps/928
+    maps_used_by_0: 928
+    metadata_bpfman.io/ProgramName: app-counter
+    metadata_bpfman.io/uuid: d4f51c6c-7ad6-4c7b-9b6d-fa23e97583d3
+    name: stats
+    program_bytes: [7F 45 4C 46 02 01 01 00 00 00 ...] (24304 bytes)
+    tc_attached: true
+    tc_current_position: 0
+    tc_direction: ingress
+    tc_if_index: 10
+    tc_iface: 812151909
+    tc_nsid: 4026533525
+    tc_priority: 55
+    tc_proceed_on_0: 3
+    tc_proceed_on_1: 30
+  Program:929
+    id: 929
+    kernel_btf_id: 274
+    kernel_bytes_jited: 114
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 168
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:04:36+0000
+    kernel_map_ids_0: 561
+    kernel_name: tcx_stats
+    kernel_program_type: BPF_PROG_TYPE_SCHED_CLS
+    kernel_tag: b0f1918a570daf83
+    kernel_verified_insns: 22
+    kind: 3
+    location_image_pull_policy: Always
+    location_image_url: quay.io/bpfman-bytecode/go-app-counter:latest
+    map_pin_path: /run/bpfman/fs/maps/929
+    maps_used_by_0: 929
+    metadata_bpfman.io/ProgramName: app-counter
+    metadata_bpfman.io/uuid: a0f78764-15ef-48bb-8e5d-a7793d2ed53d
+    name: tcx_stats
+    program_bytes: [7F 45 4C 46 02 01 01 00 00 00 ...] (24304 bytes)
+    tcx_current_position: 1
+    tcx_direction: ingress
+    tcx_if_index: 10
+    tcx_iface: 812151909
+    tcx_nsid: 4026533525
+    tcx_priority: 500
+  Program:930
+    id: 930
+    kernel_btf_id: 275
+    kernel_bytes_jited: 103
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 152
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:04:46+0000
+    kernel_map_ids_0: 580
+    kernel_map_ids_1: 592
+    kernel_name: uprobe_counter
+    kernel_program_type: BPF_PROG_TYPE_KPROBE
+    kernel_tag: dcb27b52d176007d
+    kernel_verified_insns: 19
+    kind: 2
+    location_image_pull_policy: IfNotPresent
+    location_image_url: quay.io/bpfman-bytecode/go-uprobe-counter:latest
+    map_pin_path: /run/bpfman/fs/maps/930
+    maps_used_by_0: 930
+    metadata_bpfman.io/ProgramName: go-uprobe-counter-example
+    metadata_bpfman.io/uuid: 0c107be6-34ab-499e-bfa1-4434501d489c
+    name: uprobe_counter
+    program_bytes: [7F 45 4C 46 02 01 01 00 00 00 ...] (6576 bytes)
+    uprobe_container_pid: 3015
+    uprobe_fn_name: main.getCount
+    uprobe_offset: 0
+    uprobe_retprobe: false
+    uprobe_target: /go-target
+  Program:946
+    id: 946
+    kernel_btf_id: 284
+    kernel_bytes_jited: 132
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 208
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:04:54+0000
+    kernel_map_ids_0: 600
+    kernel_map_ids_1: 599
+    kernel_name: uretprobe_count
+    kernel_program_type: BPF_PROG_TYPE_KPROBE
+    kernel_tag: c3a1af0d411ad5c2
+    kernel_verified_insns: 25
+    kind: 2
+    location_image_pull_policy: IfNotPresent
+    location_image_url: quay.io/bpfman-bytecode/go-uretprobe-counter:latest
+    map_pin_path: /run/bpfman/fs/maps/946
+    maps_used_by_0: 946
+    metadata_bpfman.io/ProgramName: go-uretprobe-counter-example
+    metadata_bpfman.io/uuid: 12d76569-fa3f-483b-8875-3c6ee9848b00
+    name: uretprobe_counter
+    program_bytes: [7F 45 4C 46 02 01 01 00 00 00 ...] (6992 bytes)
+    uprobe_container_pid: 3015
+    uprobe_fn_name: main.getCount
+    uprobe_offset: 0
+    uprobe_retprobe: true
+    uprobe_target: /go-target
+  Program:958
+    id: 958
+    kernel_btf_id: 293
+    kernel_bytes_jited: 103
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 152
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:05:01+0000
+    kernel_map_ids_0: 580
+    kernel_map_ids_1: 605
+    kernel_name: uprobe_counter
+    kernel_program_type: BPF_PROG_TYPE_KPROBE
+    kernel_tag: dcb27b52d176007d
+    kernel_verified_insns: 19
+    kind: 2
+    location_image_pull_policy: Always
+    location_image_url: quay.io/bpfman-bytecode/go-app-counter:latest
+    map_pin_path: /run/bpfman/fs/maps/958
+    maps_used_by_0: 958
+    metadata_bpfman.io/ProgramName: app-counter
+    metadata_bpfman.io/uuid: ac9403de-03c1-4624-ae20-c077b3949a03
+    name: uprobe_counter
+    program_bytes: [7F 45 4C 46 02 01 01 00 00 00 ...] (24304 bytes)
+    uprobe_container_pid: 3015
+    uprobe_fn_name: main.getCount
+    uprobe_offset: 0
+    uprobe_retprobe: false
+    uprobe_target: /go-target
+  Program:967
+    id: 967
+    kernel_btf_id: 304
+    kernel_bytes_jited: 112
+    kernel_bytes_memlock: 4096
+    kernel_bytes_xlated: 168
+    kernel_gpl_compatible: true
+    kernel_jited: true
+    kernel_loaded_at: 2025-01-28T18:05:05+0000
+    kernel_map_ids_0: 570
+    kernel_name: xdp_stats
+    kernel_program_type: BPF_PROG_TYPE_EXT
+    kernel_tag: 4d23a1d7f3618653
+    kernel_verified_insns: 21
+    kind: 6
+    location_image_pull_policy: Always
+    location_image_url: quay.io/bpfman-bytecode/go-app-counter:latest
+    map_pin_path: /run/bpfman/fs/maps/967
+    maps_used_by_0: 967
+    metadata_bpfman.io/ProgramName: app-counter
+    metadata_bpfman.io/uuid: 6f8ec954-8030-416a-aa97-12a45f4d1335
+    name: xdp_stats
+    program_bytes: [7F 45 4C 46 02 01 01 00 00 00 ...] (24304 bytes)
+    xdp_attached: true
+    xdp_current_position: 0
+    xdp_if_index: 10
+    xdp_iface: 812151909
+    xdp_nsid: 4026533525
+    xdp_priority: 55
+    xdp_proceed_on_0: 2
+    xdp_proceed_on_1: 31
+
+STORE:
+  IMAGES
+    quay.io_bpfman-bytecode_go-app-counter_latest24c28fb6352d8024fe8cb5c5bbe9c16b30dac3e47a317a1831a63d4cfb6d99cd: {
+          "architecture": "amd64",
+          "config": {
+            "Env": [
+              "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+            ],
+            "Labels": {
+              "io.ebpf.maps": "{\"tcx_stats_map\":\"per_cpu_array\",\"uprobe_stats_map\":\"per_cpu_array\",\"kprobe_stats_map\":\"per_cpu_array\",\"tc_stats_map\":\"per_cpu_array\",\"xdp_stats_map\":\"per_cpu_array\",\"tracepoint_stats_map\":\"per_cpu_array\"}",
+              "io.ebpf.programs": "{\"tracepoint_kill_recorder\":\"tracepoint\",\"tcx_stats\":\"tc\",\"uprobe_counter\":\"probe\",\"kprobe_counter\":\"probe\",\"xdp_stats\":\"xdp\",\"stats\":\"tc\"}",
+              "org.opencontainers.image.created": "2025-01-28T14:41:53.785Z",
+              "org.opencontainers.image.description": "An eBPF Manager for Linux and Kubernetes",
+              "org.opencontainers.image.licenses": "Apache-2.0",
+              "org.opencontainers.image.revision": "60a1fdbd2533c37e8034a210f8d6d3dad06a4a57",
+              "org.opencontainers.image.source": "https://github.com/bpfman/bpfman",
+              "org.opencontainers.image.title": "bpfman",
+              "org.opencontainers.image.url": "https://github.com/bpfman/bpfman",
+              "org.opencontainers.image.version": "main"
+            },
+            "WorkingDir": "/"
+          },
+          "created": "2025-01-28T14:42:02.278907758Z",
+          "history": [
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-28T14:42:02.278907758Z",
+              "created_by": "ARG BC_AMD64_EL=./examples/go-app-counter/bpf_x86_bpfel.o",
+              "empty_layer": true
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-28T14:42:02.278907758Z",
+              "created_by": "COPY ./examples/go-app-counter/bpf_x86_bpfel.o / # buildkit"
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-28T14:42:02.278907758Z",
+              "created_by": "ARG PROGRAMS={\"tracepoint_kill_recorder\":\"tracepoint\",\"tcx_stats\":\"tc\",\"uprobe_counter\":\"probe\",\"kprobe_counter\":\"probe\",\"xdp_stats\":\"xdp\",\"stats\":\"tc\"}",
+              "empty_layer": true
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-28T14:42:02.278907758Z",
+              "created_by": "ARG MAPS={\"tcx_stats_map\":\"per_cpu_array\",\"uprobe_stats_map\":\"per_cpu_array\",\"kprobe_stats_map\":\"per_cpu_array\",\"tc_stats_map\":\"per_cpu_array\",\"xdp_stats_map\":\"per_cpu_array\",\"tracepoint_stats_map\":\"per_cpu_array\"}",
+              "empty_layer": true
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-28T14:42:02.278907758Z",
+              "created_by": "LABEL io.ebpf.programs={\"tracepoint_kill_recorder\":\"tracepoint\",\"tcx_stats\":\"tc\",\"uprobe_counter\":\"probe\",\"kprobe_counter\":\"probe\",\"xdp_stats\":\"xdp\",\"stats\":\"tc\"}",
+              "empty_layer": true
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-28T14:42:02.278907758Z",
+              "created_by": "LABEL io.ebpf.maps={\"tcx_stats_map\":\"per_cpu_array\",\"uprobe_stats_map\":\"per_cpu_array\",\"kprobe_stats_map\":\"per_cpu_array\",\"tc_stats_map\":\"per_cpu_array\",\"xdp_stats_map\":\"per_cpu_array\",\"tracepoint_stats_map\":\"per_cpu_array\"}",
+              "empty_layer": true
+            }
+          ],
+          "os": "linux",
+          "rootfs": {
+            "diff_ids": [
+              "sha256:db6289ba98a49efd96e5fe7b9d2073d127eed04fbba0c6f3e29fc302c28de209"
+            ],
+            "type": "layers"
+          }
+        }
+    quay.io_bpfman-bytecode_go-app-counter_latest4c642acd65ea338ecff9bcc57485687fad48062074de50afcc035086d6704698: [1F 8B 08 00 00 00 00 00 00 FF ...] (8198 bytes)
+    quay.io_bpfman-bytecode_go-app-counter_latestmanifest.json: {
+          "config": {
+            "digest": "sha256:24c28fb6352d8024fe8cb5c5bbe9c16b30dac3e47a317a1831a63d4cfb6d99cd",
+            "mediaType": "application/vnd.oci.image.config.v1+json",
+            "size": 2879
+          },
+          "layers": [
+            {
+              "digest": "sha256:4c642acd65ea338ecff9bcc57485687fad48062074de50afcc035086d6704698",
+              "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip",
+              "size": 8198
+            }
+          ],
+          "mediaType": "application/vnd.oci.image.manifest.v1+json",
+          "schemaVersion": 2
+        }
+    quay.io_bpfman-bytecode_go-kprobe-counter_latest1a3e2fb912aed6a6773d34ea9711eb34cd4a90ff417eee2dea481bc9730c27bd: {
+          "architecture": "amd64",
+          "config": {
+            "Env": [
+              "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+            ],
+            "Labels": {
+              "io.ebpf.maps": "{\"kprobe_stats_map\":\"per_cpu_array\"}",
+              "io.ebpf.programs": "{\"kprobe_counter\":\"probe\"}",
+              "org.opencontainers.image.created": "2025-01-28T14:41:57.787Z",
+              "org.opencontainers.image.description": "An eBPF Manager for Linux and Kubernetes",
+              "org.opencontainers.image.licenses": "Apache-2.0",
+              "org.opencontainers.image.revision": "60a1fdbd2533c37e8034a210f8d6d3dad06a4a57",
+              "org.opencontainers.image.source": "https://github.com/bpfman/bpfman",
+              "org.opencontainers.image.title": "bpfman",
+              "org.opencontainers.image.url": "https://github.com/bpfman/bpfman",
+              "org.opencontainers.image.version": "main"
+            },
+            "WorkingDir": "/"
+          },
+          "created": "2025-01-28T14:42:06.032599161Z",
+          "history": [
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-28T14:42:06.032599161Z",
+              "created_by": "ARG BC_AMD64_EL=./examples/go-kprobe-counter/bpf_x86_bpfel.o",
+              "empty_layer": true
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-28T14:42:06.032599161Z",
+              "created_by": "COPY ./examples/go-kprobe-counter/bpf_x86_bpfel.o / # buildkit"
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-28T14:42:06.032599161Z",
+              "created_by": "ARG PROGRAMS={\"kprobe_counter\":\"probe\"}",
+              "empty_layer": true
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-28T14:42:06.032599161Z",
+              "created_by": "ARG MAPS={\"kprobe_stats_map\":\"per_cpu_array\"}",
+              "empty_layer": true
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-28T14:42:06.032599161Z",
+              "created_by": "LABEL io.ebpf.programs={\"kprobe_counter\":\"probe\"}",
+              "empty_layer": true
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-28T14:42:06.032599161Z",
+              "created_by": "LABEL io.ebpf.maps={\"kprobe_stats_map\":\"per_cpu_array\"}",
+              "empty_layer": true
+            }
+          ],
+          "os": "linux",
+          "rootfs": {
+            "diff_ids": [
+              "sha256:520dd7a5092ce644118961c0c2de3ffe2ed2dbb6b4a30e71a5d1cd19c9c676da"
+            ],
+            "type": "layers"
+          }
+        }
+    quay.io_bpfman-bytecode_go-kprobe-counter_lateste0a06cb819feacc11f6d5750899d7f65b5779e8e595fba8438a68cee0439126c: [1F 8B 08 00 00 00 00 00 00 FF ...] (2376 bytes)
+    quay.io_bpfman-bytecode_go-kprobe-counter_latestmanifest.json: {
+          "config": {
+            "digest": "sha256:1a3e2fb912aed6a6773d34ea9711eb34cd4a90ff417eee2dea481bc9730c27bd",
+            "mediaType": "application/vnd.oci.image.config.v1+json",
+            "size": 1919
+          },
+          "layers": [
+            {
+              "digest": "sha256:e0a06cb819feacc11f6d5750899d7f65b5779e8e595fba8438a68cee0439126c",
+              "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip",
+              "size": 2376
+            }
+          ],
+          "mediaType": "application/vnd.oci.image.manifest.v1+json",
+          "schemaVersion": 2
+        }
+    quay.io_bpfman-bytecode_go-tc-counter_latest24c51c3cd229c3dabce5558b28bc4978e5b1220fa46de915ea37dfe98c409ace: [1F 8B 08 00 00 00 00 00 00 FF ...] (4142 bytes)
+    quay.io_bpfman-bytecode_go-tc-counter_latest7e38e53e73ba9d83fd920b5f38ceeca3bb9e38feb5a92ffc0b0debe398b9f12d: {
+          "architecture": "amd64",
+          "config": {
+            "Env": [
+              "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+            ],
+            "Labels": {
+              "io.ebpf.maps": "{\"tc_stats_map\":\"per_cpu_array\"}",
+              "io.ebpf.programs": "{\"stats\":\"tc\"}",
+              "org.opencontainers.image.created": "2025-01-28T14:41:51.647Z",
+              "org.opencontainers.image.description": "An eBPF Manager for Linux and Kubernetes",
+              "org.opencontainers.image.licenses": "Apache-2.0",
+              "org.opencontainers.image.revision": "60a1fdbd2533c37e8034a210f8d6d3dad06a4a57",
+              "org.opencontainers.image.source": "https://github.com/bpfman/bpfman",
+              "org.opencontainers.image.title": "bpfman",
+              "org.opencontainers.image.url": "https://github.com/bpfman/bpfman",
+              "org.opencontainers.image.version": "main"
+            },
+            "WorkingDir": "/"
+          },
+          "created": "2025-01-28T14:41:59.975622773Z",
+          "history": [
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-28T14:41:59.975622773Z",
+              "created_by": "ARG BC_AMD64_EL=./examples/go-tc-counter/bpf_x86_bpfel.o",
+              "empty_layer": true
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-28T14:41:59.975622773Z",
+              "created_by": "COPY ./examples/go-tc-counter/bpf_x86_bpfel.o / # buildkit"
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-28T14:41:59.975622773Z",
+              "created_by": "ARG PROGRAMS={\"stats\":\"tc\"}",
+              "empty_layer": true
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-28T14:41:59.975622773Z",
+              "created_by": "ARG MAPS={\"tc_stats_map\":\"per_cpu_array\"}",
+              "empty_layer": true
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-28T14:41:59.975622773Z",
+              "created_by": "LABEL io.ebpf.programs={\"stats\":\"tc\"}",
+              "empty_layer": true
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-28T14:41:59.975622773Z",
+              "created_by": "LABEL io.ebpf.maps={\"tc_stats_map\":\"per_cpu_array\"}",
+              "empty_layer": true
+            }
+          ],
+          "os": "linux",
+          "rootfs": {
+            "diff_ids": [
+              "sha256:379a93c2c47f56925a2ca53288b8f2fa463e4febefb55d50f7d9edd24ca8ed3f"
+            ],
+            "type": "layers"
+          }
+        }
+    quay.io_bpfman-bytecode_go-tc-counter_latestmanifest.json: {
+          "config": {
+            "digest": "sha256:7e38e53e73ba9d83fd920b5f38ceeca3bb9e38feb5a92ffc0b0debe398b9f12d",
+            "mediaType": "application/vnd.oci.image.config.v1+json",
+            "size": 1863
+          },
+          "layers": [
+            {
+              "digest": "sha256:24c51c3cd229c3dabce5558b28bc4978e5b1220fa46de915ea37dfe98c409ace",
+              "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip",
+              "size": 4142
+            }
+          ],
+          "mediaType": "application/vnd.oci.image.manifest.v1+json",
+          "schemaVersion": 2
+        }
+    quay.io_bpfman-bytecode_go-tcx-counter_latest2dcd0df05052914e5df42647236ee6c91df984a1506e35cd40999f6971b8f81c: {
+          "architecture": "amd64",
+          "config": {
+            "Env": [
+              "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+            ],
+            "Labels": {
+              "io.ebpf.maps": "{\"tcx_stats_map\":\"per_cpu_array\"}",
+              "io.ebpf.programs": "{\"tcx_stats\":\"tc\"}",
+              "org.opencontainers.image.created": "2025-01-28T14:41:50.130Z",
+              "org.opencontainers.image.description": "An eBPF Manager for Linux and Kubernetes",
+              "org.opencontainers.image.licenses": "Apache-2.0",
+              "org.opencontainers.image.revision": "60a1fdbd2533c37e8034a210f8d6d3dad06a4a57",
+              "org.opencontainers.image.source": "https://github.com/bpfman/bpfman",
+              "org.opencontainers.image.title": "bpfman",
+              "org.opencontainers.image.url": "https://github.com/bpfman/bpfman",
+              "org.opencontainers.image.version": "main"
+            },
+            "WorkingDir": "/"
+          },
+          "created": "2025-01-28T14:41:58.302941674Z",
+          "history": [
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-28T14:41:58.302941674Z",
+              "created_by": "ARG BC_AMD64_EL=./examples/go-tcx-counter/bpf_x86_bpfel.o",
+              "empty_layer": true
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-28T14:41:58.302941674Z",
+              "created_by": "COPY ./examples/go-tcx-counter/bpf_x86_bpfel.o / # buildkit"
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-28T14:41:58.302941674Z",
+              "created_by": "ARG PROGRAMS={\"tcx_stats\":\"tc\"}",
+              "empty_layer": true
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-28T14:41:58.302941674Z",
+              "created_by": "ARG MAPS={\"tcx_stats_map\":\"per_cpu_array\"}",
+              "empty_layer": true
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-28T14:41:58.302941674Z",
+              "created_by": "LABEL io.ebpf.programs={\"tcx_stats\":\"tc\"}",
+              "empty_layer": true
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-28T14:41:58.302941674Z",
+              "created_by": "LABEL io.ebpf.maps={\"tcx_stats_map\":\"per_cpu_array\"}",
+              "empty_layer": true
+            }
+          ],
+          "os": "linux",
+          "rootfs": {
+            "diff_ids": [
+              "sha256:2cf687be9a79f8f8fa2b23716dc2137172c19ecb17d47808ed3c244fbd6df6b6"
+            ],
+            "type": "layers"
+          }
+        }
+    quay.io_bpfman-bytecode_go-tcx-counter_latestb30d9af7dc2732800e5244580cac9e084c30a76d7db44b1c532b8b8eb5716638: [1F 8B 08 00 00 00 00 00 00 FF ...] (4487 bytes)
+    quay.io_bpfman-bytecode_go-tcx-counter_latestmanifest.json: {
+          "config": {
+            "digest": "sha256:2dcd0df05052914e5df42647236ee6c91df984a1506e35cd40999f6971b8f81c",
+            "mediaType": "application/vnd.oci.image.config.v1+json",
+            "size": 1880
+          },
+          "layers": [
+            {
+              "digest": "sha256:b30d9af7dc2732800e5244580cac9e084c30a76d7db44b1c532b8b8eb5716638",
+              "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip",
+              "size": 4487
+            }
+          ],
+          "mediaType": "application/vnd.oci.image.manifest.v1+json",
+          "schemaVersion": 2
+        }
+    quay.io_bpfman-bytecode_go-tracepoint-counter_latest38f33864de7901a50407b52b00e51adaa9c997b6d8f435c19acf7283374003af: {
+          "architecture": "amd64",
+          "config": {
+            "Env": [
+              "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+            ],
+            "Labels": {
+              "io.ebpf.maps": "{\"tracepoint_stats_map\":\"per_cpu_array\"}",
+              "io.ebpf.programs": "{\"tracepoint_kill_recorder\":\"tracepoint\"}",
+              "org.opencontainers.image.created": "2025-01-28T14:41:52.146Z",
+              "org.opencontainers.image.description": "An eBPF Manager for Linux and Kubernetes",
+              "org.opencontainers.image.licenses": "Apache-2.0",
+              "org.opencontainers.image.revision": "60a1fdbd2533c37e8034a210f8d6d3dad06a4a57",
+              "org.opencontainers.image.source": "https://github.com/bpfman/bpfman",
+              "org.opencontainers.image.title": "bpfman",
+              "org.opencontainers.image.url": "https://github.com/bpfman/bpfman",
+              "org.opencontainers.image.version": "main"
+            },
+            "WorkingDir": "/"
+          },
+          "created": "2025-01-28T14:42:01.56392593Z",
+          "history": [
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-28T14:42:01.56392593Z",
+              "created_by": "ARG BC_AMD64_EL=./examples/go-tracepoint-counter/bpf_x86_bpfel.o",
+              "empty_layer": true
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-28T14:42:01.56392593Z",
+              "created_by": "COPY ./examples/go-tracepoint-counter/bpf_x86_bpfel.o / # buildkit"
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-28T14:42:01.56392593Z",
+              "created_by": "ARG PROGRAMS={\"tracepoint_kill_recorder\":\"tracepoint\"}",
+              "empty_layer": true
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-28T14:42:01.56392593Z",
+              "created_by": "ARG MAPS={\"tracepoint_stats_map\":\"per_cpu_array\"}",
+              "empty_layer": true
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-28T14:42:01.56392593Z",
+              "created_by": "LABEL io.ebpf.programs={\"tracepoint_kill_recorder\":\"tracepoint\"}",
+              "empty_layer": true
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-28T14:42:01.56392593Z",
+              "created_by": "LABEL io.ebpf.maps={\"tracepoint_stats_map\":\"per_cpu_array\"}",
+              "empty_layer": true
+            }
+          ],
+          "os": "linux",
+          "rootfs": {
+            "diff_ids": [
+              "sha256:a13b30ed8b205b78bfcd70e69ad9e1cad494fa449568328fffe4bd61cf805d51"
+            ],
+            "type": "layers"
+          }
+        }
+    quay.io_bpfman-bytecode_go-tracepoint-counter_latestd949915f483422230c9c58db414c9a4096ebceef13ea2ee496ebe102335be590: [1F 8B 08 00 00 00 00 00 00 FF ...] (2596 bytes)
+    quay.io_bpfman-bytecode_go-tracepoint-counter_latestmanifest.json: {
+          "config": {
+            "digest": "sha256:38f33864de7901a50407b52b00e51adaa9c997b6d8f435c19acf7283374003af",
+            "mediaType": "application/vnd.oci.image.config.v1+json",
+            "size": 1977
+          },
+          "layers": [
+            {
+              "digest": "sha256:d949915f483422230c9c58db414c9a4096ebceef13ea2ee496ebe102335be590",
+              "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip",
+              "size": 2596
+            }
+          ],
+          "mediaType": "application/vnd.oci.image.manifest.v1+json",
+          "schemaVersion": 2
+        }
+    quay.io_bpfman-bytecode_go-uprobe-counter_latestb542f92421972bdce3adcd76119601721acfb786334bff52c8b948164829f271: {
+          "architecture": "amd64",
+          "config": {
+            "Env": [
+              "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+            ],
+            "Labels": {
+              "io.ebpf.maps": "{\"uprobe_stats_map\":\"per_cpu_array\"}",
+              "io.ebpf.programs": "{\"uprobe_counter\":\"probe\"}",
+              "org.opencontainers.image.created": "2025-01-28T14:41:44.956Z",
+              "org.opencontainers.image.description": "An eBPF Manager for Linux and Kubernetes",
+              "org.opencontainers.image.licenses": "Apache-2.0",
+              "org.opencontainers.image.revision": "60a1fdbd2533c37e8034a210f8d6d3dad06a4a57",
+              "org.opencontainers.image.source": "https://github.com/bpfman/bpfman",
+              "org.opencontainers.image.title": "bpfman",
+              "org.opencontainers.image.url": "https://github.com/bpfman/bpfman",
+              "org.opencontainers.image.version": "main"
+            },
+            "WorkingDir": "/"
+          },
+          "created": "2025-01-28T14:41:52.999272454Z",
+          "history": [
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-28T14:41:52.999272454Z",
+              "created_by": "ARG BC_AMD64_EL=./examples/go-uprobe-counter/bpf_x86_bpfel.o",
+              "empty_layer": true
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-28T14:41:52.999272454Z",
+              "created_by": "COPY ./examples/go-uprobe-counter/bpf_x86_bpfel.o / # buildkit"
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-28T14:41:52.999272454Z",
+              "created_by": "ARG PROGRAMS={\"uprobe_counter\":\"probe\"}",
+              "empty_layer": true
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-28T14:41:52.999272454Z",
+              "created_by": "ARG MAPS={\"uprobe_stats_map\":\"per_cpu_array\"}",
+              "empty_layer": true
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-28T14:41:52.999272454Z",
+              "created_by": "LABEL io.ebpf.programs={\"uprobe_counter\":\"probe\"}",
+              "empty_layer": true
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-28T14:41:52.999272454Z",
+              "created_by": "LABEL io.ebpf.maps={\"uprobe_stats_map\":\"per_cpu_array\"}",
+              "empty_layer": true
+            }
+          ],
+          "os": "linux",
+          "rootfs": {
+            "diff_ids": [
+              "sha256:e865571b1cec39f6d2497a436ddbd47b3c31b0464979b177c5f68b6449e547e3"
+            ],
+            "type": "layers"
+          }
+        }
+    quay.io_bpfman-bytecode_go-uprobe-counter_lateste20e2cefd42d03c64ff7f1e013327666bdf4fb28b9bb9a9b5053ae7b0a694ab0: [1F 8B 08 00 00 00 00 00 00 FF ...] (2377 bytes)
+    quay.io_bpfman-bytecode_go-uprobe-counter_latestmanifest.json: {
+          "config": {
+            "digest": "sha256:b542f92421972bdce3adcd76119601721acfb786334bff52c8b948164829f271",
+            "mediaType": "application/vnd.oci.image.config.v1+json",
+            "size": 1919
+          },
+          "layers": [
+            {
+              "digest": "sha256:e20e2cefd42d03c64ff7f1e013327666bdf4fb28b9bb9a9b5053ae7b0a694ab0",
+              "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip",
+              "size": 2377
+            }
+          ],
+          "mediaType": "application/vnd.oci.image.manifest.v1+json",
+          "schemaVersion": 2
+        }
+    quay.io_bpfman-bytecode_go-uretprobe-counter_latest28dc5fbfdfafbfc11adb279510238090d399c50112ea54d7cffa2efe2d100dd3: {
+          "architecture": "amd64",
+          "config": {
+            "Env": [
+              "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+            ],
+            "Labels": {
+              "io.ebpf.maps": "{\"uretprobe_stats_map\":\"per_cpu_array\"}",
+              "io.ebpf.programs": "{\"uretprobe_counter\":\"probe\"}",
+              "org.opencontainers.image.created": "2025-01-28T14:42:10.652Z",
+              "org.opencontainers.image.description": "An eBPF Manager for Linux and Kubernetes",
+              "org.opencontainers.image.licenses": "Apache-2.0",
+              "org.opencontainers.image.revision": "60a1fdbd2533c37e8034a210f8d6d3dad06a4a57",
+              "org.opencontainers.image.source": "https://github.com/bpfman/bpfman",
+              "org.opencontainers.image.title": "bpfman",
+              "org.opencontainers.image.url": "https://github.com/bpfman/bpfman",
+              "org.opencontainers.image.version": "main"
+            },
+            "WorkingDir": "/"
+          },
+          "created": "2025-01-28T14:42:21.492124579Z",
+          "history": [
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-28T14:42:21.492124579Z",
+              "created_by": "ARG BC_AMD64_EL=./examples/go-uretprobe-counter/bpf_x86_bpfel.o",
+              "empty_layer": true
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-28T14:42:21.492124579Z",
+              "created_by": "COPY ./examples/go-uretprobe-counter/bpf_x86_bpfel.o / # buildkit"
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-28T14:42:21.492124579Z",
+              "created_by": "ARG PROGRAMS={\"uretprobe_counter\":\"probe\"}",
+              "empty_layer": true
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-28T14:42:21.492124579Z",
+              "created_by": "ARG MAPS={\"uretprobe_stats_map\":\"per_cpu_array\"}",
+              "empty_layer": true
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-28T14:42:21.492124579Z",
+              "created_by": "LABEL io.ebpf.programs={\"uretprobe_counter\":\"probe\"}",
+              "empty_layer": true
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-28T14:42:21.492124579Z",
+              "created_by": "LABEL io.ebpf.maps={\"uretprobe_stats_map\":\"per_cpu_array\"}",
+              "empty_layer": true
+            }
+          ],
+          "os": "linux",
+          "rootfs": {
+            "diff_ids": [
+              "sha256:a3c3626077d8b0f9f68fcbc1dd44934056c6dc2acd2743d4d72e2fab22e99518"
+            ],
+            "type": "layers"
+          }
+        }
+    quay.io_bpfman-bytecode_go-uretprobe-counter_latest707f56c88ba58601c81352019a816255c350b81c1c3427cb8032d46081161f2a: [1F 8B 08 00 00 00 00 00 00 FF ...] (2563 bytes)
+    quay.io_bpfman-bytecode_go-uretprobe-counter_latestmanifest.json: {
+          "config": {
+            "digest": "sha256:28dc5fbfdfafbfc11adb279510238090d399c50112ea54d7cffa2efe2d100dd3",
+            "mediaType": "application/vnd.oci.image.config.v1+json",
+            "size": 1943
+          },
+          "layers": [
+            {
+              "digest": "sha256:707f56c88ba58601c81352019a816255c350b81c1c3427cb8032d46081161f2a",
+              "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip",
+              "size": 2563
+            }
+          ],
+          "mediaType": "application/vnd.oci.image.manifest.v1+json",
+          "schemaVersion": 2
+        }
+    quay.io_bpfman-bytecode_go-xdp-counter_latest23960b7cd6ed7de46b452f56c77c25d71ac16064e6836306a702191527869301: [1F 8B 08 00 00 00 00 00 00 FF ...] (2885 bytes)
+    quay.io_bpfman-bytecode_go-xdp-counter_latestc284589db7e34e6386b0f58e5e153168df430aaef76b92acbe6e046a1c4db770: {
+          "architecture": "amd64",
+          "config": {
+            "Env": [
+              "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+            ],
+            "Labels": {
+              "io.ebpf.maps": "{\"xdp_stats_map\":\"per_cpu_array\"}",
+              "io.ebpf.programs": "{\"xdp_stats\":\"xdp\"}",
+              "org.opencontainers.image.created": "2025-01-28T14:41:54.200Z",
+              "org.opencontainers.image.description": "An eBPF Manager for Linux and Kubernetes",
+              "org.opencontainers.image.licenses": "Apache-2.0",
+              "org.opencontainers.image.revision": "60a1fdbd2533c37e8034a210f8d6d3dad06a4a57",
+              "org.opencontainers.image.source": "https://github.com/bpfman/bpfman",
+              "org.opencontainers.image.title": "bpfman",
+              "org.opencontainers.image.url": "https://github.com/bpfman/bpfman",
+              "org.opencontainers.image.version": "main"
+            },
+            "WorkingDir": "/"
+          },
+          "created": "2025-01-28T14:42:02.583449696Z",
+          "history": [
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-28T14:42:02.583449696Z",
+              "created_by": "ARG BC_AMD64_EL=./examples/go-xdp-counter/bpf_x86_bpfel.o",
+              "empty_layer": true
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-28T14:42:02.583449696Z",
+              "created_by": "COPY ./examples/go-xdp-counter/bpf_x86_bpfel.o / # buildkit"
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-28T14:42:02.583449696Z",
+              "created_by": "ARG PROGRAMS={\"xdp_stats\":\"xdp\"}",
+              "empty_layer": true
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-28T14:42:02.583449696Z",
+              "created_by": "ARG MAPS={\"xdp_stats_map\":\"per_cpu_array\"}",
+              "empty_layer": true
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-28T14:42:02.583449696Z",
+              "created_by": "LABEL io.ebpf.programs={\"xdp_stats\":\"xdp\"}",
+              "empty_layer": true
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-28T14:42:02.583449696Z",
+              "created_by": "LABEL io.ebpf.maps={\"xdp_stats_map\":\"per_cpu_array\"}",
+              "empty_layer": true
+            }
+          ],
+          "os": "linux",
+          "rootfs": {
+            "diff_ids": [
+              "sha256:d07ac2b04353fed0ebdd94c3de36af37cd1dd54dd4fe8c8ec53ee567322ce1d2"
+            ],
+            "type": "layers"
+          }
+        }
+    quay.io_bpfman-bytecode_go-xdp-counter_latestmanifest.json: {
+          "config": {
+            "digest": "sha256:c284589db7e34e6386b0f58e5e153168df430aaef76b92acbe6e046a1c4db770",
+            "mediaType": "application/vnd.oci.image.config.v1+json",
+            "size": 1883
+          },
+          "layers": [
+            {
+              "digest": "sha256:23960b7cd6ed7de46b452f56c77c25d71ac16064e6836306a702191527869301",
+              "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip",
+              "size": 2885
+            }
+          ],
+          "mediaType": "application/vnd.oci.image.manifest.v1+json",
+          "schemaVersion": 2
+        }
+    quay.io_bpfman_tc-dispatcher_sha256:daa5b8d936caf3a8c94c19592cee7f55445d1e38addfd8d3af846873b8ffc83174644a3c1ab31c9b191218b40616140a423ebca2f22f5a71f2012bebe4dcc221: [1F 8B 08 00 00 00 00 00 00 FF ...] (6496 bytes)
+    quay.io_bpfman_tc-dispatcher_sha256:daa5b8d936caf3a8c94c19592cee7f55445d1e38addfd8d3af846873b8ffc831b381c1340a48afdfc504ae74285ee8a2bbdf2be33f9cfb5a9ca6141408d44e3c: {
+          "architecture": "amd64",
+          "config": {
+            "Env": [
+              "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+            ],
+            "Labels": {
+              "io.ebpf.maps": "{}",
+              "io.ebpf.programs": "{\"tc_dispatcher\":\"tc\"}",
+              "org.opencontainers.image.created": "2025-01-03T15:58:35.477Z",
+              "org.opencontainers.image.description": "An eBPF Manager for Linux and Kubernetes",
+              "org.opencontainers.image.licenses": "Apache-2.0",
+              "org.opencontainers.image.revision": "c04fe6d4c4831e019a1cf9247dd9e3b7a0acb778",
+              "org.opencontainers.image.source": "https://github.com/bpfman/bpfman",
+              "org.opencontainers.image.title": "bpfman",
+              "org.opencontainers.image.url": "https://github.com/bpfman/bpfman",
+              "org.opencontainers.image.version": "main"
+            },
+            "WorkingDir": "/"
+          },
+          "created": "2025-01-03T15:58:44.005902177Z",
+          "history": [
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-03T15:58:44.005902177Z",
+              "created_by": "ARG BC_AMD64_EL=./.output/tc_dispatcher.bpf/bpf_x86_bpfel.o",
+              "empty_layer": true
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-03T15:58:44.005902177Z",
+              "created_by": "COPY ./.output/tc_dispatcher.bpf/bpf_x86_bpfel.o / # buildkit"
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-03T15:58:44.005902177Z",
+              "created_by": "ARG PROGRAMS={\"tc_dispatcher\":\"tc\"}",
+              "empty_layer": true
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-03T15:58:44.005902177Z",
+              "created_by": "ARG MAPS={}",
+              "empty_layer": true
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-03T15:58:44.005902177Z",
+              "created_by": "LABEL io.ebpf.programs={\"tc_dispatcher\":\"tc\"}",
+              "empty_layer": true
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-03T15:58:44.005902177Z",
+              "created_by": "LABEL io.ebpf.maps={}",
+              "empty_layer": true
+            }
+          ],
+          "os": "linux",
+          "rootfs": {
+            "diff_ids": [
+              "sha256:25f19479d40da30d8198aa6f0641cf04b0972a64ea03ec809d35ff99377f01d9"
+            ],
+            "type": "layers"
+          }
+        }
+    quay.io_bpfman_tc-dispatcher_sha256:daa5b8d936caf3a8c94c19592cee7f55445d1e38addfd8d3af846873b8ffc831manifest.json: {
+          "config": {
+            "digest": "sha256:b381c1340a48afdfc504ae74285ee8a2bbdf2be33f9cfb5a9ca6141408d44e3c",
+            "mediaType": "application/vnd.oci.image.config.v1+json",
+            "size": 1791
+          },
+          "layers": [
+            {
+              "digest": "sha256:74644a3c1ab31c9b191218b40616140a423ebca2f22f5a71f2012bebe4dcc221",
+              "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip",
+              "size": 6496
+            }
+          ],
+          "mediaType": "application/vnd.oci.image.manifest.v1+json",
+          "schemaVersion": 2
+        }
+    quay.io_bpfman_xdp-dispatcher_sha256:61c34aa2df86d3069aa3c53569134466203c6227c5333f2e45c906cd02e729206ac9fc0b5d064b3399894009dd31e134ad70a9e5113f8ee672195a19be869986: {
+          "architecture": "amd64",
+          "config": {
+            "Env": [
+              "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+            ],
+            "Labels": {
+              "io.ebpf.maps": "{}",
+              "io.ebpf.programs": "{\"xdp_dispatcher\":\"xdp\"}",
+              "org.opencontainers.image.created": "2025-01-03T15:59:53.875Z",
+              "org.opencontainers.image.description": "An eBPF Manager for Linux and Kubernetes",
+              "org.opencontainers.image.licenses": "Apache-2.0",
+              "org.opencontainers.image.revision": "c04fe6d4c4831e019a1cf9247dd9e3b7a0acb778",
+              "org.opencontainers.image.source": "https://github.com/bpfman/bpfman",
+              "org.opencontainers.image.title": "bpfman",
+              "org.opencontainers.image.url": "https://github.com/bpfman/bpfman",
+              "org.opencontainers.image.version": "main"
+            },
+            "WorkingDir": "/"
+          },
+          "created": "2025-01-03T16:00:08.004201061Z",
+          "history": [
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-03T16:00:08.004201061Z",
+              "created_by": "ARG BC_AMD64_EL=./.output/xdp_dispatcher_v2.bpf/bpf_x86_bpfel.o",
+              "empty_layer": true
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-03T16:00:08.004201061Z",
+              "created_by": "COPY ./.output/xdp_dispatcher_v2.bpf/bpf_x86_bpfel.o / # buildkit"
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-03T16:00:08.004201061Z",
+              "created_by": "ARG PROGRAMS={\"xdp_dispatcher\":\"xdp\"}",
+              "empty_layer": true
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-03T16:00:08.004201061Z",
+              "created_by": "ARG MAPS={}",
+              "empty_layer": true
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-03T16:00:08.004201061Z",
+              "created_by": "LABEL io.ebpf.programs={\"xdp_dispatcher\":\"xdp\"}",
+              "empty_layer": true
+            },
+            {
+              "comment": "buildkit.dockerfile.v0",
+              "created": "2025-01-03T16:00:08.004201061Z",
+              "created_by": "LABEL io.ebpf.maps={}",
+              "empty_layer": true
+            }
+          ],
+          "os": "linux",
+          "rootfs": {
+            "diff_ids": [
+              "sha256:de5c2e12611f19279fedfa1b9d56f40848e82b203bedee358e77e13e001ad642"
+            ],
+            "type": "layers"
+          }
+        }
+    quay.io_bpfman_xdp-dispatcher_sha256:61c34aa2df86d3069aa3c53569134466203c6227c5333f2e45c906cd02e72920cbc600325895fc99bcd63d45bcfce0f76aaabdc3046f8445014c8c204a630063: [1F 8B 08 00 00 00 00 00 00 FF ...] (5139 bytes)
+    quay.io_bpfman_xdp-dispatcher_sha256:61c34aa2df86d3069aa3c53569134466203c6227c5333f2e45c906cd02e72920manifest.json: {
+          "config": {
+            "digest": "sha256:6ac9fc0b5d064b3399894009dd31e134ad70a9e5113f8ee672195a19be869986",
+            "mediaType": "application/vnd.oci.image.config.v1+json",
+            "size": 1805
+          },
+          "layers": [
+            {
+              "digest": "sha256:cbc600325895fc99bcd63d45bcfce0f76aaabdc3046f8445014c8c204a630063",
+              "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip",
+              "size": 5139
+            }
+          ],
+          "mediaType": "application/vnd.oci.image.manifest.v1+json",
+          "schemaVersion": 2
+        }
+
+Traffic Control Dispatchers:
+  TrafficControlDispatcher:4026533525/10/ingress/2
+    direction: 1
+    handle: 2
+    if_index: 10
+    if_name: 812151909
+    nsid: 4026533525
+    num_extension: 2
+    priority: 2 
+    program_name: tc_dispatcher
+    revision: 2
+
+XDP Dispatchers:
+  XDPDispatcher:4026533525/10/3
+    if_index: 10
+    if_name: 812151909
+    mode: 1
+    nsid: 4026533525
+    num_extension: 3
+    program_name: xdp_dispatcher
+    revision: 3

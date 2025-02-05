@@ -1,0 +1,70 @@
+# Use bash for shell commands
+set shell := ["bash", "-c"]
+
+# Define the BPF filesystem path
+BPF_FS := "/sys/fs/bpf"
+
+# Default program type (for networking).
+DEFAULT_TYPE := "xdp"
+
+build:
+    make build
+    go build ./cmd/reader
+    go build ./cmd/simple
+    go build ./cmd/reader-v2
+
+load path="bpf/stats.o":
+    sudo bpftool prog load "{{ path }}" "{{ BPF_FS }}/$(basename {{ path }} .o)_prog" autoattach
+
+trace:
+    sudo cat /sys/kernel/debug/tracing/trace_pipe
+
+pin-stats-map:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    map_id=$(sudo bpftool map show --json | jq -r '.[] | select(.name=="stats_map") | .id')
+    sudo bpftool map pin id $map_id /sys/fs/bpf/stats_map
+
+unpin-stats-map:
+    rm -f /sys/fs/bpf/stats_map
+
+dump-stats-map:
+    sudo bpftool map dump name stats_map
+
+reset:
+    sudo rm -f /sys/fs/bpf/stats*
+    sudo bpftool link show
+
+status:
+    @echo "=== Stats Program ==="
+    sudo bpftool prog show name count_context_switches
+    @echo "=== Stats Map ==="
+    sudo bpftool map show name stats_map
+    @echo "=== Stats Links ==="
+    sudo bpftool link list | grep sched_switch
+
+# Setup everything for the simple reader.
+setup-simple: build
+    #!/usr/bin/env bash
+    set -euo pipefail
+    sudo rm -f {{ BPF_FS }}/stats_{map,prog,link}
+    sudo bpftool prog load bpf/stats.o {{ BPF_FS }}/stats_prog autoattach
+    sudo bpftool link show
+    # map_id=$(sudo bpftool map show --json | jq -r '.[] | select(.name=="stats_map") | .id')
+    # sudo bpftool map pin id $map_id /sys/fs/bpf/stats_map
+    sudo bpftool map pin name stats_map /sys/fs/bpf/stats_map
+
+run-simple: build
+    sudo ./simple
+
+run-reader: build
+    sudo ./reader
+
+run-reader-v2: build
+    sudo ./reader-v2
+
+link-show:
+    sudo bpftool link show
+
+prog-show:
+    sudo bpftool prog show

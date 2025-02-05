@@ -1,0 +1,11 @@
+{
+    BasedOnStyle: LLVM,
+    IndentWidth: 8,
+    UseTab: Always,
+    TabWidth: 8,
+    ColumnLimit: 80,
+    AllowShortFunctionsOnASingleLine: None,
+    SortIncludes: false,
+    ReflowComments: true,
+    BreakBeforeBraces: Linux
+}

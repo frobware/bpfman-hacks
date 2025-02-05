@@ -1,1 +1,8 @@
 /bsd/.direnv/
+/stats/.direnv/
+/stats/stats-reader
+/stats/reader
+/stats/simple
+/stats/reader-v2
+/stats/bpf/vmlinux.h
+

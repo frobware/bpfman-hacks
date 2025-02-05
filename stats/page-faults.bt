@@ -1,0 +1,33 @@
+#!/usr/bin/env bpftrace
+
+BEGIN
+{
+	printf("Tracking page faults for '%s'... Hit Ctrl-C to end.\n", str($1));
+}
+
+// Track both major and minor page faults
+// error_code bit 0: 0=non-present page (major fault), 1=protection violation (minor fault)
+tracepoint:exceptions:page_fault_user
+/comm == str($1)/
+{
+	if (args.error_code & 1) {
+		@minor++;
+	} else {
+		@major++;
+	}
+}
+
+interval:s:1
+{
+	if (@minor || @major) {
+		printf("%s: Minor: %5d, Major: %5d\n", str($1), @minor, @major);
+		clear(@minor);
+		clear(@major);
+	}
+}
+
+END
+{
+	clear(@minor);
+	clear(@major);
+}

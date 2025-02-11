@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+#
+# Displays all maps that a given program <prog-id> uses.
+
+set -euo pipefail
+
+if [ $# -ne 2 ]; then
+    echo "Usage: ${0##*/} <db> <prog-id>" >&2
+    exit 1
+fi
+
+prog_id="$2"
+
+sqlite3 "$1" <<EOF
+.mode column
+.headers on
+SELECT m.id AS map_id,
+       m.name AS map_name,
+       m.type AS map_type
+FROM BPFMap m
+JOIN BPFProgramMap pm ON pm.map_id = m.id
+WHERE pm.program_id = $prog_id;
+EOF

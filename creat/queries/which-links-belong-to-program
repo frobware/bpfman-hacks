@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+#
+# Lists BPF links that belong to the given program <prog-id>.
+
+set -euo pipefail
+
+if [ $# -ne 2 ]; then
+    echo "Usage: ${0##*/} <db> <prog-id>" >&2
+    exit 1
+fi
+
+prog_id="$2"
+
+sqlite3 "$1" <<EOF
+.mode column
+.headers on
+SELECT id AS link_id,
+       path,
+       event,
+       attach_type
+FROM BPFLink
+WHERE program_id = $prog_id;
+EOF

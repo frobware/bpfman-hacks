@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+#
+# shared-maps.sh
+#
+# Displays maps that are referenced by more than one program.
+
+set -euo pipefail
+
+if [ $# -ne 1 ]; then
+    echo "Usage: ${0##*/} <db>" >&2
+    exit 1
+fi
+
+sqlite3 "$1" <<EOF
+.mode column
+.headers on
+SELECT m.id AS shared_map_id,
+       m.name AS map_name,
+       COUNT(pm.program_id) AS program_count
+FROM BPFMap m
+JOIN BPFProgramMap pm ON pm.map_id = m.id
+GROUP BY m.id
+HAVING COUNT(pm.program_id) > 1
+ORDER BY program_count DESC;
+EOF

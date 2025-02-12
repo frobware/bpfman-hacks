@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+rm foo.db; cargo run --bin main -- foo.db

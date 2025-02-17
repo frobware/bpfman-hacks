@@ -1,18 +1,19 @@
-use anyhow::Result;
+use anyhow::Error;
 use diesel::prelude::*;
 use diesel::sqlite::SqliteConnection;
-use diesel_migrations::MigrationHarness;
-use s2s::models::{BpfLink, BpfMap, BpfProgram, BpfProgramMap};
+use s2s::{
+    establish_connection,
+    models::{BpfLink, BpfMap, BpfProgram, BpfProgramMap},
+};
 
-fn main() -> Result<()> {
-    let db_file = std::env::args().nth(1).expect("Usage: <PROGRAM> <DB file>");
-    let mut conn = SqliteConnection::establish(&db_file).expect("Error connecting to database");
+fn main() -> Result<(), Error> {
+    let db_file = std::env::args().nth(1).unwrap_or_else(|| {
+        eprintln!("Usage: <filename.db>");
+        std::process::exit(1);
+    });
 
-    // Run pending migrations.
-    let migrations = diesel_migrations::FileBasedMigrations::find_migrations_directory()?;
-    conn.run_pending_migrations(migrations).unwrap();
+    let mut conn = establish_connection(&db_file)?;
 
-    // Create a new program.
     let mut program = BpfProgram::default();
     program.name = "my_program".to_string();
     program.state = "pre_load".to_string();

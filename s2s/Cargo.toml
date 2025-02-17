@@ -6,7 +6,5 @@ edition = "2021"
 [dependencies]
 anyhow = "1.0.95"
 chrono = "0.4.39"
-derive_builder = "0.20.2"
 diesel = { version = "2.2.7", features = ["sqlite", "returning_clauses_for_sqlite_3_35", "chrono"] }
 diesel_migrations = { version = "2.2.0", features = ["sqlite"] }
-dotenvy = "0.15.7"

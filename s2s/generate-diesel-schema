@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+db=$(mktemp)
+trap 'rm -rf $db' EXIT
+
+export DATABASE_URL="$db"
+diesel migration run
+diesel print-schema > src/schema.rs

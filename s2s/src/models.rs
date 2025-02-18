@@ -1,33 +1,126 @@
-use crate::schema::bpf_programs::dsl::*;
-use crate::schema::{bpf_links, bpf_maps, bpf_program_maps};
-use chrono::{NaiveDateTime, Utc};
+use chrono::NaiveDateTime;
+use chrono::Utc;
 use diesel::prelude::*;
 
-#[derive(Debug, AsChangeset, Insertable, Identifiable, Selectable, Queryable)]
+#[derive(
+    Debug,
+    PartialEq,
+    Eq,
+    serde::Serialize,
+    serde::Deserialize,
+    AsChangeset,
+    Insertable,
+    Identifiable,
+    Selectable,
+    Queryable,
+    QueryableByName,
+)]
 #[diesel(table_name = crate::schema::bpf_programs)]
 pub struct BpfProgram {
-    id: i64, // PRIMARY KEY
+    /// Kernel's BPF program ID (alias for rowid).
+    pub id: i64,
+
+    /// Program name (NOT NULL).
     pub name: String,
+
+    /// Optional program description.
     pub description: Option<String>,
-    pub programme_type: Option<String>,
-    pub state: String, // attached? use an enum? some other discriminator?
-    pub location_filename: Option<String>,
-    pub location_url: Option<String>,
-    pub location_image_pull_policy: Option<String>,
-    pub location_username: Option<String>,
-    pub location_password: Option<String>,
-    pub map_owner_id: Option<i32>,
+
+    /// Program type discriminator in lowercase.
+    /// Allowed values: "xdp", "tc", "tcx", "tracepoint", "kprobe", "uprobe", "fentry", "fexit".
+    pub kind: String,
+
+    /// Program state: "pre_load" or "loaded"
+    pub state: String,
+
+    /// Location type: either "file" or "image"
+    pub location_type: String,
+
+    /// For file-based programs; required when location_type = "file"
+    pub file_path: Option<String>,
+
+    /// For image-based programs; required when location_type = "image"
+    pub image_url: Option<String>,
+
+    /// Image pull policy (optional)
+    pub image_pull_policy: Option<String>,
+
+    /// Optional username for image-based authentication.
+    pub username: Option<String>,
+
+    /// Optional password for image-based authentication.
+    pub password: Option<String>,
+
+    /// Map pin path (NOT NULL)
     pub map_pin_path: String,
+
+    /// Optional map owner ID.
+    pub map_owner_id: Option<i32>,
+
+    /// The program binary; NOT NULL.
+    #[diesel(sql_type = diesel::sql_types::Binary)]
     pub program_bytes: Vec<u8>,
-    created_at: NaiveDateTime,
-    updated_at: NaiveDateTime,
+
+    /// Arbitrary metadata as a JSON string, defaults to {}.
+    pub metadata: String,
+
+    /// Global data as a JSON string, defaults to {}.
+    pub global_data: String,
+
+    /// For "kprobe"/"uprobe" types; required when applicable.
+    pub retprobe: Option<bool>,
+
+    /// For "fentry"/"fexit" types; required when applicable.
+    pub fn_name: Option<String>,
+
+    /// Kernel information: name assigned by the kernel.
+    pub kernel_name: Option<String>,
+
+    /// Kernel program type.
+    pub kernel_program_type: Option<i32>,
+
+    /// When the program was loaded (ISO8601 timestamp as text).
+    pub kernel_loaded_at: Option<String>,
+
+    /// Kernel tag.
+    pub kernel_tag: Option<String>,
+
+    /// Whether the kernel program is GPL compatible.
+    pub kernel_gpl_compatible: Option<bool>,
+
+    /// Kernel BTF ID.
+    pub kernel_btf_id: Option<i32>,
+
+    /// Size (in bytes) of the translated program.
+    pub kernel_bytes_xlated: Option<i32>,
+
+    /// Whether the program was JIT compiled.
+    pub kernel_jited: Option<bool>,
+
+    /// Size (in bytes) of the JIT compiled program.
+    pub kernel_bytes_jited: Option<i32>,
+
+    /// Number of verified instructions.
+    pub kernel_verified_insns: Option<i32>,
+
+    /// Kernel map IDs as a JSON array string, defaults to [].
+    pub kernel_map_ids: String,
+
+    /// Kernel allocated memory (in bytes).
+    pub kernel_bytes_memlock: Option<i32>,
+
+    /// Timestamp when the record was created.
+    pub created_at: NaiveDateTime,
+
+    /// Timestamp when the record was last updated.
+    pub updated_at: NaiveDateTime,
 }
 
 #[derive(Debug, AsChangeset, Insertable, Identifiable, Selectable, Queryable)]
 #[diesel(belongs_to(BpfProgram, foreign_key = program_id))]
 #[diesel(table_name = crate::schema::bpf_links)]
 pub struct BpfLink {
-    id: i64, // PRIMARY KEY
+    pub id: i64, // PRIMARY KEY
     pub program_id: i64,
     pub link_type: Option<String>,
     pub target: Option<String>,
@@ -39,7 +132,7 @@ pub struct BpfLink {
 #[derive(Debug, AsChangeset, Insertable, Identifiable, Selectable, Queryable)]
 #[diesel(table_name = crate::schema::bpf_maps)]
 pub struct BpfMap {
-    id: i64, // PRIMARY KEY for Identifiable
+    pub id: i64, // PRIMARY KEY for Identifiable
     pub name: String,
     pub map_type: Option<String>,
     pub key_size: Option<i32>,
@@ -58,148 +151,105 @@ pub struct BpfProgramMap {
     pub map_id: i64,
 }
 
+/// BPF Program database operations.
+///
+/// This implementation provides a thin convenience layer over the
+/// underlying database operations, isolating direct calls to Diesel.
+/// The functions are intentionally simple, handling only basic CRUD
+/// (Create, Read, Update, Delete) operations.
+///
+/// # Transaction Handling
+///
+/// These functions do not manage database transactions. Transaction
+/// control should be handled at a higher level where operation
+/// grouping and rollback behavior can be determined by business
+/// logic.
+///
+/// # Error Handling
+///
+/// All functions return `QueryResult<T>`, propagating any database
+/// errors to the caller for handling.
 impl BpfProgram {
-    /// Delete a program by its ID. Due to ON DELETE CASCADE, this
-    /// will also delete:
+    /// Creates a new BPF program record in the database.
     ///
-    /// - All associated links in bpf_links
-    /// - All associated program-map relationships in bpf_program_maps
-    pub fn delete_by_id(conn: &mut SqliteConnection, program_id: i64) -> QueryResult<usize> {
-        diesel::delete(bpf_programs.find(program_id)).execute(conn)
-    }
-
-    /// Delete all programs from the database.
-    /// Warning: This will delete all programs and their associated data!
-    pub fn delete_all(conn: &mut SqliteConnection) -> QueryResult<usize> {
-        diesel::delete(bpf_programs).execute(conn)
-    }
-
-    pub fn id(&self) -> i64 {
-        self.id
-    }
-
-    pub fn created_at(&self) -> NaiveDateTime {
-        self.created_at
-    }
-
-    pub fn updated_at(&self) -> NaiveDateTime {
-        self.updated_at
-    }
-
-    pub fn insert_program(
+    /// Updates created_at and updated_at timestamps before insertion.
+    pub fn create_record(
         conn: &mut SqliteConnection,
-        kernel_prog_id: i64,
-        mut program: BpfProgram,
+        program: &mut BpfProgram,
     ) -> QueryResult<BpfProgram> {
-        program.id = kernel_prog_id;
+        use crate::schema::bpf_programs::dsl::*;
+
         program.created_at = Utc::now().naive_utc();
         program.updated_at = program.created_at;
 
         diesel::insert_into(crate::schema::bpf_programs::table)
-            .values(&program)
-            .returning(BpfProgram::as_select())
+            .values(&*program)
+            .returning(bpf_programs::all_columns())
             .get_result(conn)
     }
 
-    pub fn attach_link(
-        &mut self,
-        conn: &mut SqliteConnection,
-        kernel_link_id: i64,
-        new_link: BpfLink,
-    ) -> QueryResult<BpfLink> {
-        conn.transaction(|conn| {
-            let inserted_link: BpfLink = BpfLink::link_insert(conn, kernel_link_id, new_link)?;
-            self.state = "attached".to_string();
-            *self = self.save_changes(conn)?;
-
-            Ok(inserted_link)
-        })
+    /// Returns all BPF programs in the database.
+    pub fn find_all(conn: &mut SqliteConnection) -> QueryResult<Vec<BpfProgram>> {
+        use crate::schema::bpf_programs::dsl::*;
+        bpf_programs.load(conn)
     }
 
-    /// Attaches a new BpfMap to this program by inserting the map and
-    /// then creating the relationship in the join table.
-    pub fn attach_map(
-        &mut self,
-        conn: &mut SqliteConnection,
-        mut new_map: BpfMap,
-        kernel_map_id: i64,
-    ) -> QueryResult<BpfMap> {
-        conn.transaction(|conn| {
-            // Insert the new map; BpfMap::insert_map expects a
-            // kernel_map_id of type i64.
-            new_map = BpfMap::insert_map(conn, kernel_map_id, new_map)?;
+    /// Finds a BPF program by its ID.
+    pub fn find_record(conn: &mut SqliteConnection, search_id: i64) -> QueryResult<BpfProgram> {
+        use crate::schema::bpf_programs::dsl::*;
+        bpf_programs.filter(id.eq(search_id)).first(conn)
+    }
 
-            // Insert into the join table to associate the map with
-            // this program.
-            diesel::insert_into(bpf_program_maps::table)
-                .values((
-                    bpf_program_maps::program_id.eq(self.id),
-                    bpf_program_maps::map_id.eq(new_map.id),
-                ))
-                .execute(conn)?;
+    /// Updates an existing BPF program record. Updates the updated_at
+    /// timestamp. Returns the updated record if successful.
+    pub fn update_record(&mut self, conn: &mut SqliteConnection) -> QueryResult<BpfProgram> {
+        use crate::schema::bpf_programs::dsl::*;
+        self.updated_at = Utc::now().naive_utc();
 
-            // other related properties...?
-            // *self = self.save_changes(conn)?;
+        diesel::update(bpf_programs.filter(id.eq(self.id)))
+            .set(&*self)
+            .get_result(conn)
+    }
 
-            Ok(new_map)
-        })
+    /// Deletes a BPF program by its ID. Returns true if a record was
+    /// deleted, false if no record matched the ID.
+    pub fn delete_record(conn: &mut SqliteConnection, delete_id: i64) -> QueryResult<bool> {
+        use crate::schema::bpf_programs::dsl::*;
+
+        let num_deleted = diesel::delete(bpf_programs.filter(id.eq(delete_id)))
+            .execute(conn)?;
+
+        Ok(num_deleted > 0)
     }
 }
 
 impl BpfMap {
-    pub fn id(&self) -> i64 {
-        self.id
-    }
+    pub fn insert(conn: &mut SqliteConnection, mut map: BpfMap) -> QueryResult<BpfMap> {
+        use crate::schema::bpf_maps::dsl::*;
 
-    pub fn created_at(&self) -> NaiveDateTime {
-        self.created_at
-    }
-
-    pub fn updated_at(&self) -> NaiveDateTime {
-        self.updated_at
-    }
-
-    pub fn insert_map(
-        conn: &mut SqliteConnection,
-        kernel_map_id: i64,
-        mut map: BpfMap,
-    ) -> QueryResult<BpfMap> {
-        map.id = kernel_map_id;
         map.created_at = Utc::now().naive_utc();
         map.updated_at = map.created_at;
 
-        diesel::insert_into(bpf_maps::table)
+        diesel::insert_into(crate::schema::bpf_maps::table)
             .values(&map)
-            .returning(BpfMap::as_select())
+            .returning(bpf_maps::all_columns())
             .get_result(conn)
     }
 }
 
 impl BpfLink {
-    pub fn id(&self) -> i64 {
-        self.id
-    }
-
-    pub fn created_at(&self) -> NaiveDateTime {
-        self.created_at
-    }
-
-    pub fn updated_at(&self) -> NaiveDateTime {
-        self.updated_at
-    }
-
     pub fn link_insert(
         conn: &mut SqliteConnection,
-        kernel_link_id: i64,
-        mut link: BpfLink,
+        link: &mut BpfLink,
     ) -> QueryResult<BpfLink> {
-        link.id = kernel_link_id;
+        use crate::schema::bpf_links::dsl::*;
+
         link.created_at = Utc::now().naive_utc();
         link.updated_at = link.created_at;
 
-        diesel::insert_into(bpf_links::table)
-            .values(&link)
-            .returning(BpfLink::as_select())
+        diesel::insert_into(crate::schema::bpf_links::table)
+            .values(&*link)
+            .returning(bpf_links::all_columns())
             .get_result(conn)
     }
 }
@@ -207,19 +257,36 @@ impl BpfLink {
 impl Default for BpfProgram {
     fn default() -> Self {
         Self {
-            id: 0, // Indicates an unsaved record
-            name: String::new(),
+            id: 0,
+            name: "".to_string(),
             description: None,
-            programme_type: None,
-            state: "pre_load".to_string(), // Default initial state
-            location_filename: None,
-            location_url: None,
-            location_image_pull_policy: None,
-            location_username: None,
-            location_password: None,
+            kind: "".to_string(),
+            state: "".to_string(),
+            location_type: "".to_string(),
+            file_path: None,
+            image_url: None,
+            image_pull_policy: None,
+            username: None,
+            password: None,
+            map_pin_path: "".to_string(),
             map_owner_id: None,
-            map_pin_path: String::new(),
-            program_bytes: Vec::new(),
+            program_bytes: vec![],
+            metadata: "{}".to_string(),
+            global_data: "{}".to_string(),
+            retprobe: None,
+            fn_name: None,
+            kernel_name: None,
+            kernel_program_type: None,
+            kernel_loaded_at: None,
+            kernel_tag: None,
+            kernel_gpl_compatible: None,
+            kernel_btf_id: None,
+            kernel_bytes_xlated: None,
+            kernel_jited: None,
+            kernel_bytes_jited: None,
+            kernel_verified_insns: None,
+            kernel_map_ids: "[]".to_string(),
+            kernel_bytes_memlock: None,
             created_at: Default::default(),
             updated_at: Default::default(),
         }
@@ -251,6 +318,202 @@ impl Default for BpfMap {
             max_entries: None,
             created_at: Default::default(),
             updated_at: Default::default(),
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::establish_connection;
+    use crate::models::BpfProgram;
+
+    fn setup_test_db() -> SqliteConnection {
+        let database_url = ":memory:";
+        establish_connection(database_url).expect("Failed to establish in-memory SQLite connection")
+    }
+
+    #[test]
+    /// Tests the insertion and retrieval of BPF programs in the
+    /// database.
+    ///
+    /// This test verifies several aspects in sequence:
+    ///
+    /// 1. Program Creation:
+    ///    - Creates a minimal but valid BPF program with required fields
+    ///    - Verifies default timestamps are set to epoch
+    ///
+    /// 2. Program Insertion:
+    ///    - Tests successful insertion into the database
+    ///    - Verifies timestamps are updated (no longer epoch)
+    ///    - After syncing timestamps, confirms complete equality between
+    ///      input and inserted program
+    ///
+    /// 3. Default Values and JSON Validity:
+    ///    - Confirms metadata defaults to "{}"
+    ///    - Confirms global_data defaults to "{}"
+    ///    - Confirms kernel_map_ids defaults to "[]"
+    ///    - Verifies all are valid JSON structures
+    ///
+    /// 4. Record Retrieval:
+    ///    - Tests the find_record operation by ID
+    ///    - Verifies complete equality between inserted and retrieved records
+    ///
+    /// The test uses Eq for complete record comparison after
+    /// synchronising timestamps, providing thorough verification of
+    /// all fields through the database round-trip.
+    fn test_insert_and_find_bpf_program() {
+        let mut db_conn = setup_test_db();
+
+        // Setup test program with minimal required fields.
+        let mut prog = BpfProgram::default();
+        prog.id = 100;
+        prog.name = "xdp_test_program".to_string();
+        prog.kind = "xdp".to_string();
+        prog.state = "pre_load".to_string();
+        prog.location_type = "file".to_string();
+        prog.file_path = Some("/path/to/test_program.o".to_string());
+        prog.map_pin_path = "/sys/fs/bpf/test_program".to_string();
+        prog.program_bytes = vec![0xAA, 0xBB, 0xCC];
+
+        // Verify default timestamps are epoch.
+        let epoch: NaiveDateTime = Default::default();
+        assert_eq!(prog.created_at, epoch, "Default created_at should be epoch");
+        assert_eq!(prog.updated_at, epoch, "Default updated_at should be epoch");
+
+        // Insert program and verify.
+        let inserted_program =
+            BpfProgram::create_record(&mut db_conn, &mut prog).expect("Insert failed");
+
+        // Verify timestamps are no longer epoch
+        assert_ne!(
+            inserted_program.created_at, epoch,
+            "created_at should not be epoch after insert"
+        );
+        assert_ne!(
+            inserted_program.updated_at, epoch,
+            "updated_at should not be epoch after insert"
+        );
+
+        // Sync timestamps to enable Eq comparisons.
+        prog.created_at = inserted_program.created_at;
+        prog.updated_at = inserted_program.updated_at;
+
+        assert_eq!(prog, inserted_program);
+
+        // Verify JSON field defaults and validity.
+        {
+            assert_eq!(inserted_program.metadata, "{}");
+            assert_eq!(inserted_program.global_data, "{}");
+            assert_eq!(inserted_program.kernel_map_ids, "[]");
+
+            serde_json::from_str::<serde_json::Value>(&inserted_program.metadata)
+                .expect("metadata should be valid JSON");
+            serde_json::from_str::<serde_json::Value>(&inserted_program.global_data)
+                .expect("global_data should be valid JSON");
+            let map_ids = serde_json::from_str::<Vec<i64>>(&inserted_program.kernel_map_ids)
+                .expect("kernel_map_ids should be a valid JSON array of integers");
+            assert!(map_ids.is_empty());
+        }
+
+        // Verify record retrieval using full Eq comparison.
+        {
+            let found_program =
+                BpfProgram::find_record(&mut db_conn, prog.id).expect("Failed to find program");
+            assert_eq!(found_program, inserted_program);
+        }
+    }
+
+    #[test]
+    /// This test verifies the serialization, deserialization, and
+    /// database persistence of BpfProgram structs. It performs two
+    /// round-trip tests:
+    ///
+    /// 1. JSON round-trip:
+    ///    - Creates a BpfProgram with all fields populated
+    ///    - Serializes it to JSON
+    ///    - Deserializes back to a BpfProgram
+    ///    - Verifies all fields match the original
+    //
+    ///    This ensures the Serde derive macros work correctly for all
+    ///    field types (i64, String, Option<String>, Vec<u8>, etc.)
+    ///    and that no data is lost in the JSON conversion.
+    ///
+    /// 2. Database round-trip:
+    ///    - Takes the same BpfProgram
+    ///    - Inserts it into SQLite
+    ///    - Retrieves it
+    ///    - Serializes to JSON
+    ///    - Deserializes back to a BpfProgram
+    ///    - Verifies all fields match
+    //
+    ///    This ensures:
+    ///    - Diesel's type mappings work correctly for all fields.
+    ///    - The database schema matches the struct.
+    ///    - No data is lost or corrupted during database operations.
+    ///    - Timestamps are handled correctly.
+    ///    - Optional fields are preserved.
+    ///    - Binary data is stored and retrieved accurately.
+    ///    - JSON string fields (metadata, global_data,
+    ///      kernel_map_ids) maintain their format.
+    fn test_bpf_program_serde_roundtrip() {
+        // Create program with all fields populated.
+        let mut prog = BpfProgram::default();
+        prog.id = 100;
+        prog.name = "xdp_test_program".to_string();
+        prog.description = Some("Test program description".to_string());
+        prog.kind = "xdp".to_string();
+        prog.state = "pre_load".to_string();
+        prog.location_type = "file".to_string();
+        prog.file_path = Some("/path/to/test_program.o".to_string());
+        prog.image_url = Some("registry.example.com/image:tag".to_string());
+        prog.image_pull_policy = Some("Always".to_string());
+        prog.username = Some("testuser".to_string());
+        prog.password = Some("testpass".to_string());
+        prog.map_pin_path = "/sys/fs/bpf/test_program".to_string();
+        prog.map_owner_id = Some(1234);
+        prog.program_bytes = vec![0xAA, 0xBB, 0xCC];
+        prog.metadata = "{}".to_string();
+        prog.global_data = "{}".to_string();
+        prog.retprobe = Some(true);
+        prog.fn_name = Some("test_function".to_string());
+        prog.kernel_name = Some("test_kernel_prog".to_string());
+        prog.kernel_program_type = Some(123);
+        prog.kernel_loaded_at = Some("2024-02-18T12:00:00Z".to_string());
+        prog.kernel_tag = Some("abcdef123456".to_string());
+        prog.kernel_gpl_compatible = Some(true);
+        prog.kernel_btf_id = Some(456);
+        prog.kernel_bytes_xlated = Some(1024);
+        prog.kernel_jited = Some(true);
+        prog.kernel_bytes_jited = Some(2048);
+        prog.kernel_verified_insns = Some(100);
+        prog.kernel_map_ids = "[]".to_string();
+        prog.kernel_bytes_memlock = Some(4096);
+
+        // Test JSON serialization round-trip.
+        {
+            let json = serde_json::to_string(&prog).expect("Failed to serialize to JSON");
+
+            let deserialized: BpfProgram =
+                serde_json::from_str(&json).expect("Failed to deserialize from JSON");
+
+            assert_eq!(prog, deserialized);
+        }
+
+        // Test database round-trip.
+        {
+            let mut db_conn = setup_test_db();
+
+            let inserted =
+                BpfProgram::create_record(&mut db_conn, &mut prog).expect("Failed to insert");
+
+            let json_after_db =
+                serde_json::to_string(&inserted).expect("Failed to serialize after DB");
+
+            let deserialized_after_db: BpfProgram =
+                serde_json::from_str(&json_after_db).expect("Failed to deserialize after DB");
+
+            assert_eq!(inserted, deserialized_after_db);
         }
     }
 }

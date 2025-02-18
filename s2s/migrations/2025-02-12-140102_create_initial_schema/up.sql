@@ -6,21 +6,79 @@
 -- the rowid. This table stores metadata about the program along with
 -- the actual program binary in a BLOB.
 CREATE TABLE bpf_programs (
-    id INTEGER PRIMARY KEY NOT NULL,  -- Kernel's BPF program ID (u32, alias for rowid)
-    name TEXT NOT NULL,
-    description TEXT,
-    programme_type TEXT,
-    state TEXT NOT NULL,  -- Expected values: 'pre_load' or 'loaded'
-    location_filename TEXT,
-    location_url TEXT,
-    location_image_pull_policy TEXT,
-    location_username TEXT,
-    location_password TEXT,
-    map_owner_id INTEGER,
+    id INTEGER PRIMARY KEY NOT NULL,           -- Kernel's BPF program ID (alias for rowid)
+    name TEXT NOT NULL,                         -- Program name
+    description TEXT,                           -- Optional description
+
+    -- Program type discriminator (lowercase)
+    kind TEXT NOT NULL
+        CHECK(kind IN ('xdp', 'tc', 'tcx', 'tracepoint', 'kprobe', 'uprobe', 'fentry', 'fexit')),
+
+    -- State: whether the program is pre-loaded or loaded
+    state TEXT NOT NULL
+        CHECK(state IN ('pre_load', 'loaded')),
+
+    -- Location info: the program comes either from a file or an image.
+    location_type TEXT NOT NULL
+        CHECK(location_type IN ('file', 'image')),
+    file_path TEXT,          -- Required if location_type = 'file'
+    image_url TEXT,          -- Required if location_type = 'image'
+    image_pull_policy TEXT,  -- Only for image-based programs
+    username TEXT,           -- Optional for image-based programs
+    password TEXT,           -- Optional for image-based programs
+
+    -- Additional location/pinning info.
     map_pin_path TEXT NOT NULL,
+
+    -- Map owner.
+    map_owner_id INTEGER,
+
+    -- The program binary. (For our purposes, this is NOT NULL.)
     program_bytes BLOB NOT NULL,
+
+    -- Arbitrary key/value data stored as JSON.
+    metadata TEXT NOT NULL DEFAULT '{}',
+    global_data TEXT NOT NULL DEFAULT '{}',
+
+    -- Type-specific fields:
+    retprobe BOOLEAN,  -- Only for kprobe/uprobe; must be non-null when applicable.
+    fn_name TEXT,      -- Only for fentry/fexit; must be non-null when applicable.
+
+    -- Kernel information (populated after the program is loaded into the kernel).
+    kernel_name TEXT,
+    kernel_program_type INTEGER,
+    kernel_loaded_at TEXT,    -- ISO8601 timestamp string
+    kernel_tag TEXT,
+    kernel_gpl_compatible BOOLEAN,
+    kernel_btf_id INTEGER,
+    kernel_bytes_xlated INTEGER,
+    kernel_jited BOOLEAN,
+    kernel_bytes_jited INTEGER,
+    kernel_verified_insns INTEGER,
+    kernel_map_ids TEXT NOT NULL DEFAULT '[]',  -- JSON array of integers
+    kernel_bytes_memlock INTEGER,
+
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    -- Check: if location_type is 'file' then file_path must be provided;
+    --       if 'image' then image_url must be provided.
+    CHECK (
+      (location_type = 'file' AND file_path IS NOT NULL)
+      OR (location_type = 'image' AND image_url IS NOT NULL)
+    ),
+
+    -- Check: if kind is 'fentry' or 'fexit', then fn_name must be provided.
+    CHECK (
+      (kind IN ('fentry', 'fexit') AND fn_name IS NOT NULL)
+      OR (kind NOT IN ('fentry', 'fexit'))
+    ),
+
+    -- Check: if kind is 'kprobe' or 'uprobe', then retprobe must be provided.
+    CHECK (
+      (kind IN ('kprobe', 'uprobe') AND retprobe IS NOT NULL)
+      OR (kind NOT IN ('kprobe', 'uprobe'))
+    )
 );
 
 -- Table for BPF Links.

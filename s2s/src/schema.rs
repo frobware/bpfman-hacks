@@ -73,9 +73,4 @@ diesel::joinable!(bpf_links -> bpf_programs (program_id));
 diesel::joinable!(bpf_program_maps -> bpf_maps (map_id));
 diesel::joinable!(bpf_program_maps -> bpf_programs (program_id));
 
-diesel::allow_tables_to_appear_in_same_query!(
-    bpf_links,
-    bpf_maps,
-    bpf_program_maps,
-    bpf_programs,
-);
+diesel::allow_tables_to_appear_in_same_query!(bpf_links, bpf_maps, bpf_program_maps, bpf_programs,);

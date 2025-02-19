@@ -216,8 +216,7 @@ impl BpfProgram {
     pub fn delete_record(conn: &mut SqliteConnection, delete_id: i64) -> QueryResult<bool> {
         use crate::schema::bpf_programs::dsl::*;
 
-        let num_deleted = diesel::delete(bpf_programs.filter(id.eq(delete_id)))
-            .execute(conn)?;
+        let num_deleted = diesel::delete(bpf_programs.filter(id.eq(delete_id))).execute(conn)?;
 
         Ok(num_deleted > 0)
     }
@@ -238,10 +237,7 @@ impl BpfMap {
 }
 
 impl BpfLink {
-    pub fn link_insert(
-        conn: &mut SqliteConnection,
-        link: &mut BpfLink,
-    ) -> QueryResult<BpfLink> {
+    pub fn link_insert(conn: &mut SqliteConnection, link: &mut BpfLink) -> QueryResult<BpfLink> {
         use crate::schema::bpf_links::dsl::*;
 
         link.created_at = Utc::now().naive_utc();

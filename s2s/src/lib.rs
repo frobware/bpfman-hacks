@@ -1,13 +1,12 @@
 pub mod models;
 pub mod schema;
-pub mod u64blob;
+pub mod uintblob;
 
-use diesel::prelude::*;
-use diesel::sqlite::SqliteConnection;
+use diesel::{prelude::*, sqlite::SqliteConnection};
 use diesel_migrations::{embed_migrations, EmbeddedMigrations, MigrationHarness};
 use thiserror::Error;
 
-pub const MIGRATIONS: EmbeddedMigrations = embed_migrations!("migrations");
+const MIGRATIONS: EmbeddedMigrations = embed_migrations!("migrations");
 
 #[derive(Debug, Error)]
 pub enum ConnectionError {

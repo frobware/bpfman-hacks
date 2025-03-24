@@ -3,7 +3,7 @@ pub mod schema;
 pub mod uintblob;
 
 use diesel::{prelude::*, sqlite::SqliteConnection};
-use diesel_migrations::{embed_migrations, EmbeddedMigrations, MigrationHarness};
+use diesel_migrations::{EmbeddedMigrations, MigrationHarness, embed_migrations};
 use thiserror::Error;
 
 const MIGRATIONS: EmbeddedMigrations = embed_migrations!("migrations");

@@ -1188,4 +1188,39 @@ mod tests {
             assert_eq!(results[1].optional_value, Some(U32Blob::from(100u32)));
         }
     }
+
+    #[test]
+    fn test_malicious_looking_blob() {
+        table! {
+            x (id) {
+                id -> Integer,
+                value -> Binary,
+            }
+        }
+
+        #[derive(Debug, PartialEq, Queryable, Insertable)]
+        #[diesel(table_name = x)]
+        struct Row {
+            id: i32,
+            value: U128Blob,
+        }
+
+        const MALICIOUS_LOOKING_BLOB: [u8; 16] = *b"DROP TABLE x;\0\0\0";
+
+        let blob = U128Blob::from_bytes(&MALICIOUS_LOOKING_BLOB).unwrap();
+
+        let mut conn = SqliteConnection::establish(":memory:").unwrap();
+        diesel::sql_query("CREATE TABLE x (id INTEGER PRIMARY KEY, value BLOB NOT NULL)")
+            .execute(&mut conn)
+            .unwrap();
+
+        let inserted = Row { id: 1, value: blob };
+        diesel::insert_into(x::table)
+            .values(&inserted)
+            .execute(&mut conn)
+            .unwrap();
+
+        let retrieved: Row = x::table.filter(x::id.eq(1)).first(&mut conn).unwrap();
+        assert_eq!(inserted, retrieved);
+    }
 }

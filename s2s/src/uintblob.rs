@@ -177,6 +177,11 @@ macro_rules! define_uint_blob {
             Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, AsExpression, FromSqlRow,
         )]
         #[diesel(sql_type = Binary)]
+        /// Ensure this wrapper has the same memory layout as the
+        /// underlying integer type. This is important for layout
+        /// guarantees, optional FFI use, and to signal that this is a
+        /// transparent newtype wrapper.
+        #[repr(transparent)]
         pub struct $name($type);
 
         impl $name {

@@ -68,6 +68,11 @@
 //! assert_eq!(ordered_results[0].value.get(), 50u32);
 //! assert_eq!(ordered_results[2].value.get(), 200u32);
 //!
+//! // Access the inner value using `.get()`.
+//! for counter in &ordered_results {
+//!     println!("id={} value={}", counter.id, counter.value.get());
+//! }
+//!
 //! // Filter for values greater than 75.
 //! let filtered_results = counters::table
 //!     .filter(counters::value.gt(U32Blob::from(75u32)))

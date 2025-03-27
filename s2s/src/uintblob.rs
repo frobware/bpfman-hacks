@@ -165,24 +165,14 @@ impl From<UnsignedIntBlobError> for diesel::result::Error {
     }
 }
 
-// Macro to define each UxBLOB type with all its methods and Diesel
-// traits.
 macro_rules! define_uint_blob {
     ($name:ident, $type:ty) => {
         /// A wrapper that stores an unsigned integer as a fixed-size
         /// big-endian byte array.
         ///
-        /// This type ensures that numeric ordering is preserved when
-        /// values are stored in a database and compared as raw bytes
-        /// (lexicographically). When used with Diesel, this type maps
-        /// to a BLOB column in SQLite, which uses memcmp for ordering
-        /// comparisons. By using big-endian encoding, larger numbers
-        /// will always sort after smaller numbers in these binary
-        /// comparisons, maintaining the expected numeric order in
-        /// database operations.
-        #[doc = concat!("\n### Type Details\n\n* Wraps a `", stringify!($type), "` value")]
-        #[doc = concat!("\n* Uses exactly ", stringify!(std::mem::size_of::<$type>()), " bytes for storage")]
-        #[doc = concat!("\n* Maintains numeric ordering through big-endian encoding")]
+        /// This encoding ensures that numeric ordering is preserved when
+        /// values are stored as BLOBs and compared lexicographically,
+        /// such as in SQLite.
         #[derive(
             Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, AsExpression, FromSqlRow,
         )]

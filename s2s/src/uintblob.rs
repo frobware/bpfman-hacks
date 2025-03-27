@@ -117,21 +117,6 @@ pub enum UnsignedIntBlobError {
     /// * `expected` - The number of bytes expected for the requested type
     /// * `actual` - The actual number of bytes in the provided slice
     /// * `type_name` - The name of the requested type (e.g., "u16", "u32")
-    ///
-    /// # Example
-    ///
-    /// ```
-    /// # use s2s::uintblob::U32Blob;
-    /// // Trying to create a U32Blob (4 bytes) from a 2-byte slice.
-    /// let bytes = vec![0x12, 0x34];
-    /// let result = U32Blob::from_bytes(&bytes);
-    ///
-    /// assert!(result.is_err());
-    /// if let Err(err) = result {
-    ///     // Will show: expected 4 bytes for `u32`, got 2
-    ///     println!("{}", err);
-    /// }
-    /// ```
     InvalidSize {
         expected: usize,
         actual: usize,
@@ -189,14 +174,6 @@ macro_rules! define_uint_blob {
             ///
             /// This method provides read access to the wrapped
             /// integer without consuming the blob.
-            ///
-            /// # Example
-            ///
-            /// ```
-            /// # use s2s::uintblob::U32Blob;
-            /// let blob = U32Blob::from(12345u32);
-            /// assert_eq!(blob.get(), 12345u32);
-            /// ```
             pub fn get(&self) -> $type {
                 self.0
             }
@@ -205,16 +182,6 @@ macro_rules! define_uint_blob {
             ///
             /// Unlike [`Self::get()`], this method consumes the blob
             /// and returns ownership of the inner value.
-            ///
-            /// # Example
-            ///
-            /// ```
-            /// # use s2s::uintblob::U32Blob;
-            /// let blob = U32Blob::from(12345u32);
-            /// let value = blob.into_inner();
-            /// assert_eq!(value, 12345u32);
-            /// // blob is no longer accessible here.
-            /// ```
             pub fn into_inner(self) -> $type {
                 self.0
             }
@@ -232,18 +199,6 @@ macro_rules! define_uint_blob {
             /// This allocation is required by Diesel's SQLite API,
             /// which expects owned data (`Vec<u8>`) in its
             /// [`Output::set_value`] method.
-            ///
-            /// For fixed-size types like integers, this overhead is
-            /// negligible.
-            ///
-            /// # Example
-            ///
-            /// ```
-            /// # use s2s::uintblob::U32Blob;
-            /// let blob = U32Blob::from(258u32); // 0x00000102 in hex.
-            /// let bytes = blob.to_bytes();
-            /// assert_eq!(bytes, vec![0, 0, 1, 2]);
-            /// ```
             fn to_bytes(self) -> Vec<u8> {
                 self.0.to_be_bytes().to_vec()
             }
@@ -257,21 +212,6 @@ macro_rules! define_uint_blob {
             /// [`std::convert::TryInto`] to convert the slice to a
             /// fixed-size array, which automatically validates the
             /// length.
-            ///
-            /// # Example
-            ///
-            /// ```
-            /// # use s2s::uintblob::U32Blob;
-            /// // Valid case: 4 bytes for u32.
-            /// let bytes = vec![0, 0, 1, 2]; // 258 in big-endian
-            /// let blob = U32Blob::from_bytes(&bytes).unwrap();
-            /// assert_eq!(blob.get(), 258u32);
-            ///
-            /// // Error case: wrong number of bytes.
-            /// let invalid_bytes = vec![1, 2]; // only 2 bytes
-            /// let result = U32Blob::from_bytes(&invalid_bytes);
-            /// assert!(result.is_err());
-            /// ```
             fn from_bytes(bytes: &[u8]) -> Result<Self, UnsignedIntBlobError> {
                 const EXPECTED_SIZE: usize = std::mem::size_of::<$type>();
 

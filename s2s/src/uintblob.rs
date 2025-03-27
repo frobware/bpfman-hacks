@@ -249,7 +249,7 @@ macro_rules! define_uint_blob {
             /// let bytes = blob.to_bytes();
             /// assert_eq!(bytes, vec![0, 0, 1, 2]);
             /// ```
-            pub fn to_bytes(self) -> Vec<u8> {
+            fn to_bytes(self) -> Vec<u8> {
                 self.0.to_be_bytes().to_vec()
             }
 
@@ -277,7 +277,7 @@ macro_rules! define_uint_blob {
             /// let result = U32Blob::from_bytes(&invalid_bytes);
             /// assert!(result.is_err());
             /// ```
-            pub fn from_bytes(bytes: &[u8]) -> Result<Self, UnsignedIntBlobError> {
+            fn from_bytes(bytes: &[u8]) -> Result<Self, UnsignedIntBlobError> {
                 const EXPECTED_SIZE: usize = std::mem::size_of::<$type>();
 
                 let array: Result<[u8; EXPECTED_SIZE], _> = bytes.try_into();

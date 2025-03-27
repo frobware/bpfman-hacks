@@ -227,9 +227,19 @@ macro_rules! define_uint_blob {
             /// Converts the inner value to a byte vector in
             /// big-endian order.
             ///
-            /// This method is primarily used for serialisation and
-            /// for implementing the Diesel
-            /// [`diesel::serialize::ToSql`] trait.
+            /// This method is used by [`Self::to_sql`] when
+            /// serialising this type for Diesel's SQLite backend. It
+            /// converts the inner value into a `Vec<u8>` formatted as
+            /// a fixed-size, big-endian byte array suitable for use
+            /// in SQLite BLOB columns.
+            ///
+            /// Note: This method allocates a new `Vec<u8>` each time.
+            /// This allocation is required by Diesel's SQLite API,
+            /// which expects owned data (`Vec<u8>`) in its
+            /// [`Output::set_value`] method.
+            ///
+            /// For fixed-size types like integers, this overhead is
+            /// negligible.
             ///
             /// # Example
             ///
@@ -243,7 +253,8 @@ macro_rules! define_uint_blob {
                 self.0.to_be_bytes().to_vec()
             }
 
-            /// Constructs a blob from a big-endian byte slice.
+            /// Decodes a big-endian byte slice into the wrapped
+            /// integer type.
             ///
             /// This method validates that the byte slice has exactly
             /// the expected length for the type and converts it to

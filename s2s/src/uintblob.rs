@@ -101,21 +101,19 @@ use diesel::{
 };
 use serde::{Deserialize, Serialize};
 
-/// Error type for unsigned integer BLOB operations.
+/// Error type for decoding byte slices into unsigned integer wrappers.
 ///
-/// This enum represents errors that can occur when converting between
-/// binary data and the typed BLOB wrappers. Currently, it only
-/// contains an `InvalidSize` variant since the primary validation
-/// performed is ensuring the byte count matches the expected size for
-/// each type.
+/// These errors occur when validating binary input, typically read
+/// from SQLite BLOB columns, during deserialisation into typed
+/// wrappers like [`U32Blob`].
 #[derive(Debug, Clone, PartialEq)]
 pub enum UnsignedIntBlobError {
     /// Error when the byte slice has an invalid size for the
     /// requested type.
     ///
-    /// This error occurs when attempting to convert a byte slice to a
-    /// specific BLOB type, but the slice length doesn't match the
-    /// expected size for that type.
+    /// This error occurs when converting a byte slice into a wrapped
+    /// integer type (e.g., [`U32Blob`]) and the slice length does not
+    /// match the expected size.
     ///
     /// # Fields
     ///
@@ -160,17 +158,16 @@ macro_rules! define_uint_blob {
         /// A wrapper that stores an unsigned integer as a fixed-size
         /// big-endian byte array.
         ///
-        /// This encoding ensures that numeric ordering is preserved when
-        /// values are stored as BLOBs and compared lexicographically,
-        /// such as in SQLite.
+        /// This encoding ensures that numeric ordering is preserved
+        /// when values are stored as BLOBs and compared
+        /// lexicographically, such as in SQLite.
+        ///
+        /// Internally, this wrapper has the same memory layout as the
+        /// underlying integer due to `#[repr(transparent)]`.
         #[derive(
             Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, AsExpression, FromSqlRow,
         )]
         #[diesel(sql_type = Binary)]
-        /// Ensure this wrapper has the same memory layout as the
-        /// underlying integer type. This is important for layout
-        /// guarantees, optional FFI use, and to signal that this is a
-        /// transparent newtype wrapper.
         #[repr(transparent)]
         pub struct $name($type);
 
@@ -233,8 +230,8 @@ macro_rules! define_uint_blob {
             }
         }
 
-        /// Implements [`std::convert::From<$type>`] for easy
-        /// creation.
+        /// Allows constructing this wrapper from the underlying type
+        /// via [`From`].
         impl From<$type> for $name {
             fn from(value: $type) -> Self {
                 $name(value)

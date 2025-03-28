@@ -211,7 +211,7 @@ macro_rules! define_uint_blob {
             /// This method validates that the byte slice has exactly
             /// the expected length for the type and converts it to
             /// the target integer type in big-endian order. It uses
-            /// [`std::convert::TryInto`] to convert the slice to a
+            /// [`TryInto`] to convert the slice to a
             /// fixed-size array, which automatically validates the
             /// length.
             fn from_bytes(bytes: &[u8]) -> Result<Self, UnsignedIntBlobError> {

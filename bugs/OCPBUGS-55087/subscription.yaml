@@ -1,0 +1,12 @@
+# subscription.yaml
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: bpfman-operator
+  namespace: bpfman-test
+spec:
+  channel: latest
+  name: bpfman-operator         # MUST match `packageName` from FBC
+  source: fbc-bpfman-catalogsource
+  sourceNamespace: openshift-marketplace
+  installPlanApproval: Automatic

@@ -1,0 +1,11 @@
+# bpfman-catalogsource.yaml
+apiVersion: operators.coreos.com/v1alpha1
+kind: CatalogSource
+metadata:
+  name: fbc-bpfman-catalogsource
+  namespace: openshift-marketplace
+spec:
+  sourceType: grpc
+  image: quay.io/redhat-user-workloads/ocp-bpfman-tenant/ocp-bpfman-operator-catalog-ocp4-19@sha256:92697178cbb3ae4883a72b378bc21200485d5171e0f2db5647c53a0ebbca3d06
+  displayName: Bpfman FBC 4.19
+  publisher: Red Hat

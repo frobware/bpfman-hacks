@@ -6,6 +6,9 @@ metadata:
   namespace: openshift-marketplace
 spec:
   sourceType: grpc
-  image: quay.io/redhat-user-workloads/ocp-bpfman-tenant/ocp-bpfman-operator-catalog-ocp4-19@sha256:92697178cbb3ae4883a72b378bc21200485d5171e0f2db5647c53a0ebbca3d06
+  image: quay.io/redhat-user-workloads/ocp-bpfman-tenant/ocp-bpfman-operator-catalog-ocp4-19@sha256:db0d7261b555a9bbf65a864ff0f72e3425d1ae2f37bfe02d6975b81fc6ee6ba0
+  # NOTE: The image value above is a placeholder - it will be overwritten when using the justfile
+  # via the 'just create-catalogsource [IMAGE_REFERENCE]' command.
+  # If applying this file directly with 'oc apply -f', update the image value manually first.
   displayName: Bpfman FBC 4.19
   publisher: Red Hat

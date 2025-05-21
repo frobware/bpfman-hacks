@@ -18,21 +18,6 @@ create-namespace:
 apply-idms:
     oc apply -f bpfman-idms.yaml
 
-# Render the catalog for the specified image
-render-catalog image_ref:
-    #!/usr/bin/env bash
-    if [ -z "{{image_ref}}" ]; then
-      echo "ERROR: No image specified. You must provide an image reference."
-      echo "Example: just render-catalog quay.io/redhat-user-workloads/ocp-bpfman-tenant/ocp-bpfman-operator-catalog-ocp4-19@sha256:DIGEST"
-      exit 1
-    fi
-    echo "CATALOG_IMAGE_WITH_DIGEST={{image_ref}}" > .env
-    make -f Makefile render-catalog CATALOG_IMAGE_WITH_DIGEST={{image_ref}}
-
-# Render and apply the catalog
-render-and-apply-catalog image_ref:
-    just render-catalog {{image_ref}}
-    oc apply -f bpfman-catalog.yaml
 
 # Create or update the CatalogSource with the specified image
 create-catalogsource image_ref:
@@ -96,25 +81,7 @@ install image_ref:
     just create-subscription
     echo "Installation complete. Run 'just check-status' to monitor progress (pods may take a few minutes to become ready)."
 
-# Install bpfman operator with explicit catalog rendering
-install-with-catalog image_ref:
-    #!/usr/bin/env bash
-    if [ -z "{{image_ref}}" ]; then
-      echo "ERROR: No image specified. You must provide an image reference."
-      echo "Example: just install-with-catalog quay.io/redhat-user-workloads/ocp-bpfman-tenant/ocp-bpfman-operator-catalog-ocp4-19@sha256:DIGEST"
-      exit 1
-    fi
-    just create-namespace
-    just apply-idms
-    just render-and-apply-catalog {{image_ref}}
-    just create-catalogsource {{image_ref}}
-    just create-operatorgroup
-    just create-subscription
-    echo "Installation complete. Run 'just check-status' to monitor progress (pods may take a few minutes to become ready)."
 
-# Render only the catalog file without applying anything
-render-only image_ref:
-    just render-catalog {{image_ref}}
 
 # Update the catalog image in the CatalogSource without reinstalling the operator
 update-catalog-image image_ref:

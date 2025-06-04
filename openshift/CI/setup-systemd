@@ -6,11 +6,16 @@ set -euo pipefail
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 systemd_user_dir="$HOME/.config/systemd/user"
 
-# Service and timer files to manage.
-services=(
-    "prow-ok2test-lgtm-approve"
-    "prow-override-test-fmt"
+# Repositories to manage.
+repos=(
+    "openshift/bpfman-operator"
+    "openshift/bpfman"
 )
+
+# Service types and their configurations.
+declare -A service_configs
+service_configs["ok2test-lgtm-approve"]="--lgtm --approve --ok-to-test"
+service_configs["override-test-fmt"]="--throttle 15m --failing-check=ci/prow/test-fmt -c '/override ci/prow/test-fmt'"
 
 usage() {
     echo "Usage: $0 {install|remove|status}"
@@ -28,21 +33,58 @@ install_services() {
     # Create systemd user directory if it doesn't exist.
     mkdir -p "$systemd_user_dir"
 
-    for service in "${services[@]}"; do
-        echo "Installing $service.service and $service.timer..."
+    for service_type in "${!service_configs[@]}"; do
+        for repo in "${repos[@]}"; do
+            # Create service name by combining type and repo.
+            repo_slug=$(echo "$repo" | tr '/' '-')
+            service_name="prow-${service_type}-${repo_slug}"
 
-        # Replace %i with actual script directory in service file.
-        sed "s|%i|$script_dir|g" "$script_dir/$service.service" > "$systemd_user_dir/$service.service"
+            echo "Installing ${service_name}.service and ${service_name}.timer..."
 
-        # Copy timer file.
-        cp "$script_dir/$service.timer" "$systemd_user_dir/$service.timer"
+            # Create service file.
+            cat > "$systemd_user_dir/${service_name}.service" << EOF
+[Unit]
+Description=Prow ${service_type} automation for ${repo}
+After=network.target
 
-        # Reload systemd and enable/start the timer.
-        systemctl --user daemon-reload
-        systemctl --user enable "$service.timer"
-        systemctl --user start "$service.timer"
+[Service]
+Type=oneshot
+ExecStartPre=/bin/bash -c "autoprat --author red-hat-konflux --repo ${repo}"
+ExecStart=/bin/bash -c "autoprat --author red-hat-konflux --repo ${repo} ${service_configs[$service_type]} -P | tee >(cat >&2) | sh"
+StandardOutput=journal
+StandardError=journal
 
-        echo "$service.service and $service.timer installed and started"
+[Install]
+WantedBy=default.target
+EOF
+
+            # Create timer file based on service type.
+            if [[ "$service_type" == "ok2test-lgtm-approve" ]]; then
+                timer_schedule="*:0/5"   # Every 5 minutes
+            else
+                timer_schedule="*:0/30"  # Every 30 minutes
+            fi
+
+            cat > "$systemd_user_dir/${service_name}.timer" << EOF
+[Unit]
+Description=Timer for Prow ${service_type} automation for ${repo}
+Requires=${service_name}.service
+
+[Timer]
+OnCalendar=${timer_schedule}
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+EOF
+
+            # Reload systemd and enable/start the timer.
+            systemctl --user daemon-reload
+            systemctl --user enable "${service_name}.timer"
+            systemctl --user start "${service_name}.timer"
+
+            echo "${service_name}.service and ${service_name}.timer installed and started"
+        done
     done
 
     echo ""
@@ -55,20 +97,26 @@ install_services() {
 remove_services() {
     echo "Removing systemd user services and timers..."
 
-    for service in "${services[@]}"; do
-        echo "Removing $service.service and $service.timer..."
+    for service_type in "${!service_configs[@]}"; do
+        for repo in "${repos[@]}"; do
+            # Create service name by combining type and repo.
+            repo_slug=$(echo "$repo" | tr '/' '-')
+            service_name="prow-${service_type}-${repo_slug}"
 
-        # Stop and disable the timer and service.
-        systemctl --user stop "$service.timer" 2>/dev/null || true
-        systemctl --user disable "$service.timer" 2>/dev/null || true
-        systemctl --user stop "$service.service" 2>/dev/null || true
-        systemctl --user disable "$service.service" 2>/dev/null || true
+            echo "Removing ${service_name}.service and ${service_name}.timer..."
 
-        # Remove the files.
-        rm -f "$systemd_user_dir/$service.service"
-        rm -f "$systemd_user_dir/$service.timer"
+            # Stop and disable the timer and service.
+            systemctl --user stop "${service_name}.timer" 2>/dev/null || true
+            systemctl --user disable "${service_name}.timer" 2>/dev/null || true
+            systemctl --user stop "${service_name}.service" 2>/dev/null || true
+            systemctl --user disable "${service_name}.service" 2>/dev/null || true
 
-        echo "$service.service and $service.timer removed"
+            # Remove the files.
+            rm -f "$systemd_user_dir/${service_name}.service"
+            rm -f "$systemd_user_dir/${service_name}.timer"
+
+            echo "${service_name}.service and ${service_name}.timer removed"
+        done
     done
 
     # Reload systemd.
@@ -82,13 +130,19 @@ show_status() {
     echo "Systemd user service and timer status:"
     echo ""
 
-    for service in "${services[@]}"; do
-        echo "=== $service.timer ==="
-        systemctl --user status "$service.timer" --no-pager || true
-        echo ""
-        echo "=== $service.service ==="
-        systemctl --user status "$service.service" --no-pager || true
-        echo ""
+    for service_type in "${!service_configs[@]}"; do
+        for repo in "${repos[@]}"; do
+            # Create service name by combining type and repo.
+            repo_slug=$(echo "$repo" | tr '/' '-')
+            service_name="prow-${service_type}-${repo_slug}"
+
+            echo "=== ${service_name}.timer ==="
+            systemctl --user status "${service_name}.timer" --no-pager || true
+            echo ""
+            echo "=== ${service_name}.service ==="
+            systemctl --user status "${service_name}.service" --no-pager || true
+            echo ""
+        done
     done
 
     echo "=== Active Timers ==="

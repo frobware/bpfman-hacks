@@ -2,66 +2,63 @@
 
 This directory contains automated scripts for managing GitHub pull requests using the [`autoprat`](https://github.com/frobware/autoprat) tool.
 
-## Scripts
+## Systemd Automation
+
+The primary automation is handled by systemd user services that directly call `autoprat` for each repository:
+
+### Automated Services
+
+- `prow-ok2test-lgtm-approve-openshift-bpfman-operator` (every 15 minutes)
+- `prow-ok2test-lgtm-approve-openshift-bpfman` (every 15 minutes)  
+- `prow-override-test-fmt-openshift-bpfman-operator` (every 30 minutes)
+- `prow-override-test-fmt-openshift-bpfman` (every 30 minutes)
+
+Each service runs with `--author red-hat-konflux` and targets its specific repository.
+
+## Manual Scripts
+
+The following scripts provide convenience wrappers for manual command-line usage:
 
 ### `prow-ok2test-lgtm-approve`
 
-Idempotently adds LGTM, approve, and ok-to-test labels to pull requests in the supplied repositories. This script performs a single-shot execution and is designed to be run periodically via systemd timers.
-
-**Default repositories when run via systemd**: `openshift/bpfman-operator` and `openshift/bpfman`
+Convenience script that adds LGTM, approve, and ok-to-test labels to pull requests.
 
 **Usage:**
 ```bash
-./prow-ok2test-lgtm-approve [-n|--dry-run] [-a|--author AUTHOR] REPO [REPO ...]
+./prow-ok2test-lgtm-approve --author AUTHOR --repo REPO
 ```
 
 ### `prow-override-test-fmt`
 
-Overrides failing `test-fmt` tests by issuing override commands to Prow. This script handles repositories where formatting checks are failing and need to be bypassed. Performs a single-shot execution.
-
-**Default repository when run via systemd**: `openshift/bpfman-operator`
+Convenience script that overrides failing `test-fmt` tests by issuing override commands to Prow.
 
 **Usage:**
 ```bash
-./prow-override-test-fmt [-n|--dry-run] [-a|--author AUTHOR] REPO [REPO ...]
+./prow-override-test-fmt --author AUTHOR --repo REPO
 ```
-
-## Common Options
-
-All scripts support the following options:
-
-- `-n, --dry-run`: Show what commands would be executed without actually running them
-- `-a, --author AUTHOR`: GitHub author to filter PRs by (default: red-hat-konflux)
 
 ## Examples
 
 ```bash
-# Dry run to see what would be executed
-./prow-ok2test-lgtm-approve -n openshift/bpfman-operator
+# Add LGTM/approve/ok-to-test for a specific author and repo
+./prow-ok2test-lgtm-approve --author red-hat-konflux --repo openshift/bpfman-operator
 
-# Run with custom author
-./prow-override-test-fmt -a my-author openshift/repo1 openshift/repo2
-
-# Standard usage
-./prow-ok2test-lgtm-approve openshift/bpfman-operator
+# Override test-fmt failures
+./prow-override-test-fmt --author red-hat-konflux --repo openshift/bpfman-operator
 ```
 
-## Systemd Integration
+## Systemd Management
 
-The scripts are designed to run as systemd user services with timers for periodic execution:
-
-- **Services**: Execute the scripts once when triggered
-- **Timers**: Schedule execution every 5 minutes
-- **setup-systemd**: Management script for installing/removing systemd units
+Use the `setup-systemd` script to manage the automated services:
 
 ```bash
-# Install and start systemd timers
+# Install and start all systemd timers
 ./setup-systemd install
 
-# Check status of timers and services
+# Check status of all timers and services
 ./setup-systemd status
 
-# Remove timers and services
+# Remove all timers and services
 ./setup-systemd remove
 ```
 
@@ -69,28 +66,18 @@ The scripts are designed to run as systemd user services with timers for periodi
 
 ```bash
 # View logs for a specific service
-journalctl --user -u prow-ok2test-lgtm-approve -f
+journalctl --user -u prow-ok2test-lgtm-approve-openshift-bpfman-operator -f
 
 # List all active timers
 systemctl --user list-timers
 
 # Check status of a specific timer
-systemctl --user status prow-ok2test-lgtm-approve.timer
+systemctl --user status prow-ok2test-lgtm-approve-openshift-bpfman-operator.timer
 ```
-
-## Implementation
-
-Both scripts use the shared `common.sh` library which provides:
-- Command line argument parsing
-- Single-shot execution logic  
-- The `autoprat` function wrapper for consistent dry-run behaviour and logging
-- Automatic injection of `-a author -r repo` arguments
 
 ## Files
 
-- **`common.sh`**: Shared library with common functionality
-- **`prow-ok2test-lgtm-approve`**: Script for adding LGTM/approve/ok-to-test labels
-- **`prow-override-test-fmt`**: Script for overriding test-fmt failures
-- **`setup-systemd`**: Management script for systemd units
-- **`*.service`**: Systemd service unit files (oneshot execution)
-- **`*.timer`**: Systemd timer unit files (5-minute intervals)
+- **`prow-ok2test-lgtm-approve`**: Manual convenience script for LGTM/approve/ok-to-test
+- **`prow-override-test-fmt`**: Manual convenience script for overriding test-fmt failures  
+- **`setup-systemd`**: Management script that creates systemd units per repository
+- Generated systemd files: `prow-{service-type}-{repo-slug}.{service,timer}`

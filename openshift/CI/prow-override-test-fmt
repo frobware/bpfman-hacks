@@ -2,15 +2,6 @@
 
 set -euo pipefail
 
-script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-# shellcheck disable=SC1091
-source "$script_dir/common.sh"
-
-process_repo() {
-    # List PRs (applies common -a author -r repo arguments).
-    autoprat
-
-    autoprat --throttle 5m --failing-check=ci/prow/test-fmt -c '/override ci/prow/test-fmt' -P
-}
-
-main "$@"
+# Override failing test-fmt checks.
+autoprat "$@" --throttle 15m --failing-check=ci/prow/test-fmt -c '/override ci/prow/test-fmt' -P
+autoprat "$@" --throttle 15m --failing-check=ci/prow/test-fmt -c '/override ci/prow/test-fmt' -P | sh

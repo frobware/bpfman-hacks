@@ -2,15 +2,6 @@
 
 set -euo pipefail
 
-script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-# shellcheck disable=SC1091
-source "$script_dir/common.sh"
-
-process_repo() {
-    # List PRs (applies common -a author -r repo arguments).
-    autoprat
-
-    autoprat --lgtm --approve --ok-to-test -P
-}
-
-main "$@"
+# Apply LGTM, approve, and ok-to-test
+autoprat "$@" --lgtm --approve --ok-to-test -P
+autoprat "$@" --lgtm --approve --ok-to-test -P | sh

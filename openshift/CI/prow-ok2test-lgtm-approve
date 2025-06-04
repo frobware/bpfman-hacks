@@ -2,6 +2,36 @@
 
 set -euo pipefail
 
+# Check if --author or -a is specified in arguments
+author_specified=false
+for arg in "$@"; do
+    if [[ "$arg" == "--author" ]] || [[ "$arg" == "-a" ]]; then
+        author_specified=true
+        break
+    fi
+done
+
+# If no author specified, add current GitHub username
+if [[ "$author_specified" == false ]]; then
+    gh_user=$(gh api user --jq .login 2>/dev/null || echo "")
+    if [[ -n "$gh_user" ]]; then
+        set -- --author "$gh_user" "$@"
+    fi
+fi
+
 # Apply LGTM, approve, and ok-to-test
-autoprat "$@" --lgtm --approve --ok-to-test -P
-autoprat "$@" --lgtm --approve --ok-to-test -P | sh
+# Check if -P is already in arguments
+has_print_flag=false
+for arg in "$@"; do
+    if [[ "$arg" == "-P" ]] || [[ "$arg" == "--print" ]]; then
+        has_print_flag=true
+        break
+    fi
+done
+
+# Add -P if not present (required for action flags)
+if [[ "$has_print_flag" == false ]]; then
+    autoprat "$@" --lgtm --approve --ok-to-test -P
+else
+    autoprat "$@" --lgtm --approve --ok-to-test
+fi

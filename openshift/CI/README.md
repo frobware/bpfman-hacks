@@ -21,30 +21,38 @@ The following scripts provide convenience wrappers for manual command-line usage
 
 ### `prow-ok2test-lgtm-approve`
 
-Convenience script that adds LGTM, approve, and ok-to-test labels to pull requests.
+Convenience script that shows what commands would be executed for LGTM, approve, and ok-to-test actions. Pipe to `sh` to execute them.
 
 **Usage:**
 ```bash
-./prow-ok2test-lgtm-approve --author AUTHOR --repo REPO
+./prow-ok2test-lgtm-approve [--author AUTHOR] --repo REPO
 ```
 
 ### `prow-override-test-fmt`
 
-Convenience script that overrides failing `test-fmt` tests by issuing override commands to Prow.
+Convenience script that shows what commands would be executed for test-fmt overrides. Pipe to `sh` to execute them.
 
 **Usage:**
 ```bash
-./prow-override-test-fmt --author AUTHOR --repo REPO
+./prow-override-test-fmt [--author AUTHOR] --repo REPO
 ```
+
+**Note:** If `--author` is not specified, both scripts automatically use your GitHub username (via `gh api user --jq .login`).
 
 ## Examples
 
 ```bash
-# Add LGTM/approve/ok-to-test for a specific author and repo
-./prow-ok2test-lgtm-approve --author red-hat-konflux --repo openshift/bpfman-operator
+# Show what commands would be executed (uses your GitHub username automatically)
+./prow-ok2test-lgtm-approve --repo openshift/bpfman-operator
 
-# Override test-fmt failures
+# Execute the commands if satisfied with the output
+./prow-ok2test-lgtm-approve --repo openshift/bpfman-operator | sh
+
+# Use a specific author
 ./prow-override-test-fmt --author red-hat-konflux --repo openshift/bpfman-operator
+
+# Execute override commands
+./prow-override-test-fmt --author red-hat-konflux --repo openshift/bpfman-operator | sh
 ```
 
 ## Systemd Management

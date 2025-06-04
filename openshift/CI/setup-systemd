@@ -60,7 +60,7 @@ EOF
 
             # Create timer file based on service type.
             if [[ "$service_type" == "ok2test-lgtm-approve" ]]; then
-                timer_schedule="*:0/5"   # Every 5 minutes
+                timer_schedule="*:0/15"  # Every 15 minutes
             else
                 timer_schedule="*:0/30"  # Every 30 minutes
             fi

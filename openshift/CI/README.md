@@ -8,10 +8,10 @@ The primary automation is handled by systemd user services that directly call `a
 
 ### Automated Services
 
-- `prow-ok2test-lgtm-approve-openshift-bpfman-operator` (every 15 minutes)
-- `prow-ok2test-lgtm-approve-openshift-bpfman` (every 15 minutes)  
-- `prow-override-test-fmt-openshift-bpfman-operator` (every 30 minutes)
-- `prow-override-test-fmt-openshift-bpfman` (every 30 minutes)
+- `prow-ok2test-lgtm-approve-openshift-bpfman-operator` (every 15 minutes, 8am-6pm weekdays)
+- `prow-ok2test-lgtm-approve-openshift-bpfman` (every 15 minutes, 8am-6pm weekdays)  
+- `prow-override-test-fmt-openshift-bpfman-operator` (every 30 minutes, 8am-6pm weekdays)
+- `prow-override-test-fmt-openshift-bpfman` (every 30 minutes, 8am-6pm weekdays)
 
 Each service runs with `--author red-hat-konflux` and targets its specific repository.
 
@@ -81,6 +81,9 @@ systemctl --user list-timers
 
 # Check status of a specific timer
 systemctl --user status prow-ok2test-lgtm-approve-openshift-bpfman-operator.timer
+
+# Analyze timer schedule and next run time
+systemd-analyze calendar "Mon..Fri *-*-* 08..17:00/15"
 ```
 
 ## Files

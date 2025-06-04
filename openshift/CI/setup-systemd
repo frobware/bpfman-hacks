@@ -60,23 +60,34 @@ EOF
 
             # Create timer file based on service type.
             if [[ "$service_type" == "ok2test-lgtm-approve" ]]; then
-                timer_schedule="*:0/15"  # Every 15 minutes
-            else
-                timer_schedule="*:0/30"  # Every 30 minutes
-            fi
-
-            cat > "$systemd_user_dir/${service_name}.timer" << EOF
+                # Every 15 minutes, 8am-6pm, weekdays
+                cat > "$systemd_user_dir/${service_name}.timer" << EOF
 [Unit]
 Description=Timer for Prow ${service_type} automation for ${repo}
 Requires=${service_name}.service
 
 [Timer]
-OnCalendar=${timer_schedule}
+OnCalendar=Mon..Fri *-*-* 08..17:00/15
 Persistent=true
 
 [Install]
 WantedBy=timers.target
 EOF
+            else
+                # Every 30 minutes, 8am-6pm, weekdays
+                cat > "$systemd_user_dir/${service_name}.timer" << EOF
+[Unit]
+Description=Timer for Prow ${service_type} automation for ${repo}
+Requires=${service_name}.service
+
+[Timer]
+OnCalendar=Mon..Fri *-*-* 08..17:00/30
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+EOF
+            fi
 
             # Reload systemd and enable/start the timer.
             systemctl --user daemon-reload

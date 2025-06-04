@@ -1,0 +1,112 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# Get the directory of this script.
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+systemd_user_dir="$HOME/.config/systemd/user"
+
+# Service and timer files to manage.
+services=(
+    "prow-ok2test-lgtm-approve"
+    "prow-override-test-fmt"
+)
+
+usage() {
+    echo "Usage: $0 {install|remove|status}"
+    echo ""
+    echo "Commands:"
+    echo "  install  - Install and enable systemd user services and timers"
+    echo "  remove   - Stop and remove systemd user services and timers"
+    echo "  status   - Show status of systemd user services and timers"
+    exit 1
+}
+
+install_services() {
+    echo "Installing systemd user services and timers..."
+
+    # Create systemd user directory if it doesn't exist.
+    mkdir -p "$systemd_user_dir"
+
+    for service in "${services[@]}"; do
+        echo "Installing $service.service and $service.timer..."
+
+        # Replace %i with actual script directory in service file.
+        sed "s|%i|$script_dir|g" "$script_dir/$service.service" > "$systemd_user_dir/$service.service"
+
+        # Copy timer file.
+        cp "$script_dir/$service.timer" "$systemd_user_dir/$service.timer"
+
+        # Reload systemd and enable/start the timer.
+        systemctl --user daemon-reload
+        systemctl --user enable "$service.timer"
+        systemctl --user start "$service.timer"
+
+        echo "$service.service and $service.timer installed and started"
+    done
+
+    echo ""
+    echo "Services and timers installed successfully!"
+    echo "Use 'systemctl --user status <service>.timer' to check timer status"
+    echo "Use 'systemctl --user list-timers' to see all timers"
+    echo "Use 'journalctl --user -u <service> -f' to follow logs"
+}
+
+remove_services() {
+    echo "Removing systemd user services and timers..."
+
+    for service in "${services[@]}"; do
+        echo "Removing $service.service and $service.timer..."
+
+        # Stop and disable the timer and service.
+        systemctl --user stop "$service.timer" 2>/dev/null || true
+        systemctl --user disable "$service.timer" 2>/dev/null || true
+        systemctl --user stop "$service.service" 2>/dev/null || true
+        systemctl --user disable "$service.service" 2>/dev/null || true
+
+        # Remove the files.
+        rm -f "$systemd_user_dir/$service.service"
+        rm -f "$systemd_user_dir/$service.timer"
+
+        echo "$service.service and $service.timer removed"
+    done
+
+    # Reload systemd.
+    systemctl --user daemon-reload
+
+    echo ""
+    echo "Services and timers removed successfully!"
+}
+
+show_status() {
+    echo "Systemd user service and timer status:"
+    echo ""
+
+    for service in "${services[@]}"; do
+        echo "=== $service.timer ==="
+        systemctl --user status "$service.timer" --no-pager || true
+        echo ""
+        echo "=== $service.service ==="
+        systemctl --user status "$service.service" --no-pager || true
+        echo ""
+    done
+
+    echo "=== Active Timers ==="
+    systemctl --user list-timers --no-pager || true
+}
+
+# Main script logic.
+case "${1:-}" in
+    install)
+        install_services
+        ;;
+    remove)
+        remove_services
+        ;;
+    status)
+        show_status
+        ;;
+    *)
+        usage
+        ;;
+esac

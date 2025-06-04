@@ -1,0 +1,12 @@
+[Unit]
+Description=Prow test-fmt override automation
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=%i/prow-override-test-fmt openshift/bpfman-operator
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=default.target

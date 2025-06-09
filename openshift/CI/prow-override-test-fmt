@@ -19,19 +19,4 @@ if [[ "$author_specified" == false ]]; then
     fi
 fi
 
-# Override failing test-fmt checks.
-# Check if -P is already in arguments
-has_print_flag=false
-for arg in "$@"; do
-    if [[ "$arg" == "-P" ]] || [[ "$arg" == "--print" ]]; then
-        has_print_flag=true
-        break
-    fi
-done
-
-# Add -P if not present (required for action flags)
-if [[ "$has_print_flag" == false ]]; then
-    autoprat "$@" --throttle 15m --failing-check=ci/prow/test-fmt -c '/override ci/prow/test-fmt' -P
-else
-    autoprat "$@" --throttle 15m --failing-check=ci/prow/test-fmt -c '/override ci/prow/test-fmt'
-fi
+autoprat "$@" --throttle 15m --failing-check=ci/prow/test-fmt -c '/override ci/prow/test-fmt'

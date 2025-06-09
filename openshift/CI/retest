@@ -19,4 +19,4 @@ if [[ "$author_specified" == false ]]; then
     fi
 fi
 
-autoprat "$@" --lgtm --approve --ok-to-test
+autoprat "$@" --throttle 15m --failing-ci -c '/retest'

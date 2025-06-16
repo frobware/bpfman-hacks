@@ -19,30 +19,37 @@ just check-status
 ## Files
 
 ```text
-bpfman-idms.yaml            # ImageDigestMirrorSet config
-bpfman-catalogsource.yaml   # CatalogSource template (needs image)
-subscription.yaml           # Operator subscription
-operator-group.yaml         # OperatorGroup config
-justfile                    # Automation script
-image-dates.md              # Available catalog images info
+manifests/                         # Directory containing all manifest files
+  namespace.yaml                   # Namespace with monitoring enabled
+  bpfman-idms.yaml                 # ImageDigestMirrorSet config
+  bpfman-catalogsource.yaml        # CatalogSource template (needs image)
+  subscription.yaml                # Operator subscription
+  operator-group.yaml              # OperatorGroup config
+  user-workload-monitoring.yaml    # ConfigMap to enable user workload monitoring
+justfile                           # Automation script
+image-dates.md                     # Available catalog images info
 ```
 
 ## Manual Install Steps
 
 > **Note:** These manual steps are for reference. Use the justfile for easier installation.
 
-0. **Namespace**
+0. **Namespace with Monitoring Enabled**
+
+   Apply `manifests/namespace.yaml` to create the namespace with monitoring enabled:
 
    ```bash
-   oc new-project bpfman
+   oc apply -f manifests/namespace.yaml
    ```
+
+   > The namespace has the label `openshift.io/cluster-monitoring: "true"` which is required for the ServiceMonitor to work with OpenShift's user workload monitoring.
 
 1. **ImageDigestMirrorSet (IDMS)**
 
-   Apply `bpfman-idms.yaml` to ensure image mirroring:
+   Apply `manifests/bpfman-idms.yaml` to ensure image mirroring:
 
    ```bash
-   oc apply -f bpfman-idms.yaml
+   oc apply -f manifests/bpfman-idms.yaml
    ```
 
 2. **CatalogSource**
@@ -57,7 +64,7 @@ image-dates.md              # Available catalog images info
 
 4. **OperatorGroup**
 
-   Ensure the `operator-group.yaml` is compatible with the install modes declared in the CSV. In this case, only `AllNamespaces` is supported:
+   Ensure the `manifests/operator-group.yaml` is compatible with the install modes declared in the CSV. In this case, only `AllNamespaces` is supported:
 
    ```yaml
    apiVersion: operators.coreos.com/v1
@@ -71,7 +78,7 @@ image-dates.md              # Available catalog images info
    ```
 
    ```bash
-   oc apply -f operator-group.yaml
+   oc apply -f manifests/operator-group.yaml
    ```
 
 5. **Subscription**
@@ -79,7 +86,7 @@ image-dates.md              # Available catalog images info
    Subscribe to the operator via:
 
    ```bash
-   oc apply -f subscription.yaml
+   oc apply -f manifests/subscription.yaml
    ```
 
 ## Results
@@ -151,3 +158,32 @@ just cleanup                                        # Remove all components
 just cleanup  # Remove everything
 ```
 
+## Monitoring
+
+The bpfman-operator automatically creates ServiceMonitor resources for monitoring metrics:
+- bpfman-agent-metrics-monitor
+- bpfman-controller-manager-metrics-monitor
+
+For these to work with OpenShift monitoring:
+
+1. The bpfman namespace must have the label `openshift.io/cluster-monitoring: "true"` (already included in `namespace.yaml`)
+
+2. OpenShift user workload monitoring must be enabled (if not already):
+
+   ```bash
+   # Apply the ConfigMap to enable user workload monitoring
+   oc apply -f manifests/user-workload-monitoring.yaml
+
+   # Or using the justfile
+   just enable-monitoring
+   ```
+
+3. Verify monitoring is working:
+
+   ```bash
+   # Check that user workload monitoring pods are running
+   oc get pods -n openshift-user-workload-monitoring
+
+   # Verify ServiceMonitors exist
+   oc get servicemonitor -n bpfman
+   ```

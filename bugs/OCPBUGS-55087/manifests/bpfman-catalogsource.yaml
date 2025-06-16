@@ -1,0 +1,14 @@
+# bpfman-catalogsource.yaml
+apiVersion: operators.coreos.com/v1alpha1
+kind: CatalogSource
+metadata:
+  name: fbc-bpfman-catalogsource
+  namespace: openshift-marketplace
+spec:
+  sourceType: grpc
+  image: quay.io/redhat-user-workloads/ocp-bpfman-tenant/ocp-bpfman-operator-catalog-ocp4-19@sha256:7e19bfa52a55e2f40c346b2c3afae5644f7a89a5c808a5863c521c8a5e77c820
+  # NOTE: The image value above is a placeholder - it will be overwritten when using the justfile
+  # via the 'just create-catalogsource [IMAGE_REFERENCE]' command.
+  # If applying this file directly with 'oc apply -f', update the image value manually first.
+  displayName: Bpfman FBC 4.19
+  publisher: Red Hat

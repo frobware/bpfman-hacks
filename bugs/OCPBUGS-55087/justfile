@@ -10,13 +10,13 @@ default:
     @echo "Example usage: just install quay.io/redhat-user-workloads/ocp-bpfman-tenant/ocp-bpfman-operator-catalog-ocp4-19@sha256:DIGEST"
     @echo "\nTo see example image references that have been used previously, check the image-dates.md file."
 
-# Create the bpfman namespace
+# Create the bpfman namespace with monitoring enabled
 create-namespace:
-    oc get namespace bpfman >/dev/null 2>&1 && echo "Namespace bpfman already exists" || oc new-project bpfman
+    oc apply -f manifests/namespace.yaml
 
 # Apply the ImageDigestMirrorSet for image mirroring
 apply-idms:
-    oc apply -f bpfman-idms.yaml
+    oc apply -f manifests/bpfman-idms.yaml
 
 
 # Create or update the CatalogSource with the specified image
@@ -28,17 +28,17 @@ create-catalogsource image_ref:
       exit 1
     fi
     # Update the image in the file
-    sed -i 's|image: .*|image: {{image_ref}}|' bpfman-catalogsource.yaml
+    sed -i 's|image: .*|image: {{image_ref}}|' manifests/bpfman-catalogsource.yaml
     # Apply the updated file
-    oc apply -f bpfman-catalogsource.yaml
+    oc apply -f manifests/bpfman-catalogsource.yaml
 
 # Create the OperatorGroup
 create-operatorgroup:
-    oc apply -f operator-group.yaml
+    oc apply -f manifests/operator-group.yaml
 
 # Create the Subscription to install the operator
 create-subscription:
-    oc apply -f subscription.yaml
+    oc apply -f manifests/subscription.yaml
 
 # Check the installation status
 check-status:
@@ -64,7 +64,7 @@ cleanup:
 
     # These operations don't depend on the namespace
     oc delete catalogsource fbc-bpfman-catalogsource -n openshift-marketplace --ignore-not-found
-    oc delete -f bpfman-idms.yaml --ignore-not-found
+    oc delete -f manifests/bpfman-idms.yaml --ignore-not-found
 
 # Install bpfman operator in one step (catalog source only approach)
 install image_ref:
@@ -80,6 +80,9 @@ install image_ref:
     just create-operatorgroup
     just create-subscription
     echo "Installation complete. Run 'just check-status' to monitor progress (pods may take a few minutes to become ready)."
+    echo ""
+    echo "For metrics to work correctly with ServiceMonitor, make sure user workload monitoring is enabled:"
+    echo "  just enable-monitoring"
 
 
 
@@ -101,3 +104,10 @@ show-image-info image_ref:
     echo ""
     echo "Image creation timestamp:"
     podman pull {{image_ref}} &>/dev/null && podman inspect {{image_ref}} | grep Created || echo "  Failed to pull image"
+
+# Enable OpenShift user workload monitoring (required for ServiceMonitors)
+enable-monitoring:
+    oc apply -f manifests/user-workload-monitoring.yaml
+    @echo "User workload monitoring has been enabled. It may take a few minutes for the monitoring components to start."
+    @echo "To check if monitoring pods are running:"
+    @echo "  oc get pods -n openshift-user-workload-monitoring"

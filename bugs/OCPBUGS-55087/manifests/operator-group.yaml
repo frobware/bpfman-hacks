@@ -1,0 +1,7 @@
+# operator-group.yaml
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: bpfman
+  namespace: bpfman
+spec: {}

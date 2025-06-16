@@ -1,0 +1,23 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: bpfman-agent-metrics
+  namespace: bpfman
+  labels:
+    app.kubernetes.io/component: metrics
+    app.kubernetes.io/name: bpfman-agent-metrics
+spec:
+  podMetricsEndpoints:
+  - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+    path: /metrics
+    port: https-metrics
+    scheme: https
+    tlsConfig:
+      caFile: /etc/prometheus/configmaps/serving-certs-ca-bundle/service-ca.crt
+      insecureSkipVerify: true
+  selector:
+    matchLabels:
+      name: bpfman-daemon
+  namespaceSelector:
+    matchNames:
+    - bpfman

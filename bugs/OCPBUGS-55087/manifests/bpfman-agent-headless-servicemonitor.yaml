@@ -1,0 +1,22 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: bpfman-agent-metrics-headless-monitor
+  namespace: bpfman
+  labels:
+    app.kubernetes.io/component: metrics
+    app.kubernetes.io/name: bpfman-agent-metrics-monitor
+spec:
+  endpoints:
+  - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+    path: /metrics
+    port: https-metrics
+    scheme: https
+    tlsConfig:
+      caFile: /etc/prometheus/configmaps/serving-certs-ca-bundle/service-ca.crt
+      insecureSkipVerify: false
+      serverName: bpfman-agent-metrics-headless.bpfman.svc
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: metrics
+      app.kubernetes.io/name: bpfman-agent-metrics-service

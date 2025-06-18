@@ -7,8 +7,8 @@ systemd_user_dir="$HOME/.config/systemd/user"
 
 # Service job configurations and their associated repositories.
 declare -A service_job_configs
-service_job_configs["ok2test-lgtm-approve"]="--ok-to-test --lgtm --approve --title 'chore(deps): update ocp-bpfman-'"
-service_job_configs["override-test-fmt"]="--throttle 15m --failing-check=ci/prow/test-fmt -c '/override ci/prow/test-fmt'"
+service_job_configs["ok2test-lgtm-approve"]="--author app/red-hat-konflux --ok-to-test --lgtm --approve --title 'chore(deps): update ocp-bpfman-'"
+service_job_configs["override-test-fmt"]="--author app/red-hat-konflux --throttle 15m --failing-check=ci/prow/test-fmt -c '/override ci/prow/test-fmt'"
 
 # Repository associations for each service job type.
 declare -A service_job_repos
@@ -50,8 +50,8 @@ After=network.target
 
 [Service]
 Type=oneshot
-ExecStartPre=/bin/bash -c "autoprat --author app/red-hat-konflux --repo ${repo}"
-ExecStart=/bin/bash -c "autoprat --author app/red-hat-konflux --repo ${repo} ${service_job_configs[$service_type]} | tee >(cat >&2) | sh"
+ExecStartPre=/bin/bash -c "autoprat --repo ${repo}"
+ExecStart=/bin/bash -c "autoprat --repo ${repo} ${service_job_configs[$service_type]} | tee >(cat >&2) | sh"
 StandardOutput=journal
 StandardError=journal
 

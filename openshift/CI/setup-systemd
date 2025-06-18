@@ -101,9 +101,24 @@ EOF
 
     echo ""
     echo "Services and timers installed successfully!"
-    echo "Use 'systemctl --user status <service>.timer' to check timer status"
-    echo "Use 'systemctl --user list-timers' to see all timers"
-    echo "Use 'journalctl --user -u <service> -f' to follow logs"
+    echo ""
+    echo "Copy/paste these commands to monitor your services:"
+    echo ""
+    echo "# Check all timer status:"
+    echo "systemctl --user list-timers"
+    echo ""
+    echo "# Monitor specific service logs:"
+
+    for service_type in "${!service_job_configs[@]}"; do
+        # Get the list of repositories for this service type.
+        IFS=' ' read -ra repos <<< "${service_job_repos[$service_type]}"
+        for repo in "${repos[@]}"; do
+            # Create service name by combining type and repo.
+            repo_slug=$(echo "$repo" | tr '/' '-')
+            service_name="prow-${service_type}-${repo_slug}"
+            echo "journalctl --user -u ${service_name}.service -f"
+        done
+    done
 }
 
 remove_services() {

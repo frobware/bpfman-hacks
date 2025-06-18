@@ -7,7 +7,7 @@ systemd_user_dir="$HOME/.config/systemd/user"
 
 # Service job configurations and their associated repositories.
 declare -A service_job_configs
-service_job_configs["ok2test-lgtm-approve"]="--author app/red-hat-konflux --ok-to-test --lgtm --approve --title 'chore(deps): update ocp-bpfman-'"
+service_job_configs["ok2test-lgtm-approve"]="--author app/red-hat-konflux --ok-to-test --lgtm --approve --title 'chore(deps): update ocp-bpfman'"
 service_job_configs["override-test-fmt"]="--author app/red-hat-konflux --throttle 15m --failing-check=ci/prow/test-fmt -c '/override ci/prow/test-fmt'"
 
 # Repository associations for each service job type.
@@ -50,7 +50,7 @@ After=network.target
 
 [Service]
 Type=oneshot
-ExecStartPre=/bin/bash -c "autoprat --repo ${repo}"
+ExecStartPre=/bin/bash -c "autoprat --repo ${repo} ${service_job_configs[$service_type]}"
 ExecStart=/bin/bash -c "autoprat --repo ${repo} ${service_job_configs[$service_type]} | tee >(cat >&2) | sh"
 StandardOutput=journal
 StandardError=journal
@@ -61,14 +61,14 @@ EOF
 
             # Create timer file based on service type.
             if [[ "$service_type" == "ok2test-lgtm-approve" ]]; then
-                # Every 15 minutes, 8am-6pm, weekdays
+                # Every 15 minutes, 8am-11pm, weekdays
                 cat > "$systemd_user_dir/${service_name}.timer" << EOF
 [Unit]
 Description=Timer for Prow ${service_type} automation for ${repo}
 Requires=${service_name}.service
 
 [Timer]
-OnCalendar=Mon..Fri *-*-* 08..17:00/15
+OnCalendar=Mon..Fri *-*-* 08..23:00/15
 Persistent=true
 
 [Install]

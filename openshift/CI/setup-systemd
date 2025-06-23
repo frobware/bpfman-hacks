@@ -50,8 +50,8 @@ After=network.target
 
 [Service]
 Type=oneshot
-ExecStartPre=/bin/bash -c "autoprat --repo ${repo} ${service_job_configs[$service_type]}"
-ExecStart=/bin/bash -c "autoprat --repo ${repo} ${service_job_configs[$service_type]} | tee >(cat >&2) | sh"
+ExecStartPre=/bin/bash -l -c "autoprat --repo ${repo} ${service_job_configs[$service_type]}"
+ExecStart=/bin/bash -l -c "autoprat --repo ${repo} ${service_job_configs[$service_type]} | tee >(cat >&2) | sh"
 StandardOutput=journal
 StandardError=journal
 

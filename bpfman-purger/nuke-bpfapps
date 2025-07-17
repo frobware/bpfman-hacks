@@ -1,0 +1,81 @@
+#!/bin/bash
+
+# nuke-bpfapps: Force cleanup of stuck BPF applications and related resources
+# This script removes finalizers from BPF resources when the operator is gone
+
+set -e
+
+echo "=== BPF Applications Cleanup Script ==="
+echo "This script will forcefully remove stuck BPF applications and their finalizers."
+echo
+
+# Check if we're running in the right context
+if ! command -v kubectl &> /dev/null; then
+    echo "Error: kubectl not found. Please install kubectl."
+    exit 1
+fi
+
+# Function to remove finalizers from resources
+remove_finalizers() {
+    local resource_type=$1
+    local resources=$(kubectl get "$resource_type" -o name 2>/dev/null || true)
+
+    if [[ -n "$resources" ]]; then
+        echo "Removing finalizers from $resource_type resources..."
+        echo "$resources" | xargs -I {} kubectl patch {} --type=merge -p '{"metadata":{"finalizers":null}}'
+        echo "✓ Finalizers removed from $resource_type"
+    else
+        echo "No $resource_type resources found"
+    fi
+}
+
+# Step 1: Delete all go- prefixed namespaces (example programs)
+echo "Step 1: Deleting example program namespaces..."
+go_namespaces=$(kubectl get namespaces -o name | grep "namespace/go-" || true)
+if [[ -n "$go_namespaces" ]]; then
+    echo "Deleting go- namespaces..."
+    echo "$go_namespaces" | xargs kubectl delete
+    echo "✓ Example namespaces deleted"
+else
+    echo "No go- namespaces found"
+fi
+
+# Step 2: Remove finalizers from ClusterBpfApplication resources
+echo
+echo "Step 2: Cleaning up ClusterBpfApplication resources..."
+remove_finalizers "clusterbpfapplications.bpfman.io"
+
+# Step 3: Remove finalizers from ClusterBpfApplicationState resources
+echo
+echo "Step 3: Cleaning up ClusterBpfApplicationState resources..."
+remove_finalizers "clusterbpfapplicationstates.bpfman.io"
+
+# Step 4: Remove finalizers from BpfApplication resources (if any)
+echo
+echo "Step 4: Cleaning up BpfApplication resources..."
+remove_finalizers "bpfapplications.bpfman.io"
+
+# Step 5: Remove finalizers from BpfApplicationState resources (if any)
+echo
+echo "Step 5: Cleaning up BpfApplicationState resources..."
+remove_finalizers "bpfapplicationstates.bpfman.io"
+
+# Step 6: Wait a moment and verify cleanup
+echo
+echo "Step 6: Verifying cleanup..."
+sleep 2
+
+remaining_cluster_apps=$(kubectl get clusterbpfapplications.bpfman.io 2>/dev/null | wc -l)
+remaining_cluster_states=$(kubectl get clusterbpfapplicationstates.bpfman.io 2>/dev/null | wc -l)
+
+if [[ $remaining_cluster_apps -eq 0 ]] && [[ $remaining_cluster_states -eq 0 ]]; then
+    echo "✓ All BPF applications cleaned up successfully"
+else
+    echo "⚠ Some resources may still remain:"
+    kubectl get clusterbpfapplications.bpfman.io 2>/dev/null || true
+    kubectl get clusterbpfapplicationstates.bpfman.io 2>/dev/null || true
+fi
+
+echo
+echo "=== Cleanup Complete ==="
+echo "You can now retry 'make undeploy-openshift' to remove the CRDs."

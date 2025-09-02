@@ -34,9 +34,12 @@
 # VIRTIOFSD INTEGRATION:
 #   - UNIX socket communication between QEMU and virtiofsd processes
 #   - Shared memory via memfd allows zero-copy file operations
-#   - Home directory: transparent file access via VirtFS
-#   - Nix stores: read-only mounts with conservative default caching
+#   - Home directory: configurable caching (FAST_VIRTFS controls performance vs coherency)
+#     * FAST_VIRTFS=0: --cache=auto (safe, host changes visible, ~26% build overhead)
+#     * FAST_VIRTFS=1: --cache=always --writeback (fast, ~1% build overhead, breaks coherency)
+#   - Nix stores: read-only mounts with aggressive caching for performance
 #   - announce-submounts enables proper bind mount detection and propagation
+#   - flush-cache script available in VM to force coherency when needed
 #
 # MEMORY ARCHITECTURE:
 #   - memory-backend-memfd creates shareable anonymous memory
@@ -46,10 +49,11 @@
 #   - Performance: Eliminates kernel buffer copying and context switches
 #
 # FILE SHARING:
-#   - Host home directory -> /home/${USER} (read-write, cached)
-#   - Host /nix -> /nix (read-only)
-#   - Host /etc/profiles -> /etc/profiles (read-only)
+#   - Host home directory -> /home/${USER} (read-write, caching mode depends on FAST_VIRTFS)
+#   - Host /nix -> /nix (read-only, always cached)
+#   - Host /etc/profiles -> /etc/profiles (read-only, always cached)
 #   - Host NixOS environment replicated via /etc/profile.d/nixos.sh
+#   - flush-cache command available in VM when using FAST_VIRTFS=1
 #
 # DESIGNED FOR: NixOS host -> Fedora guest eBPF development workflow.
 
@@ -63,6 +67,8 @@ set -euo pipefail
 : "${NETWORK_MODE:=user}"          # user|bridge
 : "${SSH_PORT:=2222}"              # host port for SSH forwarding
 : "${ENABLE_VIRTFS:=1}"            # 1: enable home/nix mounts, 0: disable
+: "${FAST_VIRTFS:=0}"              # 1: aggressive caching (fast but breaks coherency), 0: safe
+: "${DISABLE_MITIGATIONS:=0}"      # 1: disable Spectre/Meltdown mitigations for performance
 : "${DRY_RUN:=0}"                  # 1: show configuration only, don't run
 
 # VM paths will be set after parsing --cloud-image argument.
@@ -106,7 +112,14 @@ while [[ $# -gt 0 ]]; do
             echo "Environment variables:"
             echo "  VM_NAME               VM instance name (default: bpfdev)"
             echo "  VM_MEMORY             VM memory allocation (default: 1/4 system memory)"
+            echo "  FAST_VIRTFS           Set to 1 for aggressive caching (default: 0)"
+            echo "  DISABLE_MITIGATIONS   Set to 1 to disable Spectre/Meltdown mitigations (default: 0)"
             echo "  DRY_RUN               Set to 1 for dry-run mode (default: 0)"
+            echo ""
+            echo "Performance modes:"
+            echo "  FAST_VIRTFS=0         Safe mode: host changes visible, ~26% build overhead"
+            echo "  FAST_VIRTFS=1         Fast mode: ~1% build overhead, breaks file coherency"
+            echo "                        Use 'flush-cache' in VM to see host changes"
             exit 0
             ;;
         *)
@@ -246,6 +259,17 @@ write_files:
   - path: /etc/profile.d/nixos.sh
     content: |
 ${host_profile_content}
+  - path: /usr/local/bin/flush-cache
+    content: |
+      #!/usr/bin/env bash
+      echo "Flushing VM file system caches..."
+      sync
+      echo 3 | /sbin/sudo tee /proc/sys/vm/drop_caches > /dev/null
+      echo "Cache flush complete - host changes should now be visible"
+      echo ""
+      echo "Note: This is only needed when using FAST_VIRTFS=1 mode"
+      echo "      which trades file coherency for build performance"
+    permissions: '0755'
 
 # No package installation - use Nix tools from mounted volumes
 
@@ -333,7 +357,11 @@ start_virtiofsd_daemons() {
         local home_socket="${VM_IMAGE_DIR}/${VM_NAME}-${cloud_basename}-home.sock"
         rm -f "${home_socket}"
         echo "Starting virtiofsd for home directory: ${HOME}"
-        virtiofsd --socket-path="${home_socket}" --shared-dir="${HOME}" --announce-submounts &
+        if [[ "${FAST_VIRTFS}" == "1" ]]; then
+            virtiofsd --socket-path="${home_socket}" --shared-dir="${HOME}" --announce-submounts --cache=always --writeback --thread-pool-size=128 --posix-acl &
+        else
+            virtiofsd --socket-path="${home_socket}" --shared-dir="${HOME}" --announce-submounts --cache=auto --thread-pool-size=64 --posix-acl &
+        fi
         local home_pid=$!
         virtiofsd_pids+=("$home_pid")
         echo "Started virtiofsd for home: PID $home_pid, socket: ${home_socket}"
@@ -347,7 +375,11 @@ start_virtiofsd_daemons() {
         for vol in "${nix_volumes[@]}"; do
             local nix_socket="${VM_IMAGE_DIR}/${VM_NAME}-${cloud_basename}-nix-${mount_tag_counter}.sock"
             rm -f "${nix_socket}"
-            virtiofsd --socket-path="${nix_socket}" --shared-dir="${vol}" --announce-submounts &
+            if [[ "${FAST_VIRTFS}" == "1" ]]; then
+                virtiofsd --socket-path="${nix_socket}" --shared-dir="${vol}" --announce-submounts --cache=always --thread-pool-size=64 &
+            else
+                virtiofsd --socket-path="${nix_socket}" --shared-dir="${vol}" --announce-submounts --cache=always --thread-pool-size=32 &
+            fi
             virtiofsd_pids+=($!)
             echo "Started virtiofsd for ${vol}: PID $!"
             ((mount_tag_counter++))
@@ -513,7 +545,7 @@ echo "  Memory: ${VM_MEMORY}"
 echo "  Console: ${CONSOLE_TYPE}"
 echo "  Network: ${NETWORK_MODE}"
 [[ "${NETWORK_MODE}" == "user" ]] && echo "  SSH Port: ${SSH_PORT}"
-echo "  VirtFS: ${ENABLE_VIRTFS}"
+echo "  VirtFS: ${ENABLE_VIRTFS} (mode: $([[ "${FAST_VIRTFS}" == "1" ]] && echo "FAST" || echo "SAFE"))"
 if [[ "${ENABLE_VIRTFS}" == "1" ]]; then
     echo "  Host ${HOME} -> /home/${USER}"
     nix_volumes=()

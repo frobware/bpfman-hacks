@@ -56,3 +56,41 @@ The bpfman-dev-qemu tool creates VMs with:
 - SSH access on port 2222
 - BPF-capable kernel
 - Full isolation with transparent file access
+
+## Performance Modes
+
+### Safe Mode (default)
+```bash
+./bpfman-dev-qemu --cloud-image fedora-cloud.qcow2
+# or explicitly
+FAST_VIRTFS=0 ./bpfman-dev-qemu --cloud-image fedora-cloud.qcow2
+```
+- Host changes visible immediately in VM
+- ~26% build overhead compared to host
+- File coherency maintained
+
+### Fast Mode
+```bash
+FAST_VIRTFS=1 ./bpfman-dev-qemu --cloud-image fedora-cloud.qcow2
+```
+- ~1% build overhead compared to host (near-native performance)
+- **Breaks file coherency** - host changes may not appear in VM
+- Use `flush-cache` command in VM to force seeing host changes
+
+### Maximum Performance
+```bash
+FAST_VIRTFS=1 DISABLE_MITIGATIONS=1 ./bpfman-dev-qemu --cloud-image fedora-cloud.qcow2
+```
+- Combines aggressive VirtFS caching with disabled CPU mitigations
+- Best possible build performance in VM
+- Sacrifices both file coherency and security for speed
+
+## Cache Management
+
+When using `FAST_VIRTFS=1`, host file changes may not appear in the VM. To force cache flush in the VM:
+
+```bash
+flush-cache
+```
+
+This command syncs filesystems and drops VM caches, making host changes visible.

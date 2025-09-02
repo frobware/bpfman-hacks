@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+# bpfman-flush-cache
+#
+# Force cache flush in QEMU VM to see host file changes when using
+# aggressive VirtFS caching (FAST_VIRTFS=1).
+
+set -euo pipefail
+
+echo "Flushing VM file system caches..."
+
+# Sync any pending writes
+sync
+
+# Drop all caches (page cache, dentries, inodes)
+echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null
+
+echo "Cache flush complete - host changes should now be visible"
+echo ""
+echo "Note: This is only needed when using FAST_VIRTFS=1 mode"
+echo "      which trades file coherency for build performance"

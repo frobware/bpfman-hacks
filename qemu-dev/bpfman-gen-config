@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+# bpfman-gen-config.sh
+#
+# Output default bpfman configuration for /etc/bpfman/bpfman.toml.
+
+cat << 'EOF'
+[signing]
+allow_unsigned = true
+verify_enabled = false
+
+[logging]
+# Uncomment and adjust log level if needed
+# level = "debug"
+
+# [database]
+# # Uncomment to use a different database path
+# path = "/var/lib/bpfman/bpfman.db"
+EOF

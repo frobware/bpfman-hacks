@@ -1,0 +1,560 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC2215,SC2259,SC2054  # YAML content causes false positives
+
+# bpfman-dev-qemu.sh
+#
+# QEMU development VM for bpfman with VirtFS file sharing.
+#
+# PURPOSE:
+#   Creates a Fedora VM that provides full isolation while maintaining
+#   access to host files (and Nix environment). Acts like distrobox but with:
+#   - Full VM isolation (own kernel, userspace)
+#   - BPF-capable kernel for eBPF development
+#   - Transparent file access via VirtFS
+#
+# ARCHITECTURE:
+#   Host (NixOS) -> QEMU VM (Fedora) with VirtFS mounts
+#
+# QEMU FEATURES USED:
+#   - KVM acceleration for performance
+#   - VirtIO devices (virtio-net, virtio-blk, virtio-rng, virtio-balloon)
+#   - Raw disk format with cache=none,aio=native for maximum I/O performance
+#   - vhost-user-fs-pci for high-performance file sharing
+#   - memory-backend-memfd with shared memory for VirtFS
+#   - Cloud-init for automated VM configuration
+#   - Serial console with monitor escape (Ctrl+B)
+#
+# CPU PERFORMANCE OPTIMISATIONS:
+#   - host CPU passthrough with migratable=no for maximum feature exposure
+#   - invtsc flag for invariant timestamp counter (better timekeeping)
+#   - CPU topology matching host for optimal scheduler behaviour
+#   - KVM PIT tick policy to handle timer drift under load
+#   - NUMA-aware memory allocation for better cache locality
+#
+# VIRTIOFSD INTEGRATION:
+#   - UNIX socket communication between QEMU and virtiofsd processes
+#   - Shared memory via memfd allows zero-copy file operations
+#   - Home directory: transparent file access via VirtFS
+#   - Nix stores: read-only mounts with conservative default caching
+#   - announce-submounts enables proper bind mount detection and propagation
+#
+# MEMORY ARCHITECTURE:
+#   - memory-backend-memfd creates shareable anonymous memory
+#   - share=on enables direct memory access between VM and virtiofsd
+#   - vhost-user-fs-pci provides high-performance virtio-fs transport
+#   - Zero-copy: files transfer directly through shared memory pages
+#   - Performance: Eliminates kernel buffer copying and context switches
+#
+# FILE SHARING:
+#   - Host home directory -> /home/${USER} (read-write, cached)
+#   - Host /nix -> /nix (read-only)
+#   - Host /etc/profiles -> /etc/profiles (read-only)
+#   - Host NixOS environment replicated via /etc/profile.d/nixos.sh
+#
+# DESIGNED FOR: NixOS host -> Fedora guest eBPF development workflow.
+
+set -euo pipefail
+
+: "${VM_NAME:=bpfdev}"
+: "${VM_MEMORY:=$(($(grep MemTotal /proc/meminfo | awk '{print $2}') / 1024 / 1024 / 4))G}"
+: "${VM_DISK_SIZE:=10G}"
+: "${VM_IMAGE_DIR:=${HOME}/.cache/bpfman-vm}"
+: "${CONSOLE_TYPE:=serial}"        # serial|vnc|none
+: "${NETWORK_MODE:=user}"          # user|bridge
+: "${SSH_PORT:=2222}"              # host port for SSH forwarding
+: "${ENABLE_VIRTFS:=1}"            # 1: enable home/nix mounts, 0: disable
+: "${DRY_RUN:=0}"                  # 1: show configuration only, don't run
+
+# VM paths will be set after parsing --cloud-image argument.
+VM_IMAGE=""
+CLOUD_INIT_ISO=""
+
+cloud_image_path=""
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --dry-run)
+            DRY_RUN=1
+            shift
+            ;;
+        --cloud-image)
+            cloud_image_path="$2"
+            cloud_basename=$(basename "${cloud_image_path}" .qcow2)
+            cloud_basename=$(basename "${cloud_basename}" .img)
+            VM_IMAGE="${VM_IMAGE_DIR}/${VM_NAME}-${cloud_basename}.img"
+            CLOUD_INIT_ISO="${VM_IMAGE_DIR}/${VM_NAME}-${cloud_basename}-cloud-init.iso"
+            shift 2
+            ;;
+        --nuke)
+            if [[ -z "${VM_IMAGE}" ]]; then
+                echo "Error: --nuke requires --cloud-image to determine filenames" >&2
+                exit 1
+            fi
+            echo "Nuking existing VM images..."
+            rm -f "${VM_IMAGE}" "${CLOUD_INIT_ISO}"
+            echo "Removed VM disk: ${VM_IMAGE}"
+            echo "Removed cloud-init ISO: ${CLOUD_INIT_ISO}"
+            exit 0
+            ;;
+        --help|-h)
+            echo "Usage: $0 [options]"
+            echo "Options:"
+            echo "  --dry-run              Show configuration without running VM"
+            echo "  --cloud-image PATH     Path to cloud image (required)"
+            echo "  --nuke                 Delete existing VM disk and cloud-init images"
+            echo "  --help, -h             Show this help message"
+            echo ""
+            echo "Environment variables:"
+            echo "  VM_NAME               VM instance name (default: bpfdev)"
+            echo "  VM_MEMORY             VM memory allocation (default: 1/4 system memory)"
+            echo "  DRY_RUN               Set to 1 for dry-run mode (default: 0)"
+            exit 0
+            ;;
+        *)
+            echo "Unknown option: $1"
+            echo "Use --help for usage information"
+            exit 1
+            ;;
+    esac
+done
+
+# Ensure cloud image was specified.
+if [[ -z "${cloud_image_path}" ]]; then
+    echo "Error: --cloud-image is required" >&2
+    echo "Use --help for usage information" >&2
+    exit 1
+fi
+
+# Set VM paths if not already set (for non --nuke usage).
+if [[ -z "${VM_IMAGE}" ]]; then
+    cloud_basename=$(basename "${cloud_image_path}" .qcow2)
+    cloud_basename=$(basename "${cloud_basename}" .img)
+    VM_IMAGE="${VM_IMAGE_DIR}/${VM_NAME}-${cloud_basename}.img"
+    CLOUD_INIT_ISO="${VM_IMAGE_DIR}/${VM_NAME}-${cloud_basename}-cloud-init.iso"
+fi
+
+mkdir -p "${VM_IMAGE_DIR}"
+
+collect_nix_volumes() {
+    local volume_paths=()
+
+    if [[ ! -d /nix/store ]]; then
+        return 0
+    fi
+
+    add_volume_if_exists() {
+        local path="$1"
+        if [[ -e "$path" ]]; then
+            volume_paths+=("$path")
+        elif [[ -L "$path" ]]; then
+            local real_target
+            real_target=$(realpath "$path" 2>/dev/null)
+            if [[ -e "$real_target" ]]; then
+                volume_paths+=("$path")
+            fi
+        fi
+    }
+
+    if command -v nix-distrobox-print-volume-paths >/dev/null 2>&1; then
+        local volume_args
+        volume_args=$(nix-distrobox-print-volume-paths)
+        local volume_array
+        IFS=' ' read -r -a volume_array <<< "$volume_args"
+        for volume in "${volume_array[@]}"; do
+            local host_path="${volume%:*}"  # Extract host path before colon
+            add_volume_if_exists "$host_path"
+        done
+        printf '%s\n' "${volume_paths[@]}"
+        return
+    fi
+
+    local always_include=("/nix" "/etc/profiles" "/etc/static")
+    for dir in "${always_include[@]}"; do
+        add_volume_if_exists "$dir"
+    done
+
+    add_volume_if_exists "/etc/profiles/per-user/$USER"
+    add_volume_if_exists "$HOME/.nix-profile"
+
+    printf '%s\n' "${volume_paths[@]}"
+}
+
+setup_vm_disk() {
+    local cloud_image_path="$1"
+    if [[ ! -f "${VM_IMAGE}" ]]; then
+        echo "Creating raw VM disk from cloud image..."
+        qemu-img convert -f qcow2 -O raw "${cloud_image_path}" "${VM_IMAGE}"
+        echo "Resizing VM disk to ${VM_DISK_SIZE}..."
+        qemu-img resize -f raw "${VM_IMAGE}" "${VM_DISK_SIZE}"
+    else
+        echo "Using existing VM disk: ${VM_IMAGE}"
+    fi
+}
+
+# shellcheck disable=SC2215,SC2259  # Contains YAML, shellcheck false positives
+create_cloud_init() {
+    local cloud_init_dir
+    cloud_init_dir=$(mktemp -d)
+
+    local current_system_target
+    current_system_target="$(readlink /run/current-system 2>/dev/null || echo '')"
+
+    local host_profile_content
+    host_profile_content="$(sed 's/^/      /' /etc/profile)"
+
+    cat > "${cloud_init_dir}/meta-data" << EOF
+instance-id: ${VM_NAME}
+local-hostname: ${VM_NAME}
+EOF
+
+    local nix_mount_entries=""
+    local nix_mkdir_commands=""
+    local nix_volumes
+    readarray -t nix_volumes < <(collect_nix_volumes)
+    local mount_tag_counter=1
+
+    for vol in "${nix_volumes[@]}"; do
+        local mount_tag="nix-vol-${mount_tag_counter}"
+        nix_mount_entries+="  - [ \"${mount_tag}\", \"${vol}\", \"virtiofs\", \"ro,_netdev,nofail\", \"0\", \"0\" ]"$'\n'
+        nix_mkdir_commands+="  - mkdir -p ${vol}"$'\n'
+        ((mount_tag_counter++))
+    done
+
+    # shellcheck disable=SC2215,SC2259  # YAML content causes false positives
+    cat > "${cloud_init_dir}/user-data" << EOF
+#cloud-config
+users:
+  - name: root
+    shell: /bin/bash
+    sudo: ALL=(ALL) NOPASSWD:ALL
+  - name: ${USER}
+    uid: $(id -u)
+    primary_group: $(id -gn)
+    shell: /bin/bash
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    groups:
+      - wheel
+    no_create_home: true
+    system: false
+
+# VirtIO-FS mounts
+mounts:
+  - [ "home-user", "/home/${USER}", "virtiofs", "_netdev,nofail", "0", "0" ]
+${nix_mount_entries}  - [ "tmpfs", "/tmp", "tmpfs", "size=8G,mode=1777", "0", "0" ]
+
+# Configuration files
+write_files:
+  - path: /etc/profile.d/nixos.sh
+    content: |
+${host_profile_content}
+
+# No package installation - use Nix tools from mounted volumes
+
+runcmd:
+  - setenforce 0 || true
+  - sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
+  - mkdir -p /etc/systemd/system/serial-getty@ttyS0.service.d
+  - mkdir -p /etc/systemd/system/getty@tty1.service.d
+  - mkdir -p /home/${USER}
+${nix_mkdir_commands}
+  - |
+    # Create systemd service to recreate /run/current-system symlink on every boot
+    cat > /etc/systemd/system/nixos-current-system.service << SYSTEMD_EOF
+    [Unit]
+    Description=Create NixOS current-system symlink
+    After=local-fs.target
+    Before=multi-user.target
+
+    [Service]
+    Type=oneshot
+    ExecStart=/bin/bash -c 'mkdir -p /run && ln -sf ${current_system_target} /run/current-system'
+    RemainAfterExit=yes
+
+    [Install]
+    WantedBy=multi-user.target
+    SYSTEMD_EOF
+  - systemctl daemon-reload
+  - systemctl enable nixos-current-system.service
+  - systemctl start nixos-current-system.service
+  - echo "Checking /run/current-system symlink:"
+  - ls -la /run/current-system || echo "current-system symlink not found"
+  - echo "Service content:"
+  - |
+      cat > /etc/systemd/system/serial-getty@ttyS0.service.d/override.conf << GETTY_EOF
+      [Service]
+      ExecStart=
+      ExecStart=-/sbin/agetty --autologin ${USER} --noclear %I \$TERM
+      GETTY_EOF
+  - |
+      cat > /etc/systemd/system/getty@tty1.service.d/override.conf << TTY_EOF
+      [Service]
+      ExecStart=
+      ExecStart=-/sbin/agetty --autologin ${USER} --noclear %I \$TERM
+      TTY_EOF
+  - systemctl daemon-reload
+  - systemctl restart serial-getty@ttyS0.service
+  - systemctl restart getty@tty1.service
+  - systemctl enable --now sshd || systemctl enable --now ssh
+  - echo "eval \\\$(resize)"
+  - echo "bpfman development VM ready!"
+  - echo "Logged in as ${USER} with home directory mounted from host"
+  - echo "SSH available on port ${SSH_PORT}"
+
+power_state:
+  mode: reboot
+  timeout: 5
+EOF
+
+    if [[ "${DRY_RUN}" == "1" ]]; then
+        echo "=== DRY RUN: Cloud-init meta-data ==="
+        cat "${cloud_init_dir}/meta-data"
+        echo ""
+        echo "=== DRY RUN: Cloud-init user-data ==="
+        cat "${cloud_init_dir}/user-data"
+        echo ""
+        echo "=== DRY RUN: Would create ISO: ${CLOUD_INIT_ISO} ==="
+    else
+        genisoimage -output "${CLOUD_INIT_ISO}" -volid cidata -joliet -rock "${cloud_init_dir}/"*
+
+        rm -rf "${cloud_init_dir}"
+        echo "Cloud-init ISO created: ${CLOUD_INIT_ISO}"
+    fi
+}
+
+start_virtiofsd_daemons() {
+    local cloud_image_path="$1"
+    virtiofsd_pids=()
+
+    if [[ "${ENABLE_VIRTFS}" == "1" ]]; then
+        # Extract basename for consistent naming
+        local cloud_basename
+        cloud_basename=$(basename "${cloud_image_path}" .qcow2)
+        cloud_basename=$(basename "${cloud_basename}" .img)
+
+        local home_socket="${VM_IMAGE_DIR}/${VM_NAME}-${cloud_basename}-home.sock"
+        rm -f "${home_socket}"
+        echo "Starting virtiofsd for home directory: ${HOME}"
+        virtiofsd --socket-path="${home_socket}" --shared-dir="${HOME}" --announce-submounts &
+        local home_pid=$!
+        virtiofsd_pids+=("$home_pid")
+        echo "Started virtiofsd for home: PID $home_pid, socket: ${home_socket}"
+        sleep 1  # Give it time to create socket
+
+        # Start virtiofsd for each Nix volume
+        local nix_volumes
+        readarray -t nix_volumes < <(collect_nix_volumes)
+        local mount_tag_counter=1
+
+        for vol in "${nix_volumes[@]}"; do
+            local nix_socket="${VM_IMAGE_DIR}/${VM_NAME}-${cloud_basename}-nix-${mount_tag_counter}.sock"
+            rm -f "${nix_socket}"
+            virtiofsd --socket-path="${nix_socket}" --shared-dir="${vol}" --announce-submounts &
+            virtiofsd_pids+=($!)
+            echo "Started virtiofsd for ${vol}: PID $!"
+            ((mount_tag_counter++))
+        done
+
+        echo "Waiting for virtiofsd sockets to be created..."
+        for i in {1..10}; do
+            if ls "${VM_IMAGE_DIR}/${VM_NAME}-${cloud_basename}"-*.sock >/dev/null 2>&1; then
+                echo "Sockets created successfully"
+                break
+            fi
+            echo "Waiting... (attempt $i/10)"
+            sleep 1
+        done
+
+        echo "Verifying virtiofsd sockets..."
+        ls -la "${VM_IMAGE_DIR}/${VM_NAME}-${cloud_basename}"-*.sock || echo "Warning: Some sockets may not have been created"
+    fi
+}
+
+cleanup_virtiofsd() {
+    if [[ ${#virtiofsd_pids[@]} -gt 0 ]]; then
+        echo "Stopping virtiofsd daemons..."
+        for pid in "${virtiofsd_pids[@]}"; do
+            kill "$pid" 2>/dev/null || true
+        done
+    fi
+
+    rm -f "${VM_IMAGE_DIR}/${VM_NAME}"-*.sock
+}
+
+detect_cpu_topology() {
+    local cores threads sockets
+    cores=$(lscpu | grep "^Core(s) per socket:" | awk '{print $4}' 2>/dev/null || echo "")
+    threads=$(lscpu | grep "^Thread(s) per core:" | awk '{print $4}' 2>/dev/null || echo "")
+    sockets=$(lscpu | grep "^Socket(s):" | awk '{print $2}' 2>/dev/null || echo "")
+
+    if [[ "$cores" =~ ^[0-9]+$ ]] && [[ "$threads" =~ ^[0-9]+$ ]] && [[ "$sockets" =~ ^[0-9]+$ ]]; then
+        local total_cores=$((cores * sockets))
+        local total_logical_cpus=$((total_cores * threads))
+        echo "${total_logical_cpus},sockets=${sockets},cores=${total_cores},threads=${threads}"
+    else
+        echo "$(nproc),cores=$(nproc),threads=1"
+    fi
+}
+
+build_qemu_command() {
+    local cloud_image_path="$1"
+    # shellcheck disable=SC2054  # Array syntax is correct
+    qemu_args=(
+        qemu-system-x86_64
+        -machine q35,accel=kvm:tcg
+        -cpu host,migratable=no,+invtsc
+        -smp "$(detect_cpu_topology)"
+        -m "${VM_MEMORY}"
+        -drive "file=${VM_IMAGE},if=virtio,format=raw,cache=none,aio=native"
+        -drive "file=${CLOUD_INIT_ISO},if=virtio,media=cdrom,format=raw"
+        -device virtio-rng-pci
+        -rtc base=utc,clock=host,driftfix=slew
+        -global kvm-pit.lost_tick_policy=discard
+    )
+
+    case "${NETWORK_MODE}" in
+        "user")
+            qemu_args+=(
+                -netdev "user,id=net0,hostfwd=tcp::${SSH_PORT}-:22"
+                -device virtio-net-pci,netdev=net0
+            )
+            ;;
+        "bridge")
+            qemu_args+=(
+                -netdev bridge,id=net0,br=virbr0
+                -device virtio-net-pci,netdev=net0
+            )
+            ;;
+    esac
+
+    if [[ "${ENABLE_VIRTFS}" == "1" ]]; then
+        qemu_args+=(
+            -object memory-backend-memfd,id=mem,size="${VM_MEMORY}",share=on
+            -numa node,memdev=mem
+        )
+
+        local cloud_basename
+        cloud_basename=$(basename "${cloud_image_path}" .qcow2)
+        cloud_basename=$(basename "${cloud_basename}" .img)
+
+        local home_socket="${VM_IMAGE_DIR}/${VM_NAME}-${cloud_basename}-home.sock"
+        qemu_args+=(
+            -chardev "socket,id=char-home,path=${home_socket}"
+            -device "vhost-user-fs-pci,queue-size=1024,chardev=char-home,tag=home-user"
+        )
+
+        local nix_volumes
+        readarray -t nix_volumes < <(collect_nix_volumes)
+        local mount_tag_counter=1
+
+        for vol in "${nix_volumes[@]}"; do
+            local mount_tag="nix-vol-${mount_tag_counter}"
+            local nix_socket="${VM_IMAGE_DIR}/${VM_NAME}-${cloud_basename}-nix-${mount_tag_counter}.sock"
+
+            qemu_args+=(
+                -chardev "socket,id=char-${mount_tag},path=${nix_socket}"
+                -device "vhost-user-fs-pci,queue-size=1024,chardev=char-${mount_tag},tag=${mount_tag}"
+            )
+            ((mount_tag_counter++))
+        done
+    fi
+
+    case "${CONSOLE_TYPE}" in
+        "serial")
+            qemu_args+=(-nographic -serial mon:stdio)
+            # Change QEMU monitor escape from Ctrl-A to Ctrl-B
+            qemu_args+=(-echr 2)
+            ;;
+        "vnc")
+            qemu_args+=(-vnc :0)
+            ;;
+        "none")
+            qemu_args+=(-nographic -serial null)
+            ;;
+    esac
+
+    qemu_args+=(
+        -enable-kvm
+        -device virtio-balloon-pci
+    )
+
+    printf '%s\n' "${qemu_args[@]}"
+}
+
+
+# Check all required tools and report missing ones together
+missing_tools=()
+for tool in qemu-system-x86_64 genisoimage virtiofsd lscpu realpath; do
+    if ! command -v "$tool" >/dev/null 2>&1; then
+        missing_tools+=("$tool")
+    fi
+done
+
+if [[ ${#missing_tools[@]} -gt 0 ]]; then
+    echo "Error: Missing required tools:" >&2
+    printf '  %s\n' "${missing_tools[@]}" >&2
+    echo "Please ensure you're running in the nix devshell." >&2
+    exit 1
+fi
+
+if [[ "${DRY_RUN}" == "1" ]]; then
+    echo "=== DRY RUN MODE: Configuration Preview ==="
+else
+    echo "Setting up bpfman development VM..."
+    trap cleanup_virtiofsd EXIT
+    start_virtiofsd_daemons "${cloud_image_path}"
+    setup_vm_disk "${cloud_image_path}"
+fi
+create_cloud_init
+
+echo ""
+echo "Starting bpfman development VM:"
+echo "  VM Name: ${VM_NAME}"
+echo "  Base OS: Cloud image"
+echo "  Memory: ${VM_MEMORY}"
+echo "  Console: ${CONSOLE_TYPE}"
+echo "  Network: ${NETWORK_MODE}"
+[[ "${NETWORK_MODE}" == "user" ]] && echo "  SSH Port: ${SSH_PORT}"
+echo "  VirtFS: ${ENABLE_VIRTFS}"
+if [[ "${ENABLE_VIRTFS}" == "1" ]]; then
+    echo "  Host ${HOME} -> /home/${USER}"
+    nix_volumes=()
+    readarray -t nix_volumes < <(collect_nix_volumes)
+    for vol in "${nix_volumes[@]}"; do
+        echo "  Host ${vol} -> ${vol} (ro)"
+    done
+fi
+echo "  Image: ${VM_IMAGE}"
+echo ""
+echo "The VM will auto-login as ${USER}."
+echo "Your home directory is mounted and identical to host"
+if [[ ${#nix_volumes[@]} -gt 0 ]]; then
+    echo "Nix environment fully available with all profiles and store"
+fi
+echo "To exit: use Ctrl+B, X in serial console or 'poweroff' inside VM"
+echo ""
+
+readarray -t qemu_cmd < <(build_qemu_command "${cloud_image_path}")
+
+if [[ "${DRY_RUN}" == "1" ]]; then
+    echo "=== DRY RUN: QEMU Command ==="
+    printf '%s \\\n' "${qemu_cmd[@]}" | sed '$s/ \\$//'
+    echo ""
+    echo "=== DRY RUN: Nix Volumes ==="
+    nix_volumes=()
+    readarray -t nix_volumes < <(collect_nix_volumes)
+    if [[ ${#nix_volumes[@]} -eq 0 ]]; then
+        echo "  No Nix installation detected"
+    else
+        for vol in "${nix_volumes[@]}"; do
+            echo "  ${vol} -> ${vol} (ro)"
+        done
+    fi
+    echo ""
+    echo "=== DRY RUN: Would execute ==="
+    echo "  VM Name: ${VM_NAME}"
+    echo "  Image: ${VM_IMAGE}"
+    echo "  Cloud-init: ${CLOUD_INIT_ISO}"
+    echo ""
+    echo "Use DRY_RUN=0 to actually run the VM"
+else
+    exec "${qemu_cmd[@]}"
+fi

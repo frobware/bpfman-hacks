@@ -1,0 +1,341 @@
+#!/usr/bin/env bash
+
+# bpfman-cleanup-integration-tests.sh
+#
+# Clean up all bpfman integration test resources including:
+# - Network namespaces
+# - veth interfaces
+# - Docker/Podman containers
+# - BPF filesystem state
+#
+# This script prefers safe unpinning via bpftool.
+
+set -euo pipefail
+
+: "${BPFMAN_FS_BASE:=/run/bpfman/fs}"
+: "${BPF_ROOT:=/sys/fs/bpf}"
+: "${CONTAINER_NAME_FILTER:=mynginx}"  # substring or regex
+: "${CONTAINER_RUNTIME:=}"      # auto-detected if empty
+: "${DRY_RUN:=0}"
+: "${VETH_REGEX:=^veth-bpfm-}"
+
+# Global IP prefixes used across test environments.
+# Override with: IP_PREFIXES=( "192.168.99" "10.0.99" )
+IP_PREFIXES=( "192.168.99" "10.0.99" )
+
+log()   { printf '[INFO] %s\n' "$*"; }
+warn()  { printf '[WARN] %s\n' "$*" >&2; }
+error() { printf '[ERROR] %s\n' "$*" >&2; }
+
+# Run a command safely as an array. No eval.
+run_cmd() {
+    if [[ "${DRY_RUN}" == "1" ]]; then
+        printf '[DRY RUN] Would run:'; printf ' %q' "$@"; printf '\n'
+        return 0
+    fi
+    log "Running: $*"
+    if ! "$@"; then
+        warn "Command failed (non-critical): $*"
+        return 1
+    fi
+}
+
+require_root_unless_dry_run() {
+    if [[ "${DRY_RUN}" != "1" && $EUID -ne 0 ]]; then
+        error "Root required. Use sudo or set DRY_RUN=1."
+        exit 1
+    fi
+}
+
+detect_container_runtime() {
+    if [[ -n "${CONTAINER_RUNTIME}" ]]; then
+        return 0
+    fi
+    if command -v docker >/dev/null 2>&1; then
+        CONTAINER_RUNTIME=docker
+    elif command -v podman >/dev/null 2>&1; then
+        CONTAINER_RUNTIME=podman
+    else
+        CONTAINER_RUNTIME=""
+    fi
+}
+
+kill_processes() {
+    log "Cleaning up test processes..."
+
+    # Kill ping jobs matching configured prefixes.
+    for prefix in "${IP_PREFIXES[@]}"; do
+        local esc="${prefix//./\\.}"
+        if pids=$(pgrep -f "ping.*${esc}\\." 2>/dev/null || true); then
+            if [[ -n "${pids}" ]]; then
+                log "TERM ping for ${prefix}: ${pids}"
+                run_cmd kill ${pids}
+                sleep 0.2
+                if pgrep -f "ping.*${esc}\\." >/dev/null 2>&1; then
+                    log "KILL lingering ping for ${prefix}"
+                    run_cmd kill -9 ${pids} || true
+                fi
+            fi
+        fi
+    done
+
+    # Kill trace_pipe readers gently.
+    if pids=$(pgrep -f "cat.*trace_pipe" 2>/dev/null || true); then
+        if [[ -n "${pids}" ]]; then
+            log "TERM trace_pipe: ${pids}"
+            run_cmd kill ${pids}
+            sleep 0.2
+            if pgrep -f "cat.*trace_pipe" >/dev/null 2>&1; then
+                log "KILL lingering trace_pipe readers"
+                run_cmd kill -9 ${pids} || true
+            fi
+        fi
+    fi
+}
+
+have_bpftool() { command -v bpftool >/dev/null 2>&1; }
+
+cleanup_containers() {
+    log "Cleaning up containers..."
+    detect_container_runtime
+    if [[ -z "${CONTAINER_RUNTIME}" ]]; then
+        warn "No container runtime found; skipping."
+        return 0
+    fi
+
+    local names
+    if ! names=$("${CONTAINER_RUNTIME}" ps -a \
+                                        --filter "name=${CONTAINER_NAME_FILTER}" \
+                                        --format "{{.Names}}" 2>/dev/null || true); then
+        names=""
+    fi
+
+    if [[ -z "${names}" ]]; then
+        log "No matching containers found"
+        return 0
+    fi
+
+    while IFS= read -r name; do
+        [[ -z "${name}" ]] && continue
+        log "Removing container: ${name}"
+        run_cmd "${CONTAINER_RUNTIME}" rm -f "${name}"
+    done <<<"${names}"
+}
+
+cleanup_ip_addresses() {
+    log "Cleaning up test IP addresses..."
+
+    # Build a grep regex for prefixes: ^(p1\.|p2\.)
+    local rx=""
+    for p in "${IP_PREFIXES[@]}"; do
+        rx+="${rx:+|}inet ${p//./\\.}\\."
+    done
+    [[ -z "${rx}" ]] && return 0
+
+    # ip addr output: lines with "inet A.B.C.D/m on IFACE"
+    # Extract "ADDR/CIDR IFACE" pairs.
+    local line
+    while IFS= read -r line; do
+        [[ -z "${line}" ]] && continue
+        # shellcheck disable=SC2206
+        local parts=( ${line} )
+        local addr="${parts[0]}"
+        local iface="${parts[1]}"
+        # Sanity check the address exists on iface.
+        if ip -o addr show dev "${iface}" | grep -q -F "${addr}"; then
+            log "Removing ${addr} from ${iface}"
+            run_cmd ip addr del "${addr}" dev "${iface}"
+        fi
+    done < <(ip -o addr show 2>/dev/null \
+                 | grep -E "${rx}" \
+                 | awk '{print $4, $2}' \
+                 | sort -u || true)
+}
+
+cleanup_veth_interfaces() {
+    log "Cleaning up veth interfaces..."
+
+    # Prefer deleting peers first to avoid leftovers.
+    local ifs
+    ifs=$(ip -o link show type veth 2>/dev/null \
+              | awk -F': ' '{print $2}' \
+              | awk '{print $1}' \
+              | grep -E '^veth-bpfm-' || true)
+
+    [[ -z "${ifs}" ]] && { log "No test veths found"; return 0; }
+
+    while IFS= read -r ifc; do
+        [[ -z "${ifc}" ]] && continue
+        log "Deleting veth: ${ifc}"
+        run_cmd ip link delete "${ifc}" || true
+    done <<<"${ifs}"
+}
+
+cleanup_namespaces() {
+    log "Cleaning up network namespaces..."
+
+    local nss
+    nss=$(ip netns list 2>/dev/null \
+              | awk '{print $1}' \
+              | grep -E '^bpfman-' || true)
+
+    [[ -z "${nss}" ]] && { log "No test namespaces found"; return 0; }
+
+    while IFS= read -r ns; do
+        [[ -z "${ns}" ]] && continue
+        log "Deleting namespace: ${ns}"
+
+        # Best-effort: remove veths inside the namespace first.
+        # All deletions flow through run_cmd, so DRY_RUN is honoured.
+        while IFS= read -r v; do
+            [[ -z "${v}" ]] && continue
+            run_cmd ip -n "${ns}" link delete "${v}" || true
+        done < <(ip -n "${ns}" -o link 2>/dev/null \
+                     | awk -F': ' '/ veth/ {print $2}' \
+                     | awk '{print $1}' \
+                     | grep -E "${VETH_REGEX}" || true)
+
+        run_cmd ip netns delete "${ns}" || true
+    done <<<"${nss}"
+}
+
+
+cleanup_clsact_qdisc() {
+    # Remove clsact qdisc from ifaces that currently have it. This
+    # does not depend on naming conventions and works even if
+    # VETH_REGEX is unset. Optionally filter by VETH_REGEX if
+    # provided.
+    log "Cleaning up tc clsact qdisc..."
+
+    # Gather all ifaces that show a clsact qdisc.
+    # Example line: "qdisc clsact ffff: dev veth-bpfm-1234 ..."
+    local clsact_ifaces
+    clsact_ifaces=$(
+        tc qdisc show 2>/dev/null \
+            | awk '
+          /(^| )clsact( |$)/ {
+            for (i=1; i<=NF; i++) if ($i=="dev") { print $(i+1); break }
+          }
+        ' \
+            | sort -u || true
+                 )
+
+    if [[ -z "${clsact_ifaces}" ]]; then
+        log "No clsact candidates found"
+        return 0
+    fi
+
+    while IFS= read -r ifc; do
+        [[ -z "${ifc}" ]] && continue
+        # If a regex is set, respect it; otherwise act on all.
+        if [[ -n "${VETH_REGEX:-}" ]]; then
+            [[ "${ifc}" =~ ${VETH_REGEX} ]] || continue
+        fi
+        log "Deleting clsact on ${ifc}"
+        run_cmd tc qdisc del dev "${ifc}" clsact || true
+    done <<< "${clsact_ifaces}"
+}
+
+cleanup_bpf_filesystem() {
+    log "Cleaning up BPF filesystem state..."
+
+    # Helper: unlink all files under a dir (best-effort), removing
+    # empty dirs afterwards. Deletion goes through run_cmd so that
+    # DRY_RUN is honoured.
+    unpin_dir() {
+        local d="$1"
+        [[ -d "$d" ]] || return 0
+        log "Unpinning bpffs entries in ${d}"
+
+        # Pins are regular files in bpffs; iterate with -print0 to
+        # handle odd names safely.
+        while IFS= read -r -d '' p; do
+            # Optional: only remove bpfman/test pins; relax if you
+            # want a full sweep of the subtree.
+            if [[ "$p" == *bpfman* || "$p" == *test* ]]; then
+                log "Unpin: $p"
+                run_cmd rm -f -- "$p" || true
+            fi
+        done < <(find "$d" -type f -print0 2>/dev/null)
+
+        # Prune empty directories afterwards.
+        find "$d" -type d -empty -delete 2>/dev/null || true
+    }
+
+    unpin_dir "${BPFMAN_FS_BASE}/tc-ingress"
+    unpin_dir "${BPFMAN_FS_BASE}/tc-egress"
+    unpin_dir "${BPFMAN_FS_BASE}/xdp"
+
+    # Also sweep /sys/fs/bpf for stray bpfman/test pins.
+    if [[ -d "${BPF_ROOT}" ]]; then
+        log "Scanning ${BPF_ROOT} for stale bpfman/test pins"
+        while IFS= read -r -d '' p; do
+            log "Unpin: $p"
+            run_cmd rm -f -- "$p" || true
+        done < <(find "${BPF_ROOT}" -type f \
+                      \( -name '*bpfman*' -o -name '*test*' \) \
+                      -print0 2>/dev/null)
+        find "${BPF_ROOT}" -type d -empty -delete 2>/dev/null || true
+    fi
+}
+
+cleanup_temp_files() {
+    log "Cleaning up temporary files..."
+    local files=( /tmp/bpfman_ping.log /tmp/bpfman_trace_pipe.log )
+    for f in "${files[@]}"; do
+        [[ -f "${f}" ]] || continue
+        log "Removing temporary file: ${f}"
+        run_cmd rm -f "${f}"
+    done
+}
+
+show_help() {
+    cat <<'EOF'
+Usage: bpfman-cleanup-integration-tests.sh [options]
+
+Clean up all bpfman integration test resources including namespaces,
+veth interfaces, containers, and BPF filesystem state.
+
+Options:
+  --dry-run                 Show actions without making changes
+  --container-filter NAME   Container name substring (default: mynginx)
+  --runtime RUNTIME         docker|podman (auto-detect by default)
+  --help, -h                Show this help
+
+Environment variables:
+  DRY_RUN=1                 Enable dry-run mode
+  BPFMAN_FS_BASE            Base dir for bpfman fs pins
+  BPF_ROOT                  BPF filesystem root (default /sys/fs/bpf)
+EOF
+}
+
+main() {
+    require_root_unless_dry_run
+
+    if [[ "${DRY_RUN}" == "1" ]]; then
+        warn "Running in DRY RUN mode – no changes made."
+    fi
+
+    kill_processes
+    cleanup_containers
+    cleanup_ip_addresses
+    cleanup_veth_interfaces
+    cleanup_clsact_qdisc
+    cleanup_namespaces
+    cleanup_bpf_filesystem
+    cleanup_temp_files
+
+    log "Cleanup complete."
+}
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --dry-run) DRY_RUN=1; shift ;;
+        --container-filter) CONTAINER_NAME_FILTER="${2:-}"; shift 2 ;;
+        --runtime) CONTAINER_RUNTIME="${2:-}"; shift 2 ;;
+        --help|-h) show_help; exit 0 ;;
+        *) error "Unknown option: $1"; show_help; exit 1 ;;
+    esac
+done
+
+main "$@"

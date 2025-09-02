@@ -1,0 +1,170 @@
+---
+- name: Setup bpfman development environment on Fedora
+  hosts: all
+  become: yes
+  vars:
+    # Core build dependencies for bpfman
+    core_packages:
+      - llvm-devel
+      - clang-devel
+      - elfutils-libelf-devel
+      - openssl-devel
+      - protobuf-compiler
+      - gcc
+      - cmake
+      - cargo-rpm-macros
+      - systemd-rpm-macros
+      - zlib-devel
+      - bash-completion
+      - git
+      - clang
+      - llvm
+      - perl
+      - bindgen-cli
+
+    # Runtime dependencies
+    runtime_packages:
+      - openssl
+      - zlib
+
+    # Development and debugging tools
+    dev_tools:
+      - libbpf-devel
+      - lldb
+      - tcpdump
+      - iproute
+      - acl
+      - util-linux
+      - libxml2-devel
+      - libxslt-devel
+
+    # Docker packages from official repo
+    docker_packages:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
+
+    # RPM packaging tools
+    rpm_tools:
+      - dnf-plugins-core
+      - packit
+
+  tasks:
+    - name: Update system packages
+      ansible.builtin.dnf:
+        name: "*"
+        state: latest
+        update_cache: yes
+
+    - name: Install core bpfman build dependencies
+      ansible.builtin.dnf:
+        name: "{{ core_packages }}"
+        state: present
+
+    - name: Install runtime dependencies
+      ansible.builtin.dnf:
+        name: "{{ runtime_packages }}"
+        state: present
+
+    - name: Install development tools
+      ansible.builtin.dnf:
+        name: "{{ dev_tools }}"
+        state: present
+
+    - name: Install RPM packaging tools
+      ansible.builtin.dnf:
+        name: "{{ rpm_tools }}"
+        state: present
+
+    - name: Add Docker repository
+      ansible.builtin.get_url:
+        url: https://download.docker.com/linux/fedora/docker-ce.repo
+        dest: /etc/yum.repos.d/docker-ce.repo
+        mode: '0644'
+
+    - name: Install Docker packages
+      ansible.builtin.dnf:
+        name: "{{ docker_packages }}"
+        state: present
+
+    - name: Enable and start Docker service
+      ansible.builtin.systemd:
+        name: docker
+        enabled: yes
+        state: started
+
+    - name: Add user to docker group
+      ansible.builtin.user:
+        name: "{{ ansible_user_id }}"
+        groups: docker
+        append: yes
+
+    - name: Verify Rust toolchain availability
+      ansible.builtin.command:
+        cmd: cargo --version
+      register: cargo_check
+      ignore_errors: yes
+
+    - name: Install Rust toolchain if not present
+      ansible.builtin.shell: |
+        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+        source ~/.cargo/env
+      when: cargo_check.rc != 0
+      become: no
+
+    - name: Add cargo to PATH for all users
+      ansible.builtin.lineinfile:
+        path: /etc/profile.d/rust.sh
+        line: 'export PATH="$HOME/.cargo/bin:$PATH"'
+        create: yes
+      when: cargo_check.rc != 0
+
+    - name: Verify key tools are installed
+      ansible.builtin.command:
+        cmd: "{{ item }}"
+      loop:
+        - "clang --version"
+        - "cmake --version"
+        - "protoc --version"
+        - "cargo --version"
+      register: tool_versions
+      ignore_errors: yes
+
+    - name: Display installed tool versions
+      ansible.builtin.debug:
+        msg: "{{ item.cmd }} - {{ 'OK' if item.rc == 0 else 'MISSING' }}"
+      loop: "{{ tool_versions.results }}"
+      loop_control:
+        label: "{{ item.cmd }}"
+
+    - name: Create bpfman development info
+      ansible.builtin.copy:
+        dest: /etc/motd.d/bpfman-dev
+        content: |
+
+          === bpfman Development Environment ===
+
+          This system is configured for bpfman eBPF development.
+
+          Key tools installed:
+          - Rust toolchain (cargo, rustc, clippy, rustfmt)
+          - LLVM/Clang for eBPF compilation
+          - Protocol Buffers compiler
+          - Container runtime (Podman)
+          - Development libraries (libbpf, openssl, etc.)
+
+          Next steps:
+          1. Clone bpfman: git clone https://github.com/bpfman/bpfman.git
+          2. Build: cd bpfman && cargo build --release
+          3. Run tests: cargo test
+
+          Documentation: https://bpfman.io/docs/
+
+        mode: '0644'
+
+  handlers:
+    - name: Update dnf cache
+      ansible.builtin.dnf:
+        update_cache: yes

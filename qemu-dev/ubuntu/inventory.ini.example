@@ -1,0 +1,21 @@
+[bpfman_vms]
+# Example inventory for bpfman development VMs
+# Copy to inventory.ini and customise for your environment
+
+# Local QEMU VM (typical for bpfman-dev-qemu.sh)
+bpfvm-local ansible_host=127.0.0.1 ansible_port=2222 ansible_user=ubuntu
+
+# Remote development servers
+# bpfvm-1 ansible_host=192.168.1.100 ansible_user=developer
+# bpfvm-2 ansible_host=dev-server.local ansible_user=ubuntu
+
+[bpfman_vms:vars]
+# Common variables for all bpfman development systems
+ansible_ssh_common_args='-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
+ansible_python_interpreter=/usr/bin/python3
+
+# Uncomment if using password authentication
+# ansible_ssh_pass=your_password
+
+# Uncomment if using SSH key
+# ansible_ssh_private_key_file=~/.ssh/id_rsa

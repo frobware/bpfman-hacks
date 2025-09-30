@@ -5,7 +5,7 @@ metadata:
   name: bpfman-operator
   namespace: bpfman
 spec:
-  channel: latest
+  channel: stable
   name: bpfman-operator         # MUST match `packageName` from FBC
   source: fbc-bpfman-catalogsource
   sourceNamespace: openshift-marketplace

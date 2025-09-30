@@ -210,6 +210,7 @@ type Config struct {
 	Timeout      time.Duration
 	OutputFormat string
 	ImageRef     ImageRef
+	CompleteRef  string // Complete image reference with tag or digest
 }
 
 type Result struct {
@@ -399,6 +400,73 @@ func fetchImageMetadata(ctx context.Context, imageRef ImageRef, tag GitCommitTag
 	return metadata, nil
 }
 
+// fetchCompleteRefMetadata fetches metadata for a complete image reference (with tag or digest)
+func fetchCompleteRefMetadata(ctx context.Context, completeRef string) (ImageMetadata, error) {
+	ref, err := docker.ParseReference(fmt.Sprintf("//%s", completeRef))
+	if err != nil {
+		return ImageMetadata{}, fmt.Errorf("parsing reference %s: %w", completeRef, err)
+	}
+
+	sys := &types.SystemContext{
+		OSChoice:           "linux",
+		ArchitectureChoice: "amd64",
+	}
+
+	img, err := ref.NewImage(ctx, sys)
+	if err != nil {
+		return ImageMetadata{}, fmt.Errorf("creating image for %s: %w", completeRef, err)
+	}
+	defer img.Close()
+
+	// Get the manifest digest
+	manifestBlob, _, err := img.Manifest(ctx)
+	if err != nil {
+		return ImageMetadata{}, fmt.Errorf("fetching manifest for %s: %w", completeRef, err)
+	}
+
+	manifestDigest, err := manifest.Digest(manifestBlob)
+	if err != nil {
+		return ImageMetadata{}, fmt.Errorf("computing digest for %s: %w", completeRef, err)
+	}
+
+	// Get inspection data
+	inspect, err := img.Inspect(ctx)
+	if err != nil {
+		return ImageMetadata{}, fmt.Errorf("inspecting image %s: %w", completeRef, err)
+	}
+
+	metadata := ImageMetadata{
+		Digest: manifestDigest,
+	}
+
+	// Extract tag or digest from reference
+	if idx := strings.LastIndex(completeRef, ":"); idx != -1 && !strings.Contains(completeRef[idx:], "/") {
+		// Has a tag
+		tagStr := completeRef[idx+1:]
+		// Try to parse as git commit tag
+		if tag, err := parseGitCommitTag(tagStr); err == nil {
+			metadata.Tag = tag
+		} else {
+			// Store as string in Tag field (convert to GitCommitTag type)
+			metadata.Tag = GitCommitTag(tagStr)
+		}
+	}
+
+	if inspect.Labels != nil {
+		metadata.BuildDate = inspect.Labels["build-date"]
+		metadata.Version = inspect.Labels["version"]
+	}
+
+	if inspect.Created != nil {
+		metadata.Created = *inspect.Created
+	}
+
+	// For complete refs, we don't fail if build-date is missing
+	// as they might be arbitrary images
+
+	return metadata, nil
+}
+
 func fetchAllImageMetadata(ctx context.Context, imageRef ImageRef, tags []GitCommitTag) ([]ImageMetadata, error) {
 	var wg sync.WaitGroup
 	results := make(chan Result, len(tags))
@@ -491,27 +559,60 @@ func parseConfig() (Config, error) {
 
 	// Build ImageRef from components or parse from URL
 	if imageURL != "" {
-		// Parse the provided image URL
-		parts := strings.Split(strings.TrimPrefix(imageURL, "docker://"), "/")
-		if len(parts) < 3 {
-			return Config{}, fmt.Errorf("invalid image URL format: %s (expected registry/tenant/catalog)", imageURL)
-		}
+		// Check if this is a complete reference with tag or digest
+		if strings.Contains(imageURL, ":") || strings.Contains(imageURL, "@") {
+			// This is a complete reference - store it as-is
+			cfg.CompleteRef = strings.TrimPrefix(imageURL, "docker://")
 
-		// Handle quay.io/redhat-user-workloads/tenant/catalog format
-		if len(parts) == 4 && parts[0] == "quay.io" && parts[1] == "redhat-user-workloads" {
-			cfg.ImageRef = ImageRef{
-				Registry: fmt.Sprintf("%s/%s", parts[0], parts[1]),
-				Tenant:   parts[2],
-				Catalog:  parts[3],
+			// Extract base components for metadata
+			// Remove tag or digest to get base path
+			basePath := imageURL
+			if idx := strings.LastIndex(basePath, ":"); idx != -1 {
+				basePath = basePath[:idx]
 			}
-		} else if len(parts) == 3 {
-			cfg.ImageRef = ImageRef{
-				Registry: parts[0],
-				Tenant:   parts[1],
-				Catalog:  parts[2],
+			if idx := strings.LastIndex(basePath, "@"); idx != -1 {
+				basePath = basePath[:idx]
+			}
+
+			parts := strings.Split(strings.TrimPrefix(basePath, "docker://"), "/")
+			if len(parts) == 4 && parts[0] == "quay.io" && parts[1] == "redhat-user-workloads" {
+				cfg.ImageRef = ImageRef{
+					Registry: fmt.Sprintf("%s/%s", parts[0], parts[1]),
+					Tenant:   parts[2],
+					Catalog:  parts[3],
+				}
+			} else if len(parts) >= 3 {
+				cfg.ImageRef = ImageRef{
+					Registry: parts[0],
+					Tenant:   parts[1],
+					Catalog:  parts[2],
+				}
+			} else {
+				return Config{}, fmt.Errorf("invalid image URL format: %s", imageURL)
 			}
 		} else {
-			return Config{}, fmt.Errorf("unsupported image URL format: %s", imageURL)
+			// Parse the provided image URL without tag/digest
+			parts := strings.Split(strings.TrimPrefix(imageURL, "docker://"), "/")
+			if len(parts) < 3 {
+				return Config{}, fmt.Errorf("invalid image URL format: %s (expected registry/tenant/catalog)", imageURL)
+			}
+
+			// Handle quay.io/redhat-user-workloads/tenant/catalog format
+			if len(parts) == 4 && parts[0] == "quay.io" && parts[1] == "redhat-user-workloads" {
+				cfg.ImageRef = ImageRef{
+					Registry: fmt.Sprintf("%s/%s", parts[0], parts[1]),
+					Tenant:   parts[2],
+					Catalog:  parts[3],
+				}
+			} else if len(parts) == 3 {
+				cfg.ImageRef = ImageRef{
+					Registry: parts[0],
+					Tenant:   parts[1],
+					Catalog:  parts[2],
+				}
+			} else {
+				return Config{}, fmt.Errorf("unsupported image URL format: %s", imageURL)
+			}
 		}
 	} else {
 		cfg.ImageRef = ImageRef{
@@ -544,30 +645,44 @@ func parseConfig() (Config, error) {
 
 // Main orchestrator
 func run(ctx context.Context, cfg Config) error {
-	// Fetch all tags
-	tags, err := fetchTags(ctx, cfg.ImageRef)
-	if err != nil {
-		return fmt.Errorf("fetching tags: %w", err)
-	}
+	var images []ImageMetadata
+	var sorted []ImageMetadata
 
-	// Filter for git commit tags
-	commitTags, err := filterGitCommitTags(tags)
-	if err != nil {
-		return fmt.Errorf("filtering tags: %w", err)
-	}
+	// Check if we have a complete reference
+	if cfg.CompleteRef != "" {
+		// Fetch metadata for the specific reference
+		metadata, err := fetchCompleteRefMetadata(ctx, cfg.CompleteRef)
+		if err != nil {
+			return fmt.Errorf("fetching metadata: %w", err)
+		}
+		images = []ImageMetadata{metadata}
+		sorted = images
+	} else {
+		// Original behavior: fetch tags and find latest
+		tags, err := fetchTags(ctx, cfg.ImageRef)
+		if err != nil {
+			return fmt.Errorf("fetching tags: %w", err)
+		}
 
-	// Fetch metadata for all commit tags
-	images, err := fetchAllImageMetadata(ctx, cfg.ImageRef, commitTags)
-	if err != nil {
-		return fmt.Errorf("fetching metadata: %w", err)
-	}
+		// Filter for git commit tags
+		commitTags, err := filterGitCommitTags(tags)
+		if err != nil {
+			return fmt.Errorf("filtering tags: %w", err)
+		}
 
-	if len(images) == 0 {
-		return errors.New("no images with metadata found")
-	}
+		// Fetch metadata for all commit tags
+		images, err = fetchAllImageMetadata(ctx, cfg.ImageRef, commitTags)
+		if err != nil {
+			return fmt.Errorf("fetching metadata: %w", err)
+		}
 
-	// Sort by build date
-	sorted := sortByBuildDate(images)
+		if len(images) == 0 {
+			return errors.New("no images with metadata found")
+		}
+
+		// Sort by build date
+		sorted = sortByBuildDate(images)
+	}
 
 	// Output based on format and mode
 	if cfg.OutputFormat == "json" {

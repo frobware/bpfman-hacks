@@ -27,10 +27,81 @@ create-catalogsource image_ref:
       echo "Example: just create-catalogsource quay.io/redhat-user-workloads/ocp-bpfman-tenant/ocp-bpfman-operator-catalog-ocp4-19@sha256:DIGEST"
       exit 1
     fi
-    # Update the image in the file
-    sed -i 's|image: .*|image: {{image_ref}}|' manifests/bpfman-catalogsource.yaml
-    # Apply the updated file
-    oc apply -f manifests/bpfman-catalogsource.yaml
+
+    # Use latest-catalog-image tool to get metadata
+    metadata_json=""
+    if [[ -x "./latest-catalog-image" ]]; then
+        metadata_json=$(./latest-catalog-image -image "{{image_ref}}" -output json 2>/dev/null || true)
+    fi
+
+    # Extract metadata from JSON
+    identifier=""
+    short_id=""
+    catalog_type="catalog"
+    ocp_version=""
+
+    if [[ -n "${metadata_json}" ]] && echo "${metadata_json}" | jq -e . >/dev/null 2>&1; then
+        # Valid JSON - use jq to parse metadata
+        catalog_type=$(echo "${metadata_json}" | jq -r '.catalog // "catalog"')
+        ocp_version=$(echo "${metadata_json}" | jq -r '.version // ""')
+
+        # Always use digest for identifier
+        digest=$(echo "${metadata_json}" | jq -r '.digest // ""')
+        if [[ "${digest}" =~ ^sha256:([a-f0-9]{8}) ]]; then
+            short_id="${BASH_REMATCH[1]}"
+        fi
+    fi
+
+    # Fallback: parse digest from image ref if tool failed
+    if [[ -z "${short_id}" ]]; then
+        if [[ "{{image_ref}}" =~ @sha256:([a-f0-9]{8})[a-f0-9]* ]]; then
+            # Image digest
+            short_id="${BASH_REMATCH[1]}"
+        else
+            # If no digest in ref and tool failed, we can't get the digest
+            echo "Warning: Could not extract digest for unique identifier. Using default name."
+        fi
+    fi
+
+    # Extract catalog type if not already set
+    if [[ "${catalog_type}" == "catalog" ]] || [[ -z "${catalog_type}" ]]; then
+        if [[ "{{image_ref}}" =~ /(catalog-[^/@:]+)[/@:] ]]; then
+            catalog_type="${BASH_REMATCH[1]}"
+        fi
+    fi
+
+    # Set identifier if we have a short ID
+    if [[ -n "${short_id}" ]]; then
+        identifier="-${short_id}"
+    fi
+
+    # Create catalog name and display name
+    catalog_name="fbc-bpfman-catalogsource${identifier}"
+
+    # Build display name
+    if [[ -n "${ocp_version}" ]]; then
+        display_name="Bpfman ${catalog_type} v${ocp_version}${identifier}"
+    else
+        # Display catalog-type more nicely
+        display_catalog="${catalog_type}"
+        if [[ "${catalog_type}" == "catalog-ystream" ]]; then
+            display_catalog="Y-stream"
+        elif [[ "${catalog_type}" == "catalog-zstream" ]]; then
+            display_catalog="Z-stream"
+        fi
+        display_name="Bpfman ${display_catalog}${identifier}"
+    fi
+
+    # Copy the template and update name, display name, and image
+    cp manifests/bpfman-catalogsource.yaml /tmp/bpfman-catalogsource-dev.yaml
+    sed -i "s|name: fbc-bpfman-catalogsource|name: ${catalog_name}|" /tmp/bpfman-catalogsource-dev.yaml
+    sed -i "s|displayName: .*|displayName: '${display_name}'|" /tmp/bpfman-catalogsource-dev.yaml
+    sed -i "s|image: .*|image: {{image_ref}}|" /tmp/bpfman-catalogsource-dev.yaml
+
+    # Apply the modified manifest
+    oc apply -f /tmp/bpfman-catalogsource-dev.yaml
+    echo "Created CatalogSource: ${catalog_name}"
+    echo "Display Name: ${display_name}"
 
 # Create the OperatorGroup
 create-operatorgroup:
@@ -38,7 +109,21 @@ create-operatorgroup:
 
 # Create the Subscription to install the operator
 create-subscription:
-    oc apply -f manifests/subscription.yaml
+    #!/usr/bin/env bash
+    # Get the most recently created catalogsource that matches our pattern
+    catalog_name=$(oc get catalogsource -n openshift-marketplace -o json | \
+                   jq -r '.items[] | select(.metadata.name | startswith("fbc-bpfman-catalogsource")) | .metadata.name' | tail -n1)
+
+    if [ -z "$catalog_name" ]; then
+        echo "ERROR: No bpfman catalogsource found in openshift-marketplace"
+        exit 1
+    fi
+
+    # Create subscription with the correct catalog source
+    cp manifests/subscription.yaml /tmp/subscription-dev.yaml
+    sed -i "s|source: fbc-bpfman-catalogsource|source: ${catalog_name}|" /tmp/subscription-dev.yaml
+    oc apply -f /tmp/subscription-dev.yaml
+    echo "Created subscription using CatalogSource: ${catalog_name}"
 
 # Check the installation status
 check-status:
@@ -63,7 +148,8 @@ cleanup:
     fi
 
     # These operations don't depend on the namespace
-    oc delete catalogsource fbc-bpfman-catalogsource -n openshift-marketplace --ignore-not-found
+    # Delete all catalogsources that match our pattern (including dev variants)
+    oc get catalogsource -n openshift-marketplace -o name | grep "catalogsource.operators.coreos.com/fbc-bpfman-catalogsource" | xargs -r oc delete -n openshift-marketplace
     oc delete -f manifests/bpfman-idms.yaml --ignore-not-found
 
 # Install bpfman operator in one step (catalog source only approach)

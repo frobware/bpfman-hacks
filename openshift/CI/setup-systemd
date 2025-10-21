@@ -2,6 +2,27 @@
 
 set -euo pipefail
 
+# Autoprat commit 77fed34 introduced comment history checking to prevent
+# duplicate action commands. This allows safe execution every 5 minutes
+# without duplicate comments, even when GitHub is slow to apply labels.
+#
+# History checking uses dual criteria (both must be met to skip):
+# - Position-based: comment must be in last 10 comments (default)
+# - Time-based: comment must be within last 1 hour (default)
+#
+# This means:
+# - T+0: Post /lgtm, /approve, /ok-to-test
+# - T+5 to T+60min: All runs skip (comment in history, < 1 hour, in last 10)
+# - T+65min+: Only posts again if label still missing (genuine issue)
+#
+# If labels are removed (new commits), re-posting occurs when either:
+# - Comment is > 1 hour old, OR
+# - Comment pushed out by > 10 newer comments
+#
+# No --throttle flag needed for typical use. The commented override-test-fmt
+# example shows --throttle 16m which is no longer necessary but remains as
+# an example of optional additional rate limiting.
+
 # Get the directory of this script.
 systemd_user_dir="$HOME/.config/systemd/user"
 
@@ -71,7 +92,10 @@ StandardError=journal
 WantedBy=default.target
 EOF
 
-            # Create timer file - all services run every 5 minutes, 8am-11pm, weekdays
+            # Create timer file - runs every 5 minutes, 8am-11pm, weekdays.
+            # Comment history checking (commit 77fed34) prevents duplicate commands
+            # even at this frequency, as commands are skipped if posted within the
+            # last hour AND still in the last 10 comments.
             cat > "$systemd_user_dir/${service_name}.timer" << EOF
 [Unit]
 Description=Timer for Prow ${service_type} automation for ${repo}

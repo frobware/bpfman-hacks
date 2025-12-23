@@ -28,7 +28,6 @@ systemd_user_dir="$HOME/.config/systemd/user"
 
 # Service job configurations and their associated repositories.
 declare -A service_job_configs
-# service_job_configs["override-test-fmt"]="--author app/red-hat-konflux --throttle 16m -c '/override ci/prow/test-fmt'"
 service_job_configs["deps-ubi-minimal"]="--author app/red-hat-konflux --ok-to-test --lgtm --approve --title 'chore(deps): update registry.access.redhat.com/ubi9/ubi-minimal docker tag to'"
 service_job_configs["deps-golangci-lint"]="--author app/red-hat-konflux --ok-to-test --lgtm --approve --title 'chore(deps): update pre-commit hook golangci/golangci-lint to'"
 service_job_configs["deps-lock-file-maintenance"]="--author app/red-hat-konflux --ok-to-test --lgtm --approve --title 'chore(deps): lock file maintenance'"
@@ -39,7 +38,6 @@ service_job_configs["deps-bpfman-operator-bundle-ystream"]="--author app/red-hat
 
 # Repository associations for each service job type.
 declare -A service_job_repos
-# service_job_repos["override-test-fmt"]="openshift/bpfman-operator"
 service_job_repos["deps-ubi-minimal"]="openshift/bpfman-operator openshift/bpfman"
 service_job_repos["deps-golangci-lint"]="openshift/bpfman"
 service_job_repos["deps-lock-file-maintenance"]="openshift/bpfman"

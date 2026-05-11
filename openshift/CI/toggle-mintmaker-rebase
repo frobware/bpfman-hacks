@@ -1,0 +1,101 @@
+#!/bin/bash
+#
+# Toggle the "rebase this PR" checkbox on MintMaker/Renovate PRs to trigger
+# a rebase. This works by unchecking then rechecking the checkbox to ensure
+# MintMaker detects the state change.
+#
+# Usage:
+#   toggle-mintmaker-rebase.sh <repo> [pr_numbers...]
+#
+# Examples:
+#   # Toggle all open red-hat-konflux PRs in a repo
+#   toggle-mintmaker-rebase.sh openshift/bpfman-operator
+#
+#   # Toggle specific PRs
+#   toggle-mintmaker-rebase.sh openshift/bpfman-operator 1452 1456
+
+set -euo pipefail
+
+usage() {
+    echo "Usage: $0 <repo> [pr_numbers...]"
+    echo ""
+    echo "Toggle the rebase checkbox on MintMaker/Renovate PRs."
+    echo ""
+    echo "Arguments:"
+    echo "  repo         Repository in owner/name format (e.g., openshift/bpfman-operator)"
+    echo "  pr_numbers   Optional list of PR numbers. If not provided, all open"
+    echo "               red-hat-konflux PRs will be processed."
+    echo ""
+    echo "Examples:"
+    echo "  $0 openshift/bpfman-operator"
+    echo "  $0 openshift/bpfman-operator 1452 1456"
+    exit 1
+}
+
+if [[ $# -lt 1 ]]; then
+    usage
+fi
+
+REPO="$1"
+shift
+
+# Get PR numbers - either from args or by listing all open MintMaker PRs
+if [[ $# -gt 0 ]]; then
+    PR_NUMBERS=("$@")
+else
+    echo "Fetching open red-hat-konflux PRs from $REPO..."
+    mapfile -t PR_NUMBERS < <(gh pr list --repo "$REPO" --author "app/red-hat-konflux" --state open --json number --jq '.[].number')
+
+    if [[ ${#PR_NUMBERS[@]} -eq 0 ]]; then
+        echo "No open red-hat-konflux PRs found."
+        exit 0
+    fi
+
+    echo "Found ${#PR_NUMBERS[@]} PRs: ${PR_NUMBERS[*]}"
+fi
+
+toggle_rebase_checkbox() {
+    local repo="$1"
+    local pr="$2"
+
+    echo "Processing PR #$pr..."
+
+    # Get current body
+    body=$(gh pr view "$pr" --repo "$repo" --json body --jq '.body')
+
+    # Check if the rebase checkbox exists
+    if ! echo "$body" | grep -q '<!-- rebase-check -->'; then
+        echo "  Skipping - no rebase checkbox found"
+        return 0
+    fi
+
+    # Uncheck the box
+    unchecked=$(echo "$body" | sed 's/\[x\] <!-- rebase-check -->/[ ] <!-- rebase-check -->/')
+
+    # Update PR with unchecked box
+    if ! gh api -X PATCH "repos/$repo/pulls/$pr" -f body="$unchecked" > /dev/null 2>&1; then
+        echo "  Error unchecking box"
+        return 1
+    fi
+    echo "  Unchecked rebase box"
+
+    sleep 1
+
+    # Recheck the box
+    rechecked=$(echo "$unchecked" | sed 's/\[ \] <!-- rebase-check -->/[x] <!-- rebase-check -->/')
+
+    # Update PR with rechecked box
+    if ! gh api -X PATCH "repos/$repo/pulls/$pr" -f body="$rechecked" > /dev/null 2>&1; then
+        echo "  Error rechecking box"
+        return 1
+    fi
+    echo "  Rechecked rebase box"
+
+    sleep 1
+}
+
+for pr in "${PR_NUMBERS[@]}"; do
+    toggle_rebase_checkbox "$REPO" "$pr"
+done
+
+echo "Done!"
